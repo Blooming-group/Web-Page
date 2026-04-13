@@ -1,0 +1,60 @@
+/* ─── Blooming Typography Scale ─── */
+/* Display: 72–96px / weight 600–700 / tracking -0.03em */
+/* H1: 48–64px / weight 600 / tracking -0.02em */
+/* H2: 36–48px / weight 500 / tracking -0.01em */
+/* H3: 24–32px / weight 500 */
+/* Body: 16–18px / weight 300 / line-height 1.7 */
+/* Caption: 13–14px / weight 300 / color: var(--color-mid) */
+
+.type-display {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--color-text-primary);
+}
+
+.type-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--color-text-primary);
+}
+
+.type-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+.type-h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+.type-body {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+.type-caption {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-mid);
+}

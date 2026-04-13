@@ -1,0 +1,77 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Font families — Geist active. Swap to Söhne when licensed. */
+  --font-sans: var(--font-geist), system-ui, sans-serif;
+  --font-display: var(--font-geist), system-ui, sans-serif;
+
+  /* Brand colors — mapped as Tailwind utilities */
+  --color-base: #09090e;
+  --color-ivory: #f2eee6;
+  --color-mid: #6a6a72;
+  --color-accent-primary: #4a7c6f;
+  --color-accent-secondary: #c8a96e;
+
+  /* Semantic text colors */
+  --color-text-primary: #f2eee6;
+  --color-text-secondary: #6a6a72;
+  --color-text-accent: #4a7c6f;
+  --color-text-highlight: #c8a96e;
+
+  /* Border colors */
+  --color-border-default: rgba(242, 238, 230, 0.08);
+  --color-border-accent: rgba(74, 124, 111, 0.3);
+
+  /* Spacing */
+  --spacing-section: 5rem;
+  --spacing-section-lg: 8rem;
+}
+
+/* ─── Design tokens as CSS custom properties ─── */
+:root {
+  --color-base: #09090e;
+  --color-ivory: #f2eee6;
+  --color-mid: #6a6a72;
+  --color-accent-primary: #4a7c6f;
+  --color-accent-secondary: #c8a96e;
+  --color-text-primary: #f2eee6;
+  --color-text-secondary: #6a6a72;
+  --color-text-accent: #4a7c6f;
+  --color-text-highlight: #c8a96e;
+  --color-border-default: rgba(242, 238, 230, 0.08);
+  --color-border-accent: rgba(74, 124, 111, 0.3);
+}
+
+/* ─── Base styles ─── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* ─── Selection ─── */
+::selection {
+  background-color: var(--color-accent-primary);
+  color: var(--color-ivory);
+}
+
+/* ─── Focus visible ─── */
+:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
+}
