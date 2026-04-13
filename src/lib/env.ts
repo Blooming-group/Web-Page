@@ -7,13 +7,20 @@ const serverSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   RESEND_API_KEY: z.string().min(1).optional(),
   CONTACT_EMAIL: z.string().email().optional(),
+  // Sentry DSN for server-side error reporting
+  SENTRY_DSN: z.string().url().optional(),
 })
 
 // ─── Client-side environment schema ───────────────────────────────────────
 // Only NEXT_PUBLIC_* variables. These are embedded in the client bundle
 // and visible to anyone — never put secrets here.
+// Note: The Sentry DSN is intentionally public — it is an ingestion endpoint,
+// not a secret key. Exposing it does not grant read access to your error data.
 const clientSchema = z.object({
   NEXT_PUBLIC_SITE_URL: z.string().url().default('https://blooming-group.eu'),
+  NEXT_PUBLIC_SENTRY_DSN: z.string().url().optional(),
+  NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().min(1).optional(),
+  NEXT_PUBLIC_SANITY_DATASET: z.string().min(1).default('production'),
 })
 
 // ─── Validation ───────────────────────────────────────────────────────────
@@ -22,10 +29,14 @@ function validateEnv() {
     NODE_ENV: process.env.NODE_ENV,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     CONTACT_EMAIL: process.env.CONTACT_EMAIL,
+    SENTRY_DSN: process.env.SENTRY_DSN,
   })
 
   const clientResult = clientSchema.safeParse({
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
+    NEXT_PUBLIC_SANITY_PROJECT_ID: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+    NEXT_PUBLIC_SANITY_DATASET: process.env.NEXT_PUBLIC_SANITY_DATASET,
   })
 
   if (!serverResult.success) {

@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next'
+import { withSentryConfig } from '@sentry/nextjs'
 
 // ─── Content Security Policy ───────────────────────────────────────────────
 // Restricts what resources can load on the page.
@@ -12,10 +13,10 @@ const cspDirectives = [
   "style-src 'self' 'unsafe-inline'",
   // Geist via Google Fonts CDN
   "font-src 'self' https://fonts.gstatic.com data:",
-  // Images: self + data URIs for SVGs + blob for canvas
-  "img-src 'self' data: blob:",
-  // API calls: self + Vercel Analytics/Insights
-  "connect-src 'self' https://vitals.vercel-insights.com https://va.vercel-scripts.com",
+  // Images: self + data URIs for SVGs + blob for canvas + Sanity CDN
+  "img-src 'self' data: blob: https://cdn.sanity.io",
+  // API calls: self + Vercel Analytics/Insights + Sentry
+  "connect-src 'self' https://vitals.vercel-insights.com https://va.vercel-scripts.com https://*.ingest.de.sentry.io https://*.ingest.sentry.io",
   // No iframes from any external source
   "frame-src 'none'",
   // Prevent this site from being framed (clickjacking)
@@ -32,7 +33,26 @@ const cspDirectives = [
   "base-uri 'self'",
 ]
 
+// ─── Sanity Studio CSP ────────────────────────────────────────────────────
+// The Studio needs access to Sanity's APIs and CDN.
+// Applied only to /studio/* routes.
+const studioCspDirectives = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com data:",
+  "img-src 'self' data: blob: https://cdn.sanity.io https://lh3.googleusercontent.com",
+  "connect-src 'self' https://*.sanity.io https://api.sanity.io wss://*.sanity.io https://cdn.sanity.io",
+  "frame-src 'none'",
+  "frame-ancestors 'none'",
+  "form-action 'self' https://*.sanity.io",
+  "worker-src 'self' blob:",
+  "object-src 'none'",
+  "base-uri 'self'",
+]
+
 const contentSecurityPolicy = cspDirectives.join('; ')
+const studioContentSecurityPolicy = studioCspDirectives.join('; ')
 
 // ─── Security Headers ──────────────────────────────────────────────────────
 const securityHeaders = [
@@ -101,26 +121,39 @@ const nextConfig: NextConfig = {
   // Remove X-Powered-By: Next.js header (hides tech stack from attackers)
   poweredByHeader: false,
 
-  // Apply security headers to all routes
+  // Apply security headers to all routes; override CSP for /studio/*
   async headers() {
     return [
       {
         source: '/(.*)',
         headers: securityHeaders,
       },
+      // Sanity Studio needs a relaxed CSP — override only the CSP header
+      {
+        source: '/studio/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: studioContentSecurityPolicy,
+          },
+        ],
+      },
     ]
   },
 
   // ─── Images ─────────────────────────────────────────────────────────────
   images: {
-    // Only allow images from our own domain (add Sanity CDN when CMS is live)
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'blooming-group.eu',
       },
+      // Sanity image CDN
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+      },
     ],
-    // Optimized formats
     formats: ['image/avif', 'image/webp'],
   },
 
@@ -138,4 +171,21 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+// ─── Sentry ───────────────────────────────────────────────────────────────
+// Wraps config to enable Sentry's build-time instrumentation.
+// Source map upload requires SENTRY_AUTH_TOKEN env var (optional).
+export default withSentryConfig(nextConfig, {
+  // Suppress noisy Sentry CLI output in CI
+  silent: true,
+  // Upload larger files for better stack traces in production
+  widenClientFileUpload: true,
+  // Source map config — upload requires SENTRY_AUTH_TOKEN (optional)
+  sourcemaps: {
+    // Delete local source maps after upload so they aren't served publicly
+    deleteSourcemapsAfterUpload: true,
+  },
+  // Remove Sentry debug logger from production bundle (saves ~4KB)
+  disableLogger: true,
+  // Automatically wire up Vercel Cron Monitor
+  automaticVercelMonitors: false,
+})

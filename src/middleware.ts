@@ -107,7 +107,10 @@ export function middleware(request: NextRequest) {
 }
 
 // ─── Matcher ────────────────────────────────────────────────────────────────
-// Apply middleware to all routes except Next.js internals and static files.
+// Apply middleware to all routes except:
+// - Next.js internals (_next/static, _next/image)
+// - Static files (favicon, public assets)
+// - Sanity Studio (/studio/*) — Studio has its own auth, skip our bot filter
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|public/).*)'],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|public/|studio).*)'],
 }
