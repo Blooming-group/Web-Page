@@ -1,0 +1,5 @@
+Contact: mailto:security@blooming-group.eu
+Expires: 2027-01-01T00:00:00.000Z
+Preferred-Languages: en, es
+Canonical: https://blooming-group.eu/.well-known/security.txt
+Policy: https://blooming-group.eu/.well-known/security-policy.txt
