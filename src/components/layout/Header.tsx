@@ -64,10 +64,10 @@ export function Header() {
             {/* Logomark + wordmark */}
             <Link
               href="/"
-              className="flex items-center gap-2.5 transition-opacity hover:opacity-75"
+              className="flex items-center gap-3 transition-opacity hover:opacity-75"
               aria-label="Blooming Group — Home"
             >
-              <BloomingMark size={28} />
+              <BloomingMark size={44} />
               <span
                 className="text-ivory text-sm font-semibold tracking-[0.2em]"
                 aria-hidden="true"

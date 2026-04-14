@@ -3,6 +3,7 @@ import { Container } from '@/components/ui/Container'
 import { Badge } from '@/components/ui/Badge'
 import { Separator } from '@/components/ui/Separator'
 import { H1, H2, Body, Caption } from '@/components/ui/Typography'
+import { BloomingMark } from '@/components/ui/BloomingMark'
 import { ContactForm } from '@/components/sections/ContactForm'
 import { JsonLd } from '@/components/JsonLd'
 
@@ -44,20 +45,30 @@ export default function ContactPage() {
       {/* Hero */}
       <section className="py-24" aria-labelledby="contact-page-heading">
         <Container>
-          <Badge className="mb-8">Start here</Badge>
-          <H1 id="contact-page-heading" className="mb-4 max-w-xl">
-            Not a contact form.
-          </H1>
-          <p
-            className="mb-6 text-xl font-[var(--font-geist)] font-light"
-            style={{ color: 'var(--color-accent-secondary)' }}
-          >
-            A diagnostic session.
-          </p>
-          <Body className="max-w-lg">
-            Tell us about your situation. We will review it and respond within 24 hours to confirm a
-            time for your session.
-          </Body>
+          <div className="flex flex-col gap-12 md:flex-row md:items-start md:justify-between">
+            {/* Text */}
+            <div className="flex-1">
+              <Badge className="mb-8">Start here</Badge>
+              <H1 id="contact-page-heading" className="mb-4 max-w-xl">
+                Not a contact form.
+              </H1>
+              <p
+                className="mb-6 text-xl font-light"
+                style={{ color: 'var(--color-accent-secondary)' }}
+              >
+                A diagnostic session.
+              </p>
+              <Body className="max-w-lg">
+                Tell us about your situation. We will review it and respond within 24 hours to
+                confirm a time for your session.
+              </Body>
+            </div>
+
+            {/* Mark — brand signature */}
+            <div className="flex shrink-0 items-start justify-center md:justify-end md:pt-2">
+              <BloomingMark size={120} className="opacity-80" />
+            </div>
+          </div>
         </Container>
       </section>
 

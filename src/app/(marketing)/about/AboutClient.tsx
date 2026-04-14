@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Separator } from '@/components/ui/Separator'
 import { H1, H2, H3, Body, Caption } from '@/components/ui/Typography'
+import { BloomingMark } from '@/components/ui/BloomingMark'
 
 const notVs = [
   { not: 'Creative agency', is: 'Strategically driven' },
@@ -95,22 +96,37 @@ export function AboutClient() {
       {/* Hero */}
       <section className="py-24" aria-labelledby="about-page-heading">
         <Container>
-          <FadeIn delay={0.05}>
-            <Badge className="mb-8">Who we are</Badge>
-          </FadeIn>
-          <FadeIn delay={0.15}>
-            <H1 id="about-page-heading" className="mb-6 max-w-3xl">
-              The firm the market needed.
-            </H1>
-          </FadeIn>
-          <FadeIn delay={0.25}>
-            <Body className="max-w-2xl">
-              European mid-market companies operate at the intersection of two broken markets:
-              strategy consultancies that think but don&apos;t build, and technology agencies that
-              build without thinking. Blooming was built to occupy the space between them — and make
-              it permanent.
-            </Body>
-          </FadeIn>
+          <div className="flex flex-col gap-12 md:flex-row md:items-start md:justify-between">
+            {/* Text */}
+            <div className="flex-1">
+              <FadeIn delay={0.05}>
+                <Badge className="mb-8">Who we are</Badge>
+              </FadeIn>
+              <FadeIn delay={0.15}>
+                <H1 id="about-page-heading" className="mb-6 max-w-2xl">
+                  The firm the market needed.
+                </H1>
+              </FadeIn>
+              <FadeIn delay={0.25}>
+                <Body className="max-w-xl">
+                  European mid-market companies operate at the intersection of two broken markets:
+                  strategy consultancies that think but don&apos;t build, and technology agencies
+                  that build without thinking. Blooming was built to occupy the space between them —
+                  and make it permanent.
+                </Body>
+              </FadeIn>
+            </div>
+
+            {/* Mark — large visual anchor */}
+            <motion.div
+              className="flex shrink-0 items-start justify-center md:justify-end md:pt-2"
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+            >
+              <BloomingMark size={168} className="opacity-90" />
+            </motion.div>
+          </div>
         </Container>
       </section>
 
