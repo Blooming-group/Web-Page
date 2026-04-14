@@ -1,4 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
+import { Ratelimit } from '@upstash/ratelimit'
+import { Redis } from '@upstash/redis'
 
 // ─── Bot / Scanner Detection ───────────────────────────────────────────────
 // Block known vulnerability scanners, scrapers, and exploit frameworks.
@@ -12,43 +14,77 @@ const BLOCKED_UA_PATTERNS = [
   /nuclei/i,
   /python-requests\/[0-9]/i, // raw Python requests (most scanners use this)
   /go-http-client\/[0-9]/i, // raw Go HTTP (scanner default)
-  /curl\/[0-9]/i, // raw curl (automated probing) — NOTE: remove if you use curl in legit workflows
+  /curl\/[0-9]/i, // raw curl (automated probing)
   /libwww-perl/i,
   /jakarta/i,
   /winhttp/i,
 ]
 
-// ─── Rate limiting (edge, in-memory) ──────────────────────────────────────
-// Per-IP request counter. Resets on cold start.
-// Vercel runs multiple edge instances — use Upstash/Redis for global limits at scale.
-const requestCounts = new Map<string, { count: number; resetAt: number }>()
-const RATE_WINDOW_MS = 60_000 // 1 minute
-const RATE_LIMIT_GENERAL = 120 // requests/min for normal pages
-const RATE_LIMIT_API = 20 // requests/min for API routes
+// ─── Redis-backed Rate Limiting ───────────────────────────────────────────
+// Module-level singletons — one per edge worker instance.
+// When Redis env vars are present, counters are shared across ALL Vercel
+// instances globally (real protection). Without them, falls back to in-memory
+// (development only — resets on cold start, not global).
 
-function getRateLimit(pathname: string): number {
-  if (pathname.startsWith('/api/')) return RATE_LIMIT_API
-  return RATE_LIMIT_GENERAL
-}
+const redis =
+  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
+    ? new Redis({
+        url: process.env.UPSTASH_REDIS_REST_URL,
+        token: process.env.UPSTASH_REDIS_REST_TOKEN,
+      })
+    : null
 
-function isRateLimited(ip: string, pathname: string): boolean {
+// 120 requests / minute for normal pages
+const generalLimiter = redis
+  ? new Ratelimit({
+      redis,
+      limiter: Ratelimit.slidingWindow(120, '1 m'),
+      prefix: 'bl:page',
+      analytics: false,
+    })
+  : null
+
+// 20 requests / minute for API routes
+const apiLimiter = redis
+  ? new Ratelimit({
+      redis,
+      limiter: Ratelimit.slidingWindow(20, '1 m'),
+      prefix: 'bl:api',
+      analytics: false,
+    })
+  : null
+
+// In-memory fallback — used only when Redis is not configured (local dev)
+const memoryMap = new Map<string, { count: number; resetAt: number }>()
+
+function memoryRateLimit(ip: string, isApi: boolean): boolean {
   const now = Date.now()
-  const key = `${ip}:${pathname.startsWith('/api/') ? 'api' : 'page'}`
-  const record = requestCounts.get(key)
-  const limit = getRateLimit(pathname)
+  const limit = isApi ? 20 : 120
+  const key = `${ip}:${isApi ? 'api' : 'page'}`
+  const record = memoryMap.get(key)
 
   if (!record || now > record.resetAt) {
-    requestCounts.set(key, { count: 1, resetAt: now + RATE_WINDOW_MS })
+    memoryMap.set(key, { count: 1, resetAt: now + 60_000 })
     return false
   }
-
   if (record.count >= limit) return true
   record.count++
   return false
 }
 
+async function isRateLimited(ip: string, isApi: boolean): Promise<boolean> {
+  const limiter = isApi ? apiLimiter : generalLimiter
+
+  if (limiter) {
+    const { success } = await limiter.limit(ip)
+    return !success
+  }
+
+  return memoryRateLimit(ip, isApi)
+}
+
 // ─── Middleware ─────────────────────────────────────────────────────────────
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const ip =
     request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
@@ -79,8 +115,11 @@ export function middleware(request: NextRequest) {
     return new NextResponse(null, { status: 404 })
   }
 
-  // ── 3. Rate limiting ──────────────────────────────────────────────────────
-  if (isRateLimited(ip, pathname)) {
+  // ── 3. Rate limiting (Redis-backed, globally consistent) ─────────────────
+  const isApi = pathname.startsWith('/api/')
+  const rateLimited = await isRateLimited(ip, isApi)
+
+  if (rateLimited) {
     return new NextResponse(JSON.stringify({ error: 'Too many requests.' }), {
       status: 429,
       headers: {
@@ -91,15 +130,12 @@ export function middleware(request: NextRequest) {
   }
 
   // ── 4. Security response headers ─────────────────────────────────────────
-  // These supplement the headers set in next.config.ts.
-  // Middleware headers are applied at the edge, before the response body is built.
   const response = NextResponse.next()
 
   response.headers.set('X-Request-ID', crypto.randomUUID())
   response.headers.set('X-Content-Type-Options', 'nosniff')
   response.headers.set('X-Frame-Options', 'SAMEORIGIN')
 
-  // Remove headers that leak server info
   response.headers.delete('Server')
   response.headers.delete('X-Powered-By')
 
