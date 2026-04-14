@@ -22,6 +22,7 @@ export default defineConfig({
               .id('siteSettings')
               .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
             S.divider(),
+            S.listItem().title('Articles').child(S.documentTypeList('article').title('Articles')),
             S.listItem().title('Services').child(S.documentTypeList('service').title('Services')),
           ]),
     }),

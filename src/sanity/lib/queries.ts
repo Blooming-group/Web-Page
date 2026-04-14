@@ -36,3 +36,34 @@ export const siteSettingsQuery = groq`
     openGraphImage
   }
 `
+
+// ─── Articles ─────────────────────────────────────────────────────────────
+export const articlesQuery = groq`
+  *[_type == "article"] | order(publishedAt desc) {
+    _id,
+    title,
+    slug,
+    excerpt,
+    publishedAt,
+    category,
+    readTime,
+    featured
+  }
+`
+
+export const articleBySlugQuery = groq`
+  *[_type == "article" && slug.current == $slug][0] {
+    _id,
+    title,
+    slug,
+    excerpt,
+    body,
+    publishedAt,
+    category,
+    readTime
+  }
+`
+
+export const allArticleSlugsQuery = groq`
+  *[_type == "article"] { slug }
+`
