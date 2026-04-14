@@ -1,31 +1,19 @@
-import { Geist } from 'next/font/google'
+import { DM_Sans } from 'next/font/google'
 
 /**
- * Söhne Leicht — primary brand typeface (self-hosted)
+ * DM Sans — primary brand typeface.
  *
- * TO ACTIVATE: Place sohne-leicht.woff2 in public/fonts/, then:
- *   1. Uncomment the sohne export below
- *   2. Re-add `sohne.variable` to the <html> className in src/app/layout.tsx
- *   3. Run `npm run build`
+ * Geometric grotesque with excellent legibility and character.
+ * Supports weights 300–700, covering all display and body needs.
+ * Free via Google Fonts, zero-layout-shift via next/font optimization.
  *
- * import localFont from 'next/font/local'
- * export const sohne = localFont({
- *   src: [{ path: '../../public/fonts/sohne-leicht.woff2', weight: '300', style: 'normal' }],
- *   variable: '--font-sohne',
- *   display: 'swap',
- *   preload: true,
- *   fallback: ['system-ui', 'sans-serif'],
- * })
+ * Comparable to Söhne Leicht in structure and density — appropriate
+ * for the Dense Intelligence positioning (Palantir / Linear tier).
  */
-
-/**
- * Geist — primary typeface until Söhne file is placed.
- * Serves all weights: 300 (light body) and 400–700 (headlines).
- * Zero layout shift via next/font/google optimization.
- */
-export const geist = Geist({
+export const dmSans = DM_Sans({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-geist',
+  variable: '--font-dm-sans',
   display: 'swap',
+  preload: true,
 })

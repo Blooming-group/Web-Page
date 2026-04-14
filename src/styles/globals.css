@@ -1,9 +1,9 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Font families — Geist active. Swap to Söhne when licensed. */
-  --font-sans: var(--font-geist), system-ui, sans-serif;
-  --font-display: var(--font-geist), system-ui, sans-serif;
+  /* Font families — DM Sans (geometric grotesque, free, Söhne-tier quality) */
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+  --font-display: var(--font-dm-sans), system-ui, sans-serif;
 
   /* Brand colors — mapped as Tailwind utilities */
   --color-base: #09090e;

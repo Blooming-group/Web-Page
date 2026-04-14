@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { Separator } from '@/components/ui/Separator'
+import { BloomingMark } from '@/components/ui/BloomingMark'
 
 const companyLinks = [
   { label: 'About', href: '/about' },
@@ -30,15 +31,21 @@ export function Footer() {
       <Container>
         {/* Top grid */}
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4 md:gap-8">
-          {/* Wordmark + tagline + social */}
+          {/* Logomark + wordmark + tagline + social */}
           <div className="md:col-span-1">
             <Link
               href="/"
-              className="mb-4 block text-sm font-semibold tracking-[0.2em] transition-opacity hover:opacity-70"
-              style={{ color: 'var(--color-ivory)' }}
+              className="mb-5 flex items-center gap-2 transition-opacity hover:opacity-75"
               aria-label="Blooming Group — Home"
             >
-              BLOOMING
+              <BloomingMark size={24} />
+              <span
+                className="text-sm font-semibold tracking-[0.2em]"
+                style={{ color: 'var(--color-ivory)' }}
+                aria-hidden="true"
+              >
+                BLOOMING
+              </span>
             </Link>
             <p className="mb-6 text-xs leading-relaxed" style={{ color: 'var(--color-mid)' }}>
               Strategic thinking. Real technology.

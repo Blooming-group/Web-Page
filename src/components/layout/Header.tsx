@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
+import { BloomingMark } from '@/components/ui/BloomingMark'
 import { cn } from '@/lib/utils'
 
 const navLinks = [
@@ -60,13 +61,19 @@ export function Header() {
             className="flex h-16 items-center justify-between md:h-20"
             aria-label="Main navigation"
           >
-            {/* Wordmark */}
+            {/* Logomark + wordmark */}
             <Link
               href="/"
-              className="text-ivory text-base font-[var(--font-geist)] font-semibold tracking-[0.2em] transition-opacity hover:opacity-70"
+              className="flex items-center gap-2.5 transition-opacity hover:opacity-75"
               aria-label="Blooming Group — Home"
             >
-              BLOOMING
+              <BloomingMark size={28} />
+              <span
+                className="text-ivory text-sm font-semibold tracking-[0.2em]"
+                aria-hidden="true"
+              >
+                BLOOMING
+              </span>
             </Link>
 
             {/* Desktop nav */}
