@@ -17,18 +17,56 @@ const wordVariants = {
 export function Hero() {
   return (
     <section className="relative flex min-h-svh items-center pt-20" aria-label="Hero">
-      {/* Subtle radial gradient — base atmosphere */}
+      {/* Dot grid — architectural depth */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(242,238,230,0.045) 1px, transparent 1px)',
+          backgroundSize: '36px 36px',
+          maskImage: 'radial-gradient(ellipse 85% 75% at 50% 40%, black 30%, transparent 100%)',
+          WebkitMaskImage:
+            'radial-gradient(ellipse 85% 75% at 50% 40%, black 30%, transparent 100%)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Radial green glow */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(74,124,111,0.06) 0%, transparent 70%)',
+            'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(74,124,111,0.07) 0%, transparent 70%)',
         }}
+        aria-hidden="true"
+      />
+
+      {/* Accent line — top left */}
+      <motion.div
+        className="absolute top-24 left-0 h-px"
+        style={{
+          transformOrigin: 'left',
+          background: 'linear-gradient(to right, rgba(74,124,111,0.5), transparent)',
+          width: '15vw',
+        }}
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.8 }}
         aria-hidden="true"
       />
 
       <Container className="relative z-10 pt-16 pb-24">
         <div className="max-w-4xl">
+          {/* Label */}
+          <motion.p
+            className="mb-8 text-xs font-semibold tracking-[0.2em] uppercase"
+            style={{ color: 'var(--color-accent-primary)' }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: 'easeOut', delay: 0.1 }}
+          >
+            Blooming Group
+          </motion.p>
+
           {/* Animated headline */}
           <h1 className="type-display mb-8" aria-label={headline.join(' ')}>
             {headline.map((line, lineIdx) => (
@@ -41,9 +79,9 @@ export function Hero() {
                     initial="hidden"
                     animate="visible"
                     transition={{
-                      duration: 0.6,
+                      duration: 0.7,
                       ease: [0.22, 1, 0.36, 1],
-                      delay: lineIdx * 0.15 + wordIdx * 0.08,
+                      delay: 0.2 + lineIdx * 0.15 + wordIdx * 0.08,
                     }}
                   >
                     {word}
@@ -58,17 +96,19 @@ export function Hero() {
             className="type-body mb-12 max-w-2xl"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.5 }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.65 }}
           >
-            The European mid-market firm that bridges strategy and execution. No decks. No delays.
-            Measurable outcomes.
+            The European mid-market firm that bridges strategy and execution.{' '}
+            <span style={{ color: 'var(--color-mid)' }}>No decks. No delays.</span> Measurable
+            outcomes.
           </motion.p>
 
-          {/* CTA */}
+          {/* CTAs */}
           <motion.div
+            className="flex flex-wrap items-center gap-4"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.65 }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.8 }}
           >
             <Button size="lg" asChild>
               <Link href="/contact">
@@ -76,6 +116,15 @@ export function Hero() {
                 <ArrowRight size={16} aria-hidden="true" />
               </Link>
             </Button>
+            <Link
+              href="/services"
+              className="text-sm tracking-wide transition-colors duration-200"
+              style={{ color: 'var(--color-mid)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-ivory)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-mid)')}
+            >
+              View our services →
+            </Link>
           </motion.div>
         </div>
       </Container>
@@ -85,7 +134,7 @@ export function Hero() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
+        transition={{ delay: 1.4, duration: 0.6 }}
         aria-hidden="true"
       >
         <motion.div

@@ -14,6 +14,7 @@ const contactSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
   service: z.string().min(1, 'Please select a service'),
   message: z.string().optional(),
+  _hp: z.string().max(0).optional(), // honeypot — must stay empty
 })
 
 type ContactFormValues = z.infer<typeof contactSchema>
@@ -30,9 +31,8 @@ const serviceOptions = [
 const fieldStyles = cn(
   'w-full bg-transparent border-b border-[--color-border-default]',
   'py-3 text-sm text-ivory placeholder:text-mid',
-  'focus:outline-none focus:border-accent-primary',
-  'transition-colors duration-200',
-  'font-[var(--font-sohne)]'
+  'focus:outline-none focus:border-[--color-accent-primary]',
+  'transition-colors duration-200'
 )
 
 export function ContactForm() {
@@ -209,6 +209,12 @@ export function ContactForm() {
           {serverError}
         </p>
       )}
+
+      {/* Honeypot — hidden from users, visible to bots */}
+      <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', opacity: 0 }}>
+        <label htmlFor="_hp">Leave this empty</label>
+        <input id="_hp" type="text" tabIndex={-1} autoComplete="off" {...register('_hp')} />
+      </div>
 
       {/* Submit */}
       <Button type="submit" size="lg" disabled={isSubmitting} className="w-full sm:w-auto">

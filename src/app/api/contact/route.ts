@@ -3,6 +3,19 @@ import { z } from 'zod'
 import { Resend } from 'resend'
 import { env } from '@/lib/env'
 
+// ─── HTML sanitizer ───────────────────────────────────────────────────────
+// Escapes characters that could inject markup into the HTML email body.
+// The email goes to our own inbox but defense-in-depth prevents client
+// email apps from rendering injected HTML or scripts.
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 // ─── Schema ────────────────────────────────────────────────────────────────
 const contactSchema = z.object({
   name: z.string().min(2).max(100).trim(),
@@ -17,6 +30,8 @@ const contactSchema = z.object({
     'strategic',
   ]),
   message: z.string().max(2000).trim().optional(),
+  // Honeypot — must be empty. Bots fill every field; humans skip hidden ones.
+  _hp: z.string().max(0).optional(),
 })
 
 // ─── Rate limiting (per IP, resets on cold start) ─────────────────────────
@@ -89,7 +104,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid form data.' }, { status: 422 })
   }
 
+  // Honeypot check — if filled, silently discard (don't tell bots they failed)
+  if (result.data._hp) {
+    return NextResponse.json({ success: true })
+  }
+
   const { name, company, email, service, message } = result.data
+  // Escape all user-supplied strings before interpolating into HTML
+  const safeName = escapeHtml(name)
+  const safeCompany = escapeHtml(company)
+  const safeEmail = escapeHtml(email)
+  const safeMessage = message ? escapeHtml(message) : undefined
   const serviceLabel = SERVICE_LABELS[service]
   const toEmail = env.CONTACT_EMAIL ?? 'hello@blooming-group.eu'
 
@@ -135,25 +160,25 @@ export async function POST(request: NextRequest) {
           <table style="border-collapse:collapse;width:100%;background:#fff;padding:24px;border-radius:4px">
             <tr style="border-bottom:1px solid #f0f0f0">
               <td style="padding:12px 8px;color:#6A6A72;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;white-space:nowrap;width:120px">Name</td>
-              <td style="padding:12px 8px;font-size:14px;color:#09090e">${name}</td>
+              <td style="padding:12px 8px;font-size:14px;color:#09090e">${safeName}</td>
             </tr>
             <tr style="border-bottom:1px solid #f0f0f0">
               <td style="padding:12px 8px;color:#6A6A72;font-size:12px;text-transform:uppercase;letter-spacing:0.08em">Company</td>
-              <td style="padding:12px 8px;font-size:14px;color:#09090e">${company}</td>
+              <td style="padding:12px 8px;font-size:14px;color:#09090e">${safeCompany}</td>
             </tr>
             <tr style="border-bottom:1px solid #f0f0f0">
               <td style="padding:12px 8px;color:#6A6A72;font-size:12px;text-transform:uppercase;letter-spacing:0.08em">Email</td>
-              <td style="padding:12px 8px;font-size:14px"><a href="mailto:${email}" style="color:#4A7C6F">${email}</a></td>
+              <td style="padding:12px 8px;font-size:14px"><a href="mailto:${safeEmail}" style="color:#4A7C6F">${safeEmail}</a></td>
             </tr>
             <tr style="border-bottom:1px solid #f0f0f0">
               <td style="padding:12px 8px;color:#6A6A72;font-size:12px;text-transform:uppercase;letter-spacing:0.08em">Service</td>
-              <td style="padding:12px 8px;font-size:14px;color:#09090e">${serviceLabel}</td>
+              <td style="padding:12px 8px;font-size:14px;color:#09090e">${escapeHtml(serviceLabel)}</td>
             </tr>
             ${
-              message
+              safeMessage
                 ? `<tr>
                     <td style="padding:12px 8px;color:#6A6A72;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;vertical-align:top">Message</td>
-                    <td style="padding:12px 8px;font-size:14px;color:#09090e;white-space:pre-wrap">${message}</td>
+                    <td style="padding:12px 8px;font-size:14px;color:#09090e;white-space:pre-wrap">${safeMessage}</td>
                   </tr>`
                 : ''
             }

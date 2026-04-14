@@ -4,6 +4,8 @@ import { Services } from '@/components/sections/Services'
 import { Process } from '@/components/sections/Process'
 import { AboutBrief } from '@/components/sections/AboutBrief'
 import { CTA } from '@/components/sections/CTA'
+import { MetricsBar } from '@/components/sections/MetricsBar'
+import { Marquee } from '@/components/ui/Marquee'
 import { JsonLd } from '@/components/JsonLd'
 
 const websiteSchema = {
@@ -25,7 +27,9 @@ export default function HomePage() {
     <>
       <JsonLd data={websiteSchema} />
       <Hero />
+      <Marquee />
       <Problem />
+      <MetricsBar />
       <Services />
       <Process />
       <AboutBrief />
