@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Separator } from '@/components/ui/Separator'
 import { H1, H2, Body, Caption } from '@/components/ui/Typography'
+import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: 'Services',
@@ -53,9 +54,27 @@ const services = [
   },
 ]
 
+const servicesSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Blooming Group Services',
+  url: 'https://blooming-group.eu/services',
+  itemListElement: services.map((s, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Service',
+      name: s.name,
+      description: s.body,
+      provider: { '@type': 'Organization', name: 'Blooming Group' },
+    },
+  })),
+}
+
 export default function ServicesPage() {
   return (
     <div className="pt-20">
+      <JsonLd data={servicesSchema} />
       {/* Hero */}
       <section className="py-24" aria-labelledby="services-page-heading">
         <Container>

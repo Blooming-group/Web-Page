@@ -4,6 +4,15 @@ import { Badge } from '@/components/ui/Badge'
 import { Separator } from '@/components/ui/Separator'
 import { H1, H2, Body, Caption } from '@/components/ui/Typography'
 import { ContactForm } from '@/components/sections/ContactForm'
+import { JsonLd } from '@/components/JsonLd'
+
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Blooming Group — Diagnostic Session',
+  url: 'https://blooming-group.eu/contact',
+  description: 'Book a 45-minute diagnostic session with Blooming Group.',
+}
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -31,6 +40,7 @@ const whatToExpect = [
 export default function ContactPage() {
   return (
     <div className="pt-20">
+      <JsonLd data={contactSchema} />
       {/* Hero */}
       <section className="py-24" aria-labelledby="contact-page-heading">
         <Container>

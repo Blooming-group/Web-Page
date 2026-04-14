@@ -63,7 +63,12 @@ export function Footer() {
           <p className="text-mid text-xs tracking-wide">
             © {currentYear} Blooming Group. All rights reserved.
           </p>
-          <p className="text-mid text-xs tracking-wide">blooming-group.eu</p>
+          <Link
+            href="/privacy"
+            className="text-mid hover:text-ivory text-xs tracking-wide transition-colors duration-200"
+          >
+            Privacy Policy
+          </Link>
         </div>
       </Container>
     </footer>
