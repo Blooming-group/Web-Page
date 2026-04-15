@@ -8,36 +8,31 @@ interface BloomingMarkAnimatedProps {
   className?: string
 }
 
-// Full ellipse (rx=88, ry=22) as two semicircular arcs — closed path
+// Ellipse (rx=88, ry=22) — same geometry as the static mark
 const ELLIPSE = 'M 88,0 A 88,22 0 1 0 -88,0 A 88,22 0 1 0 88,0 Z'
 
-// Ramanujan approximation of ellipse perimeter: π(3(a+b) − √((3a+b)(a+3b)))
+// Ramanujan perimeter approximation
 const CIRC = Math.round(Math.PI * (3 * (88 + 22) - Math.sqrt((3 * 88 + 22) * (88 + 3 * 22)))) // 377
-const SPOT = 46 // bright segment length (SVG units)
-const GAP = CIRC - SPOT // 331
 
-// 4 orbital rings — static 2D orientations, bright segment animates via dashoffset
-const RINGS = [
-  { rot: 0, dur: 18, dir: 1, delay: 0, r: '242,238,230', a: 0.88 },
-  { rot: 45, dur: 24, dir: -1, delay: 0.18, r: '74,124,111', a: 1.0 },
-  { rot: 90, dur: 21, dir: 1, delay: 0.4, r: '242,238,230', a: 0.88 },
-  { rot: 135, dur: 28, dir: -1, delay: 0.07, r: '200,169,110', a: 1.0 },
-] as const
+const IVORY = '242,238,230'
+
+// Small spark particle: 8 units (≈2% of circumference) — fast, alive
+const SPOT = 8
 
 /**
- * Animated Blooming logomark — orbital rings with stroke-dashoffset illusion + 3D spherical sun.
- *
- * Each ring is fixed at its 2D orientation (0°/45°/90°/135°) and has a bright
- * traveling segment that moves via `stroke-dashoffset` animation. The motion
- * illusion is more natural than 3D CSS transforms: the segment appears to orbit
- * the sun along each elliptical track.
- *
- * The sun uses a radial gradient with an offset focal point (top-left) to simulate
- * spherical illumination, with a specular highlight and concentric pulsing halos.
+ * 4 rings at 0°/45°/90°/135° — all identical geometry, matching the static mark.
+ * Each has a clearly visible ivory track + a tiny fast spark (glow halo + bright core).
+ * Durations 2.4–3.2 s = particle-like speed, not a slow crawl.
  */
+const RINGS = [
+  { rot: 0, dur: 2.8, dir: 1, delay: 0.0 },
+  { rot: 45, dur: 2.4, dir: -1, delay: 0.4 },
+  { rot: 90, dur: 3.2, dir: 1, delay: 0.7 },
+  { rot: 135, dur: 2.6, dir: -1, delay: 0.15 },
+] as const
+
 export function BloomingMarkAnimated({ size = 64, className }: BloomingMarkAnimatedProps) {
   const reduce = useReducedMotion()
-  // Unique ID per instance to avoid gradient ID collisions
   const uid = React.useId().replace(/:/g, 'u')
   const gradId = `sg-${uid}`
 
@@ -45,7 +40,7 @@ export function BloomingMarkAnimated({ size = 64, className }: BloomingMarkAnima
     <div className={className} style={{ width: size, height: size }} aria-hidden="true">
       <svg width={size} height={size} viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          {/* Off-center radial gradient simulates top-left light source on the sphere */}
+          {/* Off-center radial gradient — top-left light source → 3D sphere illusion */}
           <radialGradient id={gradId} cx="38%" cy="33%" r="65%" fx="35%" fy="30%">
             <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.8" />
             <stop offset="18%" stopColor="#F2EEE6" stopOpacity="0.95" />
@@ -55,43 +50,65 @@ export function BloomingMarkAnimated({ size = 64, className }: BloomingMarkAnima
         </defs>
 
         <g transform="translate(110,110)">
-          {/* ── Orbital rings ──────────────────────────────────────── */}
-          {RINGS.map((ring, i) => (
-            <g key={i} transform={`rotate(${ring.rot})`}>
-              {/* Dim orbit track — always visible, low opacity */}
-              <path
-                d={ELLIPSE}
-                fill="none"
-                stroke={`rgb(${ring.r})`}
-                strokeWidth={0.9}
-                strokeOpacity={0.14}
-              />
-              {/* Bright segment traveling along the orbit */}
-              {!reduce && (
-                <motion.path
-                  d={ELLIPSE}
-                  fill="none"
-                  stroke={`rgba(${ring.r},${ring.a})`}
-                  strokeWidth={2.4}
-                  strokeLinecap="round"
-                  strokeDasharray={`${SPOT} ${GAP}`}
-                  animate={{
-                    strokeDashoffset: ring.dir > 0 ? [0, -CIRC] : [0, CIRC],
-                  }}
-                  transition={{
-                    duration: ring.dur,
-                    repeat: Infinity,
-                    ease: 'linear',
-                    delay: ring.delay,
-                  }}
-                />
-              )}
-            </g>
-          ))}
+          {/* ── Orbital rings ─────────────────────────────────── */}
+          {RINGS.map((ring, i) => {
+            const gap = CIRC - SPOT
+            const glowSpot = SPOT * 2.5
+            const glowGap = CIRC - glowSpot
 
-          {/* ── Sun ────────────────────────────────────────────────── */}
+            return (
+              <g key={i} transform={`rotate(${ring.rot})`}>
+                {/* Always-visible ivory track */}
+                <path d={ELLIPSE} fill="none" stroke={`rgba(${IVORY},0.42)`} strokeWidth={0.85} />
 
-          {/* Background disc — masks orbital rings behind the sun */}
+                {/* Animated spark: glow halo + bright core */}
+                {!reduce && (
+                  <>
+                    {/* Soft glow halo — wider, translucent, trails behind the core */}
+                    <motion.path
+                      d={ELLIPSE}
+                      fill="none"
+                      stroke={`rgba(${IVORY},0.18)`}
+                      strokeWidth={5}
+                      strokeLinecap="round"
+                      strokeDasharray={`${glowSpot} ${glowGap}`}
+                      animate={{
+                        strokeDashoffset: ring.dir > 0 ? [0, -CIRC] : [0, CIRC],
+                      }}
+                      transition={{
+                        duration: ring.dur,
+                        repeat: Infinity,
+                        ease: 'linear',
+                        delay: ring.delay,
+                      }}
+                    />
+                    {/* Bright core spark */}
+                    <motion.path
+                      d={ELLIPSE}
+                      fill="none"
+                      stroke={`rgba(${IVORY},0.95)`}
+                      strokeWidth={1.8}
+                      strokeLinecap="round"
+                      strokeDasharray={`${SPOT} ${gap}`}
+                      animate={{
+                        strokeDashoffset: ring.dir > 0 ? [0, -CIRC] : [0, CIRC],
+                      }}
+                      transition={{
+                        duration: ring.dur,
+                        repeat: Infinity,
+                        ease: 'linear',
+                        delay: ring.delay,
+                      }}
+                    />
+                  </>
+                )}
+              </g>
+            )
+          })}
+
+          {/* ── Sun ──────────────────────────────────────────── */}
+
+          {/* Background disc — masks rings behind the sun */}
           <circle cx="0" cy="0" r="34" fill="#09090E" />
 
           {/* Energy radiation — pulsing gold halos */}
@@ -117,7 +134,7 @@ export function BloomingMarkAnimated({ size = 64, className }: BloomingMarkAnima
             transition={{ duration: 2.3, repeat: Infinity, ease: 'easeInOut', delay: 0.7 }}
           />
 
-          {/* Sun surface — spherical radial gradient, pulsing radius */}
+          {/* Sun surface — spherical gradient, pulsing */}
           <motion.circle
             cx="0"
             cy="0"
@@ -126,7 +143,7 @@ export function BloomingMarkAnimated({ size = 64, className }: BloomingMarkAnima
             transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut', delay: 1.0 }}
           />
 
-          {/* Hot core — brightest center point */}
+          {/* Hot core */}
           <motion.circle
             cx="0"
             cy="0"
@@ -135,7 +152,7 @@ export function BloomingMarkAnimated({ size = 64, className }: BloomingMarkAnima
             transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
           />
 
-          {/* Specular highlight — simulates top-left point light source */}
+          {/* Specular highlight — top-left point light */}
           <circle cx="-4" cy="-5" r="2.8" fill="rgba(255,255,255,0.52)" />
         </g>
       </svg>

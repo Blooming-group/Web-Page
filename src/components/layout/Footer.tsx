@@ -78,7 +78,7 @@ export function Footer() {
 
           {/* Right: animated logomark */}
           <div className="flex-shrink-0 self-start md:self-center">
-            <BloomingMarkAnimated size={160} />
+            <BloomingMarkAnimated size={220} />
           </div>
         </div>
 
