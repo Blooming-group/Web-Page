@@ -1,6 +1,8 @@
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { JsonLd } from '@/components/JsonLd'
+import { CursorFollower } from '@/components/ui/CursorFollower'
+import { BloomingMarkAnimated } from '@/components/ui/BloomingMarkAnimated'
 
 // Organization schema — present on every marketing page
 const organizationSchema = {
@@ -23,6 +25,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
   return (
     <>
       <JsonLd data={organizationSchema} />
+
       {/* Skip-to-content — visible on focus only, for keyboard / screen-reader users */}
       <a
         href="#main-content"
@@ -31,6 +34,18 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
       >
         Skip to main content
       </a>
+
+      {/* Cursor follower — logomark trails the pointer on desktop */}
+      <CursorFollower />
+
+      {/* Persistent animated logomark — fixed bottom-left, desktop only */}
+      <div
+        className="pointer-events-none fixed bottom-6 left-6 z-30 hidden opacity-45 md:block"
+        aria-hidden="true"
+      >
+        <BloomingMarkAnimated size={68} />
+      </div>
+
       <Header />
       <main id="main-content">{children}</main>
       <Footer />
