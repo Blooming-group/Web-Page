@@ -61,10 +61,10 @@ export function CursorFollower() {
         translateX: '-50%',
         translateY: '-50%',
       }}
-      animate={{ opacity: visible ? 0.22 : 0 }}
+      animate={{ opacity: visible ? 0.62 : 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
     >
-      <BloomingMarkAnimated size={54} />
+      <BloomingMarkAnimated size={72} />
     </motion.div>
   )
 }

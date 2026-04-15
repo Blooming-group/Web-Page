@@ -41,10 +41,10 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
 
       {/* Persistent animated logomark — fixed bottom-left, desktop only */}
       <div
-        className="pointer-events-none fixed bottom-6 left-6 z-30 hidden opacity-45 md:block"
+        className="pointer-events-none fixed bottom-6 left-6 z-30 hidden opacity-70 md:block"
         aria-hidden="true"
       >
-        <BloomingMarkAnimated size={68} />
+        <BloomingMarkAnimated size={88} />
       </div>
 
       <Header />
