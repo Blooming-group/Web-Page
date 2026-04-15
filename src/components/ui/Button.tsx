@@ -20,16 +20,17 @@ const sizeStyles: Record<ButtonSize, string> = {
 }
 
 /**
- * Button with cursor-aware gradient fill.
+ * Button with a cursor-tracking gold spotlight effect.
  *
- * Primary: a radial gradient follows the cursor position within the button,
- * shifting the green from flat → luminous. Adds a soft glow shadow on hover.
+ * Primary: a gold radial blob follows the cursor inside the button,
+ * creating a "backlit" spotlight on the green surface. At cursor center
+ * it reaches 55% gold opacity — visible and alive, not subtle.
+ * Slight scale on hover amplifies the physical feeling.
  *
- * Outline: a subtle radial highlight sweeps from the cursor position and
- * brightens the border and interior.
+ * Outline: a green glow radiates from the cursor position inside the border.
  *
- * These effects work via React state (mouse position) — no CSS-only hacks.
- * For magnetic attraction on top of this, wrap with <MagneticWrapper>.
+ * For the magnetic attraction effect (Cuberto-style), wrap with
+ * <MagneticWrapper> from @/components/ui/MagneticWrapper.
  */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -79,39 +80,56 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       [onMouseLeave]
     )
 
-    // Dynamic style based on cursor position
     const dynamicStyle = React.useMemo((): React.CSSProperties => {
-      if (variant === 'primary' && hovered) {
-        return {
-          backgroundImage: `radial-gradient(circle at ${pos.x}% ${pos.y}%, #6aaa98 0%, #4a7c6f 52%, #3d6a5e 100%)`,
-          boxShadow: '0 4px 28px rgba(74,124,111,0.38), 0 0 0 1px rgba(74,124,111,0.18)',
+      if (variant === 'primary') {
+        if (hovered) {
+          return {
+            // Gold spotlight at cursor + green base
+            backgroundImage: [
+              `radial-gradient(circle 90px at ${pos.x}% ${pos.y}%,`,
+              `  rgba(200,169,110,0.55) 0%,`,
+              `  rgba(200,169,110,0.18) 45%,`,
+              `  transparent 75%`,
+              `)`,
+            ].join(' '),
+            backgroundColor: 'var(--color-accent-primary)',
+            boxShadow: ['0 6px 32px rgba(74,124,111,0.45)', '0 0 0 1px rgba(74,124,111,0.25)'].join(
+              ', '
+            ),
+            transform: 'scale(1.03)',
+          }
         }
-      }
-      if (variant === 'primary' && !hovered) {
         return {
           backgroundImage: 'none',
           backgroundColor: 'var(--color-accent-primary)',
+          transform: 'scale(1)',
         }
       }
-      if (variant === 'outline' && hovered) {
-        return {
-          backgroundImage: `radial-gradient(circle at ${pos.x}% ${pos.y}%, rgba(74,124,111,0.14) 0%, transparent 55%)`,
-          borderColor: 'rgba(74,124,111,0.7)',
-          boxShadow: '0 0 20px rgba(74,124,111,0.14), inset 0 0 16px rgba(74,124,111,0.06)',
+
+      if (variant === 'outline') {
+        if (hovered) {
+          return {
+            backgroundImage: `radial-gradient(circle 80px at ${pos.x}% ${pos.y}%, rgba(74,124,111,0.18) 0%, transparent 65%)`,
+            borderColor: 'rgba(74,124,111,0.85)',
+            boxShadow: '0 0 24px rgba(74,124,111,0.18), inset 0 0 20px rgba(74,124,111,0.07)',
+            transform: 'scale(1.02)',
+          }
         }
+        return { transform: 'scale(1)' }
       }
+
       return {}
     }, [variant, hovered, pos.x, pos.y])
 
     const variantBase: Record<ButtonVariant, string> = {
       primary: cn(
         'bg-accent-primary text-ivory border border-transparent',
-        'transition-[box-shadow,background-image] duration-300'
+        'transition-[box-shadow,background-image,transform] duration-250'
       ),
       outline: cn(
         'bg-transparent text-ivory',
         'border border-[--color-border-accent]',
-        'transition-[border-color,box-shadow,background-image] duration-300'
+        'transition-[border-color,box-shadow,background-image,transform] duration-250'
       ),
       ghost: cn(
         'bg-transparent text-mid border border-transparent',

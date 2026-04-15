@@ -8,135 +8,140 @@ interface BloomingMarkAnimatedProps {
 }
 
 /**
- * Animated Blooming logomark.
+ * Animated Blooming logomark — 3D orbital rings + pulsing sun.
  *
- * Each of the 4 orbital rings rotates at a different speed and direction.
- * The concentric sun circles pulse in opacity and radius, creating a
- * breathing, living sun effect.
+ * Each ring lives in its own div with CSS perspective applied to the
+ * container, so the browser handles correct 3D foreshortening.
+ * Rings alternate between rotateX and rotateY axes at different speeds
+ * to create the atomic orbital appearance.
  *
- * Used as the persistent ambient element (fixed bottom-left) and
- * as the base for the cursor follower.
- *
- * All animations halt when prefers-reduced-motion is set.
+ * The sun core pulses with high-amplitude opacity waves, staggered
+ * per layer, creating a breathing energy effect.
  */
 export function BloomingMarkAnimated({ size = 64, className }: BloomingMarkAnimatedProps) {
   const reduce = useReducedMotion()
 
-  // Shared arc paths — each ring uses the same arc geometry, rotated by its group
   const arc1 = 'M 34,-20.3 A 88,22 0 0,1 34,20.3'
   const arc2 = 'M -34,20.3 A 88,22 0 0,1 -34,-20.3'
-  const stroke = {
+  const strokeAttrs = {
     fill: 'none',
     stroke: '#F2EEE6',
     strokeWidth: 2.6,
     strokeLinecap: 'round' as const,
   }
 
-  const ring = (initialDeg: number, toDeg: number, duration: number) => ({
-    initial: { rotate: initialDeg },
-    animate: reduce ? {} : { rotate: toDeg },
-    transition: { duration, repeat: Infinity, ease: 'linear' as const },
-    style: { transformOrigin: '0px 0px' },
-  })
-
-  const pulse = (
-    r0: number,
-    r1: number,
-    op0: number,
-    op1: number,
-    duration: number,
-    delay = 0
-  ) => ({
-    animate: reduce
-      ? {}
-      : {
-          r: [r0, r1, r0],
-          fillOpacity: [op0, op1, op0],
-        },
-    transition: { duration, repeat: Infinity, ease: 'easeInOut' as const, delay },
-  })
+  // Each ring: initial SVG rotation (its plane orientation),
+  // CSS 3D rotation axis, speed, direction
+  const rings = [
+    { svgRot: 0, axis: 'Y' as const, duration: 18, dir: 1 },
+    { svgRot: 45, axis: 'X' as const, duration: 24, dir: -1 },
+    { svgRot: 90, axis: 'Y' as const, duration: 20, dir: -1 },
+    { svgRot: 135, axis: 'X' as const, duration: 28, dir: 1 },
+  ]
 
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 220 220"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      focusable="false"
+    <div
       className={className}
+      style={{
+        width: size,
+        height: size,
+        position: 'relative',
+        // Perspective makes the 3D rotation look correct (not flat affine)
+        perspective: `${size * 5}px`,
+        perspectiveOrigin: '50% 50%',
+      }}
+      aria-hidden="true"
     >
-      <g transform="translate(110,110)">
-        {/* Ring 0 — clockwise 18s */}
-        <motion.g {...ring(0, 360, 18)}>
-          <path d={arc1} {...stroke} />
-          <path d={arc2} {...stroke} />
-        </motion.g>
+      {/* 3D orbital rings */}
+      {rings.map((ring, i) => (
+        <motion.div
+          key={i}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            transformOrigin: 'center center',
+            transformStyle: 'preserve-3d',
+          }}
+          animate={
+            reduce
+              ? {}
+              : ring.axis === 'Y'
+                ? { rotateY: ring.dir > 0 ? [0, 360] : [0, -360] }
+                : { rotateX: ring.dir > 0 ? [0, 360] : [0, -360] }
+          }
+          transition={{
+            duration: ring.duration,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+        >
+          <svg width={size} height={size} viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+            <g transform={`translate(110,110) rotate(${ring.svgRot})`}>
+              <path d={arc1} {...strokeAttrs} />
+              <path d={arc2} {...strokeAttrs} />
+            </g>
+          </svg>
+        </motion.div>
+      ))}
 
-        {/* Ring 45 — counter-clockwise 24s */}
-        <motion.g {...ring(45, -315, 24)}>
-          <path d={arc1} {...stroke} />
-          <path d={arc2} {...stroke} />
-        </motion.g>
+      {/* Sun — rendered in a separate layer on top of rings */}
+      <div style={{ position: 'absolute', inset: 0, zIndex: 10 }}>
+        <svg width={size} height={size} viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(110,110)">
+            {/* Clear background so rings behind sun are hidden */}
+            <circle cx="0" cy="0" r="33" fill="#09090E" />
 
-        {/* Ring 90 — clockwise 20s */}
-        <motion.g {...ring(90, 450, 20)}>
-          <path d={arc1} {...stroke} />
-          <path d={arc2} {...stroke} />
-        </motion.g>
-
-        {/* Ring 135 — counter-clockwise 28s */}
-        <motion.g {...ring(135, -225, 28)}>
-          <path d={arc1} {...stroke} />
-          <path d={arc2} {...stroke} />
-        </motion.g>
-
-        {/* Sun base — clear background so rings aren't visible through it */}
-        <circle cx="0" cy="0" r="33" fill="#09090E" />
-
-        {/* Sun rings — pulsing outward from core, staggered delays */}
-        <motion.circle
-          cx="0"
-          cy="0"
-          fill="#C8A96E"
-          stroke="#4A7C6F"
-          strokeWidth={1.1}
-          {...pulse(28, 29.8, 0.08, 0.2, 4.0, 0.0)}
-        />
-        <motion.circle
-          cx="0"
-          cy="0"
-          fill="#C8A96E"
-          stroke="#4A7C6F"
-          strokeWidth={1.4}
-          {...pulse(22, 23.8, 0.18, 0.38, 3.3, 0.4)}
-        />
-        <motion.circle
-          cx="0"
-          cy="0"
-          fill="#C8A96E"
-          stroke="#4A7C6F"
-          strokeWidth={1.7}
-          {...pulse(16, 18.0, 0.38, 0.65, 2.6, 0.8)}
-        />
-        <motion.circle
-          cx="0"
-          cy="0"
-          fill="#C8A96E"
-          stroke="#4A7C6F"
-          strokeWidth={1.2}
-          {...pulse(10, 12.0, 0.72, 0.95, 2.0, 1.1)}
-        />
-
-        {/* Core — strongest pulse */}
-        <motion.circle
-          cx="0"
-          cy="0"
-          fill="#C8A96E"
-          animate={reduce ? {} : { r: [5.5, 8, 5.5], fillOpacity: [1, 1, 1] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-        />
-      </g>
-    </svg>
+            {/* r=28 — outermost, slow wide pulse */}
+            <motion.circle
+              cx="0"
+              cy="0"
+              fill="#C8A96E"
+              stroke="#4A7C6F"
+              strokeWidth={1.1}
+              animate={reduce ? {} : { r: [28, 31, 28], fillOpacity: [0.12, 0.45, 0.12] }}
+              transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut', delay: 0 }}
+            />
+            {/* r=22 */}
+            <motion.circle
+              cx="0"
+              cy="0"
+              fill="#C8A96E"
+              stroke="#4A7C6F"
+              strokeWidth={1.4}
+              animate={reduce ? {} : { r: [22, 24.5, 22], fillOpacity: [0.22, 0.58, 0.22] }}
+              transition={{ duration: 3.0, repeat: Infinity, ease: 'easeInOut', delay: 0.35 }}
+            />
+            {/* r=16 */}
+            <motion.circle
+              cx="0"
+              cy="0"
+              fill="#C8A96E"
+              stroke="#4A7C6F"
+              strokeWidth={1.7}
+              animate={reduce ? {} : { r: [16, 18.5, 16], fillOpacity: [0.42, 0.82, 0.42] }}
+              transition={{ duration: 2.3, repeat: Infinity, ease: 'easeInOut', delay: 0.7 }}
+            />
+            {/* r=10 */}
+            <motion.circle
+              cx="0"
+              cy="0"
+              fill="#C8A96E"
+              stroke="#4A7C6F"
+              strokeWidth={1.2}
+              animate={reduce ? {} : { r: [10, 12.5, 10], fillOpacity: [0.76, 1, 0.76] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut', delay: 1.0 }}
+            />
+            {/* Core — most intense pulse */}
+            <motion.circle
+              cx="0"
+              cy="0"
+              fill="#C8A96E"
+              animate={reduce ? {} : { r: [5.5, 9, 5.5], fillOpacity: [1, 1, 1] }}
+              transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut', delay: 0 }}
+            />
+          </g>
+        </svg>
+      </div>
+    </div>
   )
 }

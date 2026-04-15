@@ -6,7 +6,6 @@ import { AboutBrief } from '@/components/sections/AboutBrief'
 import { CTA } from '@/components/sections/CTA'
 import { MetricsBar } from '@/components/sections/MetricsBar'
 import { Marquee } from '@/components/ui/Marquee'
-import { ParticleField } from '@/components/sections/ParticleField'
 import { JsonLd } from '@/components/JsonLd'
 
 const websiteSchema = {
@@ -35,7 +34,6 @@ export default function HomePage() {
       <Process />
       <AboutBrief />
       <CTA />
-      <ParticleField height={440} />
     </>
   )
 }
