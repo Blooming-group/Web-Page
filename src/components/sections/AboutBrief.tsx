@@ -13,7 +13,20 @@ export function AboutBrief() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="py-[--spacing-section-lg]" aria-labelledby="about-brief-heading">
+    <section
+      ref={ref}
+      className="relative py-[--spacing-section-lg]"
+      aria-labelledby="about-brief-heading"
+    >
+      {/* Green gradient top divider */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-px"
+        style={{
+          background:
+            'linear-gradient(to right, transparent, rgba(74,124,111,0.3) 50%, transparent)',
+        }}
+        aria-hidden="true"
+      />
       <Container size="narrow">
         <Separator className="mb-16" />
 

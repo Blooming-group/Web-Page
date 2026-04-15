@@ -15,7 +15,15 @@ export function Problem() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section ref={ref} className="py-[--spacing-section-lg]" aria-labelledby="problem-heading">
+    <section
+      ref={ref}
+      className="py-[--spacing-section-lg]"
+      style={{
+        background:
+          'radial-gradient(ellipse 60% 35% at 50% 0%, rgba(74,124,111,0.07) 0%, transparent 80%)',
+      }}
+      aria-labelledby="problem-heading"
+    >
       <Container size="narrow">
         <div className="space-y-10 text-center">
           {/* Opening */}

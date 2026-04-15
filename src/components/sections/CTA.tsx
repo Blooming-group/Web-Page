@@ -13,7 +13,16 @@ export function CTA() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="py-[--spacing-section-lg]" aria-labelledby="cta-heading">
+    <section ref={ref} className="relative py-[--spacing-section-lg]" aria-labelledby="cta-heading">
+      {/* Gold gradient top divider */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-px"
+        style={{
+          background:
+            'linear-gradient(to right, transparent, rgba(200,169,110,0.28) 50%, transparent)',
+        }}
+        aria-hidden="true"
+      />
       <Container>
         <div
           className="rounded-sm border border-[--color-border-accent] p-12 md:p-20"

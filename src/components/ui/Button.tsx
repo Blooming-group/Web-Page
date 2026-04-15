@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { motion } from 'framer-motion'
 import { Slot } from '@radix-ui/react-slot'
 import { cn } from '@/lib/utils'
 
@@ -19,18 +20,27 @@ const sizeStyles: Record<ButtonSize, string> = {
   lg: 'px-8 py-4 text-base tracking-wide',
 }
 
+// Fill that sweeps bottom → top on hover
+const SWEEP_BG: Record<'primary' | 'outline', string> = {
+  primary: 'linear-gradient(to top, #c8a96e 0%, #d4be8a 100%)',
+  outline: 'linear-gradient(to top, rgba(74,124,111,0.28) 0%, rgba(74,124,111,0.08) 100%)',
+}
+
+// Cubic-bezier matching Cuberto's fluid feel
+const SWEEP_EASE = [0.76, 0, 0.24, 1] as const
+
 /**
- * Button with a cursor-tracking gold spotlight effect.
+ * Button with rounded corners and a bottom-to-top fill sweep on hover.
  *
- * Primary: a gold radial blob follows the cursor inside the button,
- * creating a "backlit" spotlight on the green surface. At cursor center
- * it reaches 55% gold opacity — visible and alive, not subtle.
- * Slight scale on hover amplifies the physical feeling.
+ * Primary: green base, gold sweep rises from bottom. Text transitions
+ * ivory → dark as gold fills the button, matching the fill speed.
  *
- * Outline: a green glow radiates from the cursor position inside the border.
+ * Outline: transparent base, subtle green tint sweeps up on hover.
  *
- * For the magnetic attraction effect (Cuberto-style), wrap with
- * <MagneticWrapper> from @/components/ui/MagneticWrapper.
+ * Ghost: simple color transition, no sweep.
+ *
+ * For magnetic attraction wrap with <MagneticWrapper> from
+ * @/components/ui/MagneticWrapper.
  */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -39,7 +49,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant = 'primary',
       size = 'md',
       asChild = false,
-      onMouseMove,
+      children,
       onMouseEnter,
       onMouseLeave,
       style,
@@ -48,20 +58,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const Comp = asChild ? Slot : 'button'
-    const [pos, setPos] = React.useState({ x: 50, y: 50 })
     const [hovered, setHovered] = React.useState(false)
-
-    const handleMouseMove = React.useCallback(
-      (e: React.MouseEvent<HTMLButtonElement>) => {
-        const rect = e.currentTarget.getBoundingClientRect()
-        setPos({
-          x: ((e.clientX - rect.left) / rect.width) * 100,
-          y: ((e.clientY - rect.top) / rect.height) * 100,
-        })
-        onMouseMove?.(e)
-      },
-      [onMouseMove]
-    )
 
     const handleMouseEnter = React.useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -74,7 +71,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const handleMouseLeave = React.useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
         setHovered(false)
-        setPos({ x: 50, y: 50 })
         onMouseLeave?.(e)
       },
       [onMouseLeave]
@@ -82,66 +78,41 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const dynamicStyle = React.useMemo((): React.CSSProperties => {
       if (variant === 'primary') {
-        if (hovered) {
-          return {
-            // Gold spotlight at cursor + green base
-            backgroundImage: [
-              `radial-gradient(circle 90px at ${pos.x}% ${pos.y}%,`,
-              `  rgba(200,169,110,0.55) 0%,`,
-              `  rgba(200,169,110,0.18) 45%,`,
-              `  transparent 75%`,
-              `)`,
-            ].join(' '),
-            backgroundColor: 'var(--color-accent-primary)',
-            boxShadow: ['0 6px 32px rgba(74,124,111,0.45)', '0 0 0 1px rgba(74,124,111,0.25)'].join(
-              ', '
-            ),
-            transform: 'scale(1.03)',
-          }
-        }
         return {
-          backgroundImage: 'none',
           backgroundColor: 'var(--color-accent-primary)',
-          transform: 'scale(1)',
+          boxShadow: hovered
+            ? '0 8px 36px rgba(200,169,110,0.35), 0 0 0 1px rgba(200,169,110,0.18)'
+            : '0 2px 8px rgba(74,124,111,0.18)',
+          transform: hovered ? 'scale(1.025)' : 'scale(1)',
+          transition: 'box-shadow 0.38s ease, transform 0.38s ease',
         }
       }
-
       if (variant === 'outline') {
-        if (hovered) {
-          return {
-            backgroundImage: `radial-gradient(circle 80px at ${pos.x}% ${pos.y}%, rgba(74,124,111,0.18) 0%, transparent 65%)`,
-            borderColor: 'rgba(74,124,111,0.85)',
-            boxShadow: '0 0 24px rgba(74,124,111,0.18), inset 0 0 20px rgba(74,124,111,0.07)',
-            transform: 'scale(1.02)',
-          }
+        return {
+          borderColor: hovered ? 'rgba(74,124,111,0.85)' : undefined,
+          transform: hovered ? 'scale(1.015)' : 'scale(1)',
+          transition: 'border-color 0.3s ease, transform 0.38s ease',
         }
-        return { transform: 'scale(1)' }
       }
-
       return {}
-    }, [variant, hovered, pos.x, pos.y])
+    }, [variant, hovered])
 
     const variantBase: Record<ButtonVariant, string> = {
-      primary: cn(
-        'bg-accent-primary text-ivory border border-transparent',
-        'transition-[box-shadow,background-image,transform] duration-250'
-      ),
-      outline: cn(
-        'bg-transparent text-ivory',
-        'border border-[--color-border-accent]',
-        'transition-[border-color,box-shadow,background-image,transform] duration-250'
-      ),
-      ghost: cn(
-        'bg-transparent text-mid border border-transparent',
-        'hover:text-ivory transition-colors duration-200'
-      ),
+      primary: 'bg-accent-primary text-ivory border border-transparent',
+      outline: 'bg-transparent text-ivory border border-[--color-border-accent]',
+      ghost:
+        'bg-transparent text-mid border border-transparent hover:text-ivory transition-colors duration-200',
     }
+
+    // Sweep only applies to non-asChild primary/outline
+    const hasSweep = !asChild && variant !== 'ghost'
 
     return (
       <Comp
         ref={ref}
         className={cn(
-          'inline-flex items-center justify-center gap-2',
+          'inline-flex items-center justify-center',
+          'relative overflow-hidden rounded-xl',
           'font-medium',
           'cursor-pointer select-none',
           'disabled:pointer-events-none disabled:opacity-40',
@@ -151,11 +122,34 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           className
         )}
         style={{ ...dynamicStyle, ...style }}
-        onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         {...props}
-      />
+      >
+        {hasSweep ? (
+          <>
+            {/* ── Sweep fill — rises from bottom ── */}
+            <motion.span
+              className="pointer-events-none absolute inset-0 origin-bottom"
+              aria-hidden="true"
+              animate={{ scaleY: hovered ? 1 : 0 }}
+              transition={{ duration: 0.52, ease: SWEEP_EASE }}
+              style={{ background: SWEEP_BG[variant as 'primary' | 'outline'] }}
+            />
+            {/* ── Content above sweep ── */}
+            <span
+              className="relative z-10 inline-flex items-center gap-2 transition-colors duration-500"
+              style={{
+                color: variant === 'primary' && hovered ? 'var(--color-base)' : undefined,
+              }}
+            >
+              {children}
+            </span>
+          </>
+        ) : (
+          <span className="inline-flex items-center gap-2">{children}</span>
+        )}
+      </Comp>
     )
   }
 )

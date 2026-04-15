@@ -36,7 +36,33 @@ export function MetricsBar() {
   const isInView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
-    <section ref={ref} className="py-16 md:py-20" aria-label="Key metrics">
+    <section
+      ref={ref}
+      className="relative py-[--spacing-section-lg]"
+      style={{
+        background:
+          'radial-gradient(ellipse 90% 100% at 50% 50%, rgba(200,169,110,0.04) 0%, transparent 100%)',
+      }}
+      aria-label="Key metrics"
+    >
+      {/* Gold gradient frame — top edge */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-px"
+        style={{
+          background:
+            'linear-gradient(to right, transparent, rgba(200,169,110,0.32) 50%, transparent)',
+        }}
+        aria-hidden="true"
+      />
+      {/* Gold gradient frame — bottom edge */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-px"
+        style={{
+          background:
+            'linear-gradient(to right, transparent, rgba(200,169,110,0.2) 50%, transparent)',
+        }}
+        aria-hidden="true"
+      />
       <Container>
         <div className="grid grid-cols-2 gap-px overflow-hidden rounded-sm bg-[--color-border-default] md:grid-cols-4">
           {metrics.map((metric, i) => (

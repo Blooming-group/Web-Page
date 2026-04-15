@@ -126,11 +126,32 @@ function drawFlower(ctx: CanvasRenderingContext2D, p: Particle): void {
 
 // ─── Particle factory ─────────────────────────────────────────────────────────
 
-function makeParticle(w: number, h: number, mobile: boolean): Particle {
-  // Distribution: ~30% logo, ~38% dot, ~16% line, ~16% flower
+function makeParticle(
+  w: number,
+  h: number,
+  mobile: boolean,
+  variant: 'default' | 'footer' = 'default'
+): Particle {
+  // Distribution:
+  //   default  — ~30% logo, ~38% dot, ~16% line, ~16% flower
+  //   footer   — ~8% logo,  ~40% dot, ~22% line, ~30% flower  (balanced, flower-forward)
   const roll = Math.random()
   const type: ParticleType =
-    roll < 0.3 ? 'logo' : roll < 0.68 ? 'dot' : roll < 0.84 ? 'line' : 'flower'
+    variant === 'footer'
+      ? roll < 0.08
+        ? 'logo'
+        : roll < 0.48
+          ? 'dot'
+          : roll < 0.7
+            ? 'line'
+            : 'flower'
+      : roll < 0.3
+        ? 'logo'
+        : roll < 0.68
+          ? 'dot'
+          : roll < 0.84
+            ? 'line'
+            : 'flower'
 
   // Colour — weighted per type
   const c = Math.random()
@@ -143,19 +164,35 @@ function makeParticle(w: number, h: number, mobile: boolean): Particle {
     ;[cr, cg, cb] = c < 0.55 ? [242, 238, 230] : c < 0.8 ? [74, 124, 111] : [200, 169, 110]
   }
 
-  // Size — logo uses orbital radius (22–36px so the full mark is legible)
-  const sizes: Record<ParticleType, [number, number]> = {
-    logo: mobile ? [14, 22] : [20, 34],
-    dot: [1.2, 2.8],
-    line: mobile ? [7, 15] : [10, 20],
-    flower: mobile ? [3.5, 7] : [5, 9],
-  }
-  const opacities: Record<ParticleType, [number, number]> = {
-    logo: [0.28, 0.55],
-    dot: [0.22, 0.45],
-    line: [0.15, 0.28],
-    flower: [0.18, 0.32],
-  }
+  // Size — footer variant has bigger, more visible flowers + dots
+  const sizes: Record<ParticleType, [number, number]> =
+    variant === 'footer'
+      ? {
+          logo: mobile ? [18, 28] : [26, 40],
+          dot: [1.8, 3.8],
+          line: mobile ? [9, 18] : [12, 24],
+          flower: mobile ? [7, 13] : [10, 18], // 2× bigger than default
+        }
+      : {
+          logo: mobile ? [14, 22] : [20, 34],
+          dot: [1.2, 2.8],
+          line: mobile ? [7, 15] : [10, 20],
+          flower: mobile ? [3.5, 7] : [5, 9],
+        }
+  const opacities: Record<ParticleType, [number, number]> =
+    variant === 'footer'
+      ? {
+          logo: [0.2, 0.42],
+          dot: [0.28, 0.55],
+          line: [0.18, 0.32],
+          flower: [0.3, 0.56], // clearly visible
+        }
+      : {
+          logo: [0.28, 0.55],
+          dot: [0.22, 0.45],
+          line: [0.15, 0.28],
+          flower: [0.18, 0.32],
+        }
 
   const [sMin, sMax] = sizes[type]
   const [oMin, oMax] = opacities[type]
@@ -188,9 +225,18 @@ interface ParticleFieldProps {
   mode?: 'section' | 'background'
   /** Only applies to mode='section'. Default 460px. */
   height?: number
+  /**
+   * 'default': standard home-page distribution (~30% logos)
+   * 'footer': balanced distribution — fewer logos, bigger/more-visible flowers
+   */
+  variant?: 'default' | 'footer'
 }
 
-export function ParticleField({ mode = 'section', height = 460 }: ParticleFieldProps) {
+export function ParticleField({
+  mode = 'section',
+  height = 460,
+  variant = 'default',
+}: ParticleFieldProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const mouseRef = useRef<{ x: number | null; y: number | null }>({ x: null, y: null })
@@ -198,11 +244,16 @@ export function ParticleField({ mode = 'section', height = 460 }: ParticleFieldP
   const rafRef = useRef<number>(0)
   const activeRef = useRef(false)
 
-  const initParticles = useCallback((w: number, h: number) => {
-    const mobile = w < 768
-    const count = mobile ? 36 : 82
-    particlesRef.current = Array.from({ length: count }, () => makeParticle(w, h, mobile))
-  }, [])
+  const initParticles = useCallback(
+    (w: number, h: number) => {
+      const mobile = w < 768
+      const count = mobile ? 36 : 82
+      particlesRef.current = Array.from({ length: count }, () =>
+        makeParticle(w, h, mobile, variant)
+      )
+    },
+    [variant]
+  )
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return

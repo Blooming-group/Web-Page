@@ -39,7 +39,24 @@ export function Process() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="py-[--spacing-section-lg]" aria-labelledby="process-heading">
+    <section
+      ref={ref}
+      className="relative py-[--spacing-section-lg]"
+      style={{
+        background:
+          'radial-gradient(ellipse 80% 70% at 50% 40%, rgba(74,124,111,0.03) 0%, transparent 100%)',
+      }}
+      aria-labelledby="process-heading"
+    >
+      {/* Gold gradient top divider */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-px"
+        style={{
+          background:
+            'linear-gradient(to right, transparent, rgba(200,169,110,0.3) 50%, transparent)',
+        }}
+        aria-hidden="true"
+      />
       <Container>
         {/* Header */}
         <div className="mb-16 max-w-xl">

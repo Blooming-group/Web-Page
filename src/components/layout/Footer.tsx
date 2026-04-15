@@ -1,7 +1,10 @@
+'use client'
+
 import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { Separator } from '@/components/ui/Separator'
-import { BloomingMark } from '@/components/ui/BloomingMark'
+import { BloomingMarkAnimated } from '@/components/ui/BloomingMarkAnimated'
+import { ParticleField } from '@/components/sections/ParticleField'
 
 const companyLinks = [
   { label: 'About', href: '/about' },
@@ -25,44 +28,43 @@ export function Footer() {
 
   return (
     <footer
-      className="border-t border-[--color-border-default] pt-16 pb-10"
+      className="relative overflow-hidden border-t border-[--color-border-default]"
       aria-label="Site footer"
     >
-      <Container>
-        {/* Top grid */}
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-4 md:gap-8">
-          {/* Logomark + wordmark + tagline + social */}
-          <div className="md:col-span-1">
-            <Link
-              href="/"
-              className="mb-5 flex items-center gap-2 transition-opacity hover:opacity-75"
-              aria-label="Blooming Group — Home"
+      {/* ── Particle background ─────────────────────────── */}
+      <ParticleField mode="background" variant="footer" />
+
+      <Container className="relative z-10">
+        {/* ── Hero row: display wordmark + animated logo ── */}
+        <div className="flex flex-col gap-10 pt-20 pb-14 md:flex-row md:items-start md:justify-between">
+          {/* Left: large wordmark + tagline + social */}
+          <div>
+            <h2
+              className="mb-5 leading-none font-light tracking-[-0.03em]"
+              style={{
+                fontSize: 'clamp(3.2rem, 8vw, 7rem)',
+                color: 'var(--color-ivory)',
+              }}
             >
-              <BloomingMark size={24} />
-              <span
-                className="text-sm font-semibold tracking-[0.2em]"
-                style={{ color: 'var(--color-ivory)' }}
-                aria-hidden="true"
-              >
-                BLOOMING
-              </span>
-            </Link>
-            <p className="mb-6 text-xs leading-relaxed" style={{ color: 'var(--color-mid)' }}>
+              BLOOMING
+            </h2>
+            <p className="mb-1 text-sm leading-relaxed" style={{ color: 'var(--color-mid)' }}>
               Strategic thinking. Real technology.
-              <br />
+            </p>
+            <p className="mb-8 text-sm leading-relaxed" style={{ color: 'var(--color-mid)' }}>
               European mid-market.
             </p>
             <a
               href="https://linkedin.com/company/blooming-group"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors duration-200"
+              className="transition-colors duration-200 hover:opacity-80"
               style={{ color: 'var(--color-mid)' }}
               aria-label="Blooming Group on LinkedIn"
             >
               <svg
-                width="16"
-                height="16"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
                 fill="currentColor"
                 aria-hidden="true"
@@ -74,10 +76,20 @@ export function Footer() {
             </a>
           </div>
 
+          {/* Right: animated logomark */}
+          <div className="flex-shrink-0 self-start md:self-center">
+            <BloomingMarkAnimated size={160} />
+          </div>
+        </div>
+
+        <Separator />
+
+        {/* ── Navigation links ────────────────────────────── */}
+        <div className="grid grid-cols-1 gap-10 py-14 md:grid-cols-3">
           {/* Company */}
           <div>
             <p
-              className="mb-4 text-xs font-medium tracking-[0.12em] uppercase"
+              className="mb-5 text-xs font-medium tracking-[0.12em] uppercase"
               style={{ color: 'var(--color-mid)' }}
             >
               Company
@@ -99,7 +111,7 @@ export function Footer() {
           {/* Capabilities */}
           <div>
             <p
-              className="mb-4 text-xs font-medium tracking-[0.12em] uppercase"
+              className="mb-5 text-xs font-medium tracking-[0.12em] uppercase"
               style={{ color: 'var(--color-mid)' }}
             >
               Capabilities
@@ -118,15 +130,15 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Start CTA */}
+          {/* Get started */}
           <div>
             <p
-              className="mb-4 text-xs font-medium tracking-[0.12em] uppercase"
+              className="mb-5 text-xs font-medium tracking-[0.12em] uppercase"
               style={{ color: 'var(--color-mid)' }}
             >
               Get started
             </p>
-            <p className="mb-4 text-sm leading-relaxed" style={{ color: 'var(--color-mid)' }}>
+            <p className="mb-5 text-sm leading-relaxed" style={{ color: 'var(--color-mid)' }}>
               The diagnostic session is free. 45 minutes. No pitch.
             </p>
             <Link
@@ -139,10 +151,10 @@ export function Footer() {
           </div>
         </div>
 
-        <Separator className="my-10" />
+        <Separator />
 
-        {/* Bottom bar */}
-        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        {/* ── Bottom bar ──────────────────────────────────── */}
+        <div className="flex flex-col gap-3 py-8 md:flex-row md:items-center md:justify-between">
           <p className="text-xs tracking-wide" style={{ color: 'var(--color-mid)' }}>
             © {currentYear} Blooming Group. All rights reserved.
           </p>

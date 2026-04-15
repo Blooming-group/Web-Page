@@ -46,7 +46,20 @@ export function Services() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="py-[--spacing-section-lg]" aria-labelledby="services-heading">
+    <section
+      ref={ref}
+      className="relative py-[--spacing-section-lg]"
+      aria-labelledby="services-heading"
+    >
+      {/* Green gradient top divider */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-px"
+        style={{
+          background:
+            'linear-gradient(to right, transparent, rgba(74,124,111,0.38) 50%, transparent)',
+        }}
+        aria-hidden="true"
+      />
       <Container>
         {/* Header */}
         <div className="mb-16 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
