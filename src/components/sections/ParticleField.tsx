@@ -138,11 +138,11 @@ function makeParticle(
   const roll = Math.random()
   const type: ParticleType =
     variant === 'footer'
-      ? roll < 0.08
+      ? roll < 0.03 // 3% logos — much cleaner
         ? 'logo'
-        : roll < 0.48
+        : roll < 0.45
           ? 'dot'
-          : roll < 0.7
+          : roll < 0.68
             ? 'line'
             : 'flower'
       : roll < 0.3
@@ -200,8 +200,8 @@ function makeParticle(
   return {
     x: Math.random() * w,
     y: Math.random() * h,
-    vx: (Math.random() - 0.5) * 0.2,
-    vy: (Math.random() - 0.5) * 0.2,
+    vx: (Math.random() - 0.5) * 0.55,
+    vy: (Math.random() - 0.5) * 0.55,
     type,
     size: sMin + Math.random() * (sMax - sMin),
     rotation: Math.random() * Math.PI * 2,
@@ -312,7 +312,7 @@ export function ParticleField({
       const h = canvas.height / dpr
       const { x: mx, y: my } = mouseRef.current
       const REPEL_R = 160
-      const MAX_SPD = 1.5
+      const MAX_SPD = 2.5
 
       ctx.clearRect(0, 0, w, h)
 
@@ -335,9 +335,9 @@ export function ParticleField({
         p.rotation += p.rotationSpeed
         p.phase += p.phaseSpeed
 
-        // Friction + gentle drift
-        p.vx = p.vx * 0.964 + (Math.random() - 0.5) * 0.016
-        p.vy = p.vy * 0.964 + (Math.random() - 0.5) * 0.016
+        // Friction + random drift — higher drift = organic wandering
+        p.vx = p.vx * 0.972 + (Math.random() - 0.5) * 0.042
+        p.vy = p.vy * 0.972 + (Math.random() - 0.5) * 0.042
 
         const spd = Math.hypot(p.vx, p.vy)
         if (spd > MAX_SPD) {

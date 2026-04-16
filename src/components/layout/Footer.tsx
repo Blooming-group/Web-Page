@@ -16,9 +16,9 @@ const companyLinks = [
 ]
 
 const serviceLinks = [
-  { label: 'Web Design & Development', href: '/services#web' },
+  { label: 'Web Design & Dev', href: '/services#web' },
   { label: 'Process Automation', href: '/services#process-automation' },
-  { label: 'Communications Automation', href: '/services#communications-automation' },
+  { label: 'Comms Automation', href: '/services#communications-automation' },
   { label: 'AI Chatbots', href: '/services#ai-chatbots' },
   { label: 'AI Agents', href: '/services#ai-agents' },
 ]
@@ -35,14 +35,18 @@ export function Footer() {
       <ParticleField mode="background" variant="footer" />
 
       <Container className="relative z-10">
-        {/* ── Hero row: display wordmark + animated logo ── */}
-        <div className="flex flex-col gap-10 pt-20 pb-14 md:flex-row md:items-start md:justify-between">
-          {/* Left: large wordmark + tagline + social */}
+        {/*
+         * ── Main row ─────────────────────────────────────
+         * Desktop: [Brand (1fr)] [Nav links (auto)] [Logo (auto)]
+         * All columns start at the same top edge (items-start = nivelados)
+         */}
+        <div className="grid grid-cols-1 items-start gap-y-12 pt-20 pb-16 md:grid-cols-[1fr_auto_auto] md:gap-x-12">
+          {/* ── Brand ── */}
           <div>
             <h2
-              className="mb-5 leading-none font-light tracking-[-0.03em]"
+              className="mb-4 leading-none font-light tracking-[-0.02em]"
               style={{
-                fontSize: 'clamp(3.2rem, 8vw, 7rem)',
+                fontSize: 'clamp(2rem, 3vw, 3.2rem)',
                 color: 'var(--color-ivory)',
               }}
             >
@@ -51,14 +55,14 @@ export function Footer() {
             <p className="mb-1 text-sm leading-relaxed" style={{ color: 'var(--color-mid)' }}>
               Strategic thinking. Real technology.
             </p>
-            <p className="mb-8 text-sm leading-relaxed" style={{ color: 'var(--color-mid)' }}>
+            <p className="mb-6 text-sm leading-relaxed" style={{ color: 'var(--color-mid)' }}>
               European mid-market.
             </p>
             <a
               href="https://linkedin.com/company/blooming-group"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors duration-200 hover:opacity-80"
+              className="transition-opacity duration-200 hover:opacity-80"
               style={{ color: 'var(--color-mid)' }}
               aria-label="Blooming Group on LinkedIn"
             >
@@ -76,79 +80,77 @@ export function Footer() {
             </a>
           </div>
 
-          {/* Right: animated logomark */}
-          <div className="flex-shrink-0 self-start md:self-center">
-            <BloomingMarkAnimated size={220} />
-          </div>
-        </div>
+          {/* ── Nav links — compact 3-col block ── */}
+          <div className="flex gap-8 md:gap-10">
+            {/* Company */}
+            <div>
+              <p
+                className="mb-3 text-xs font-medium tracking-[0.12em] uppercase"
+                style={{ color: 'var(--color-mid)' }}
+              >
+                Company
+              </p>
+              <ul className="space-y-2" role="list">
+                {companyLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-mid hover:text-ivory text-sm tracking-wide transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-        <Separator />
+            {/* Capabilities */}
+            <div>
+              <p
+                className="mb-3 text-xs font-medium tracking-[0.12em] uppercase"
+                style={{ color: 'var(--color-mid)' }}
+              >
+                Capabilities
+              </p>
+              <ul className="space-y-2" role="list">
+                {serviceLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-mid hover:text-ivory text-sm tracking-wide transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-        {/* ── Navigation links ────────────────────────────── */}
-        <div className="grid grid-cols-1 gap-10 py-14 md:grid-cols-3">
-          {/* Company */}
-          <div>
-            <p
-              className="mb-5 text-xs font-medium tracking-[0.12em] uppercase"
-              style={{ color: 'var(--color-mid)' }}
-            >
-              Company
-            </p>
-            <ul className="space-y-3" role="list">
-              {companyLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-mid hover:text-ivory text-sm tracking-wide transition-colors duration-200"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {/* Get started */}
+            <div>
+              <p
+                className="mb-3 text-xs font-medium tracking-[0.12em] uppercase"
+                style={{ color: 'var(--color-mid)' }}
+              >
+                Get started
+              </p>
+              <p className="mb-4 text-sm leading-relaxed" style={{ color: 'var(--color-mid)' }}>
+                Free 45-min diagnostic.
+                <br />
+                No pitch.
+              </p>
+              <Link
+                href="/contact"
+                className="inline-flex items-center text-sm font-medium tracking-wide transition-colors duration-200"
+                style={{ color: 'var(--color-accent-primary)' }}
+              >
+                Book a session →
+              </Link>
+            </div>
           </div>
 
-          {/* Capabilities */}
-          <div>
-            <p
-              className="mb-5 text-xs font-medium tracking-[0.12em] uppercase"
-              style={{ color: 'var(--color-mid)' }}
-            >
-              Capabilities
-            </p>
-            <ul className="space-y-3" role="list">
-              {serviceLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-mid hover:text-ivory text-sm tracking-wide transition-colors duration-200"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Get started */}
-          <div>
-            <p
-              className="mb-5 text-xs font-medium tracking-[0.12em] uppercase"
-              style={{ color: 'var(--color-mid)' }}
-            >
-              Get started
-            </p>
-            <p className="mb-5 text-sm leading-relaxed" style={{ color: 'var(--color-mid)' }}>
-              The diagnostic session is free. 45 minutes. No pitch.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center text-sm font-medium tracking-wide transition-colors duration-200"
-              style={{ color: 'var(--color-accent-primary)' }}
-            >
-              Book a session →
-            </Link>
-          </div>
+          {/* ── Logo — top-aligned with BLOOMING (items-start on grid) ── */}
+          <BloomingMarkAnimated size={220} />
         </div>
 
         <Separator />
