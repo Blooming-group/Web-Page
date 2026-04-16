@@ -138,7 +138,7 @@ function makeParticle(
   const roll = Math.random()
   const type: ParticleType =
     variant === 'footer'
-      ? roll < 0.03 // 3% logos — much cleaner
+      ? roll < 0.01 // 1% logos — minimal
         ? 'logo'
         : roll < 0.45
           ? 'dot'
@@ -247,7 +247,7 @@ export function ParticleField({
   const initParticles = useCallback(
     (w: number, h: number) => {
       const mobile = w < 768
-      const count = mobile ? 36 : 82
+      const count = variant === 'footer' ? (mobile ? 28 : 55) : mobile ? 36 : 82
       particlesRef.current = Array.from({ length: count }, () =>
         makeParticle(w, h, mobile, variant)
       )
