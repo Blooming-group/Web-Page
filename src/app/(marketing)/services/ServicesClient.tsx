@@ -13,44 +13,47 @@ import { H1, H2, Body, Caption } from '@/components/ui/Typography'
 const services = [
   {
     icon: Globe,
-    name: 'Web Design & Development',
-    tagline: 'Your digital presence, engineered.',
-    body: 'We build websites and digital products that convert. Not templates, not themes — precision-engineered systems built on modern stacks that perform at the top of every Lighthouse category. Your website is not a brochure. It is infrastructure.',
-    notThis: 'Not a creative agency deliverable. Not a WordPress site with a premium theme.',
+    name: 'Web Development',
+    tagline: 'Your digital presence is not a brochure. It is infrastructure.',
+    body: 'We build websites and digital products engineered for performance, conversion, and brand gravity. Modern stack. Top-tier Lighthouse scores across every category. Every element built to do measurable work — not to look good in a portfolio. For companies that need their digital presence to perform at the level of their ambition.',
+    notThis:
+      'Not a creative agency deliverable. Not a WordPress site with a premium theme. Not design without engineering behind it.',
     id: 'web',
   },
   {
     icon: Workflow,
     name: 'Process Automation',
-    tagline: 'Eliminate the drag your team has stopped noticing.',
-    body: 'Every organisation accumulates operational friction over time. Manual processes, redundant approvals, data that lives in email threads. We map your actual workflows, identify the high-cost bottlenecks, and automate them permanently — typically delivering the investment back within 90 days.',
+    tagline: 'The bottlenecks your team stopped noticing are the ones costing you the most.',
+    body: 'Every organisation accumulates operational friction as it grows. Manual processes that made sense at €3M in revenue become expensive at €30M. Approval chains that should take minutes take days. Data that should flow between systems lives in email threads. We map your real workflows — not the ones on the org chart — identify the high-cost bottlenecks, and automate them permanently. Typical payback: under 90 days.',
     notThis:
-      'Not Zapier automations. Not surface-level integrations that break on the first edge case.',
+      'Not a chain of Zapier automations. Not surface-level integrations that break on the first edge case. Systems built to hold under operational pressure.',
     id: 'process-automation',
   },
   {
     icon: MessageSquare,
     name: 'Communications Automation',
-    tagline: 'Email, WhatsApp, Instagram — as a coherent system.',
-    body: 'Your customer communication channels should work as a unified intelligence layer, not independent tools. We architect and deploy automated communication systems across email, WhatsApp, and Instagram that feel personal, respond in real time, and scale without adding headcount.',
-    notThis: 'Not bulk email blasts. Not a social media scheduling tool.',
+    tagline: 'Every channel. One intelligence layer.',
+    body: 'Your customer communication channels — email, WhatsApp, Instagram, web — should operate as one unified system, not as independent tools managed by separate people. We architect and deploy automated communication systems that feel personal, respond in real time, and scale without adding headcount. The customer never sees automation. They see attention.',
+    notThis:
+      'Not bulk email blasts. Not a social media scheduling tool. Not campaigns — architecture.',
     id: 'communications-automation',
   },
   {
     icon: Bot,
     name: 'AI Chatbots',
-    tagline: 'Conversational interfaces trained on your business.',
-    body: 'We deploy AI chatbots that actually know your products, your processes, and your brand voice. Trained on your documentation, connected to your systems, and tuned to handle the conversations your team currently handles manually. Every interaction reflects your intelligence.',
-    notThis: 'Not a generic ChatGPT wrapper. Not a FAQ bot that routes every question to a human.',
+    tagline: 'The first point of contact that actually knows your business.',
+    body: 'We deploy chatbots trained on your documentation, connected to your systems, and tuned to your voice. They handle the questions your team handles manually — with your knowledge, your judgment, and your standards. Every interaction reflects what your company actually knows, not a generic script that routes every real question to a human.',
+    notThis:
+      'Not a ChatGPT wrapper with your logo on it. Not an FAQ bot. An interface that performs like someone who has worked at your company for years.',
     id: 'ai-chatbots',
   },
   {
     icon: Cpu,
     name: 'AI Agents',
-    tagline: 'Autonomous systems for your most expensive bottlenecks.',
-    body: 'For the cognitive work that is too complex for simple automation but too repetitive for your senior team, we build AI agents — autonomous systems that reason, decide, and act within defined boundaries. Research, qualification, classification, drafting — handled without supervision.',
+    tagline: "For the cognitive work your best people shouldn't be doing manually.",
+    body: 'Some work is too complex for simple automation but too repetitive for the people currently doing it. Research, pre-qualification, classification, drafting, data reconciliation — cognitive tasks that consume senior capacity without producing senior-level value. We build autonomous systems that reason, decide, and act within defined boundaries. Production-grade from day one.',
     notThis:
-      'Not an experiment. Not a pilot that lives in a sandbox. A production system with measurable output.',
+      'Not a pilot that lives in a sandbox. Not a demo. A production system with measurable output.',
     id: 'ai-agents',
   },
 ]
@@ -160,7 +163,7 @@ function ServiceRow({ service, index }: { service: (typeof services)[number]; in
                 className="inline-flex items-center gap-2 text-sm tracking-wide transition-colors duration-200"
                 style={{ color: 'var(--color-accent-primary)' }}
               >
-                Discuss this service
+                Discuss this capability
                 <ArrowRight size={14} aria-hidden="true" />
               </Link>
             </motion.div>
@@ -178,24 +181,25 @@ export function ServicesClient() {
       <section className="py-24" aria-labelledby="services-page-heading">
         <Container>
           <FadeIn delay={0.05}>
-            <Badge className="mb-8">What we build</Badge>
+            <Badge className="mb-8">Capabilities</Badge>
           </FadeIn>
           <FadeIn delay={0.15}>
             <H1 id="services-page-heading" className="mb-6 max-w-2xl">
-              Five capabilities. Infinite combinations.
+              Five capabilities. One principle: diagnosis first.
             </H1>
           </FadeIn>
           <FadeIn delay={0.25}>
             <Body className="max-w-xl">
-              Each service is the tangible proof that Blooming executes — not just advises. Every
-              engagement begins with diagnosis. We never recommend a service before we understand
-              your problem.
+              We never recommend a capability before understanding the problem. Every service below
+              exists because a specific type of operational challenge required it. The right
+              combination for your company depends on what the diagnostic reveals — not on what we
+              have available.
             </Body>
           </FadeIn>
 
           {/* Quick-nav pills */}
           <FadeIn delay={0.4}>
-            <nav aria-label="Jump to service" className="mt-10 flex flex-wrap gap-3">
+            <nav aria-label="Jump to capability" className="mt-10 flex flex-wrap gap-3">
               {services.map((s) => (
                 <a
                   key={s.id}
@@ -214,7 +218,7 @@ export function ServicesClient() {
       <Separator />
 
       {/* Services */}
-      <section aria-label="Service details">
+      <section aria-label="Capability details">
         {services.map((service, i) => (
           <div key={service.name}>
             <ServiceRow service={service} index={i} />
@@ -222,6 +226,32 @@ export function ServicesClient() {
           </div>
         ))}
       </section>
+
+      <Separator />
+
+      {/* Integration Note */}
+      <section className="py-20" aria-labelledby="integration-heading">
+        <Container size="narrow">
+          <FadeIn>
+            <div
+              className="mb-4 h-px w-8"
+              style={{ background: 'var(--color-accent-primary)' }}
+              aria-hidden="true"
+            />
+            <H2 id="integration-heading" className="mb-6">
+              These capabilities don&apos;t exist in isolation.
+            </H2>
+            <Body>
+              Most engagements combine two or three capabilities. The real problem is rarely just a
+              technology issue or just a process issue — it&apos;s the interaction between them. The
+              diagnostic determines the right combination. That&apos;s why we never recommend a
+              service before we understand what&apos;s actually going on.
+            </Body>
+          </FadeIn>
+        </Container>
+      </section>
+
+      <Separator />
 
       {/* CTA */}
       <section className="py-24" aria-labelledby="services-cta">
@@ -234,11 +264,12 @@ export function ServicesClient() {
               }}
             >
               <H2 id="services-cta" className="mb-4 max-w-xl">
-                Not sure which service applies to your situation?
+                Not sure which of these applies to your situation?
               </H2>
               <Body className="mb-10 max-w-lg">
-                That is exactly what the diagnostic session is for. We ask the right questions
-                before recommending anything.
+                That&apos;s exactly what the diagnostic session resolves. 45 minutes of questions —
+                ours, not yours. You leave knowing what the real problem is and what kind of
+                intervention it requires.
               </Body>
               <Button size="lg" asChild>
                 <Link href="/contact">

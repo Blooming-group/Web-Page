@@ -23,18 +23,20 @@ export const metadata: Metadata = {
 const whatToExpect = [
   {
     step: '01',
-    title: '45 minutes',
-    description: 'A focused conversation about your operation. We come prepared.',
+    title: 'We respond within 24 hours',
+    description:
+      'With available times for your diagnostic session. Not an automated reply — a real response from a real person.',
   },
   {
     step: '02',
-    title: 'No pitch',
-    description: 'We will not sell you anything in this session. We will ask questions.',
+    title: '45-minute session',
+    description: 'We ask questions about your operation. No preparation needed. We come prepared.',
   },
   {
     step: '03',
     title: 'Honest assessment',
-    description: 'We tell you what we see — including if we are not the right fit.',
+    description:
+      'We tell you what we see — including whether we are the right firm for the problem.',
   },
 ]
 
@@ -56,11 +58,11 @@ export default function ContactPage() {
                 className="mb-6 text-xl font-light"
                 style={{ color: 'var(--color-accent-secondary)' }}
               >
-                A diagnostic session.
+                A diagnostic request.
               </p>
               <Body className="max-w-lg">
-                Tell us about your situation. We will review it and respond within 24 hours to
-                confirm a time for your session.
+                Describe your situation in a few sentences. We review every message personally and
+                respond within 24 hours to confirm your session.
               </Body>
             </div>
 
@@ -85,7 +87,7 @@ export default function ContactPage() {
 
             {/* What to expect */}
             <div>
-              <H2 className="mb-12">What to expect.</H2>
+              <H2 className="mb-12">What happens next.</H2>
               <div className="space-y-10">
                 {whatToExpect.map((item) => (
                   <div key={item.step} className="flex gap-6">

@@ -36,7 +36,7 @@ export function CTA() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              <H2 id="cta-heading">Ready to be clear about what&apos;s next?</H2>
+              <H2 id="cta-heading">You already know something needs to change.</H2>
             </motion.div>
 
             <motion.div
@@ -45,8 +45,9 @@ export function CTA() {
               transition={{ duration: 0.6, delay: 0.15 }}
             >
               <Body className="mt-4 mb-10">
-                Not a sales call. A diagnostic session. We identify what is holding your growth back
-                — and whether Blooming is the right firm to fix it.
+                The question is what — and whether the next firm you bring in will be honest about
+                it. The diagnostic session exists to answer both. 45 minutes. No pitch. No
+                obligation.
               </Body>
             </motion.div>
 
@@ -57,7 +58,7 @@ export function CTA() {
             >
               <Button size="lg" asChild>
                 <Link href="/contact">
-                  Start the conversation
+                  Tell us what you&apos;re facing
                   <ArrowRight size={16} aria-hidden="true" />
                 </Link>
               </Button>

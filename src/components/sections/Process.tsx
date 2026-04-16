@@ -12,25 +12,25 @@ const steps = [
     number: '01',
     title: 'Diagnose',
     description:
-      'We map your operational reality before touching a single tool. No assumptions. No templates.',
+      'We map your operational reality before touching a tool. No templates. No assumptions. The questions are specific — some will be uncomfortable, because the real problem rarely lives where it\u2019s comfortable to look.',
   },
   {
     number: '02',
-    title: 'Design',
+    title: 'Architect',
     description:
-      'Architecture before implementation. Every decision is defensible against a Fortune 500 CTO.',
+      'Every decision documented, defensible, and traceable to a business outcome. You see the blueprint before we write a line of code. Nothing proceeds on faith.',
   },
   {
     number: '03',
-    title: 'Execute',
+    title: 'Build',
     description:
-      'We build. In weeks, not quarters. Delivery is not a milestone — it is the starting point.',
+      'We ship in weeks, not quarters. Delivery is the starting point, not the milestone. If it doesn\u2019t work in production, it doesn\u2019t count.',
   },
   {
     number: '04',
     title: 'Measure',
     description:
-      'Results that appear on a P&L, not a slide. We define success metrics before we write a line of code.',
+      'Success metrics defined before the engagement starts — not after. Results that show up on a P&L, not a slide. If we can\u2019t measure it, we don\u2019t claim it.',
   },
 ]
 
@@ -73,7 +73,7 @@ export function Process() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <H2 id="process-heading">Four steps. Measurable outcome.</H2>
+            <H2 id="process-heading">Four phases. One rule: nothing ships without a diagnosis.</H2>
           </motion.div>
         </div>
 

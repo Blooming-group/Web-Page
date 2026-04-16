@@ -5,9 +5,9 @@ import { useRef } from 'react'
 import { Container } from '@/components/ui/Container'
 
 const statements = [
-  'Strategy consultants produce frameworks.',
-  'Agencies produce output.',
-  'Neither produces results.',
+  'Strategy consultancies produce thinking. Then hand you a deck and walk away.',
+  'Technology vendors produce output. Without asking whether it\u2019s the right output.',
+  'The cost of that gap lands on your team.',
 ]
 
 export function Problem() {
@@ -34,7 +34,7 @@ export function Problem() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            Most firms either think or build.
+            Two industries. Neither designed for your problem.
           </motion.p>
 
           {/* Statements */}
@@ -63,9 +63,9 @@ export function Problem() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
           >
-            Blooming occupies the position{' '}
+            Blooming exists in the space between{' '}
             <span style={{ color: 'var(--color-accent-secondary)' }}>
-              no competitor currently holds.
+              where diagnosis, strategy, and execution happen together.
             </span>
           </motion.p>
         </div>

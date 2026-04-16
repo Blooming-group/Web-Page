@@ -54,10 +54,6 @@ Estándar: cada decisión defendible ante un CTO Fortune 500. Cada línea de có
 
 ## TIPOGRAFÍA
 
-Grotesca geométrica. Sin serif, sin script, sin orgánico.
-
-**Fuentes (orden de preferencia):** Söhne → ABC Diatype → Neue Haas Grotesk → Geist (fallback gratuito vía `next/font`).
-
 ```
 Display:  72–96px  / 600–700 / -0.03em
 H1:       48–64px  / 600     / -0.02em
@@ -74,7 +70,6 @@ Caption:  13–14px  / 400     / color: var(--color-mid)
 1. **Implementación técnica** (cash-generating): web, automatizaciones, chatbots IA, AI agents operativos. Son la prueba de que Blooming ejecuta.
 2. **Consultoría estratégica + AI** (posicionamiento élite): sistema de inteligencia corporativa. _(Técnicamente RAG — NUNCA decir "RAG" al cliente.)_
 3. **Visión estratégica** (futuro próximo): sistemas predictivos IA.
-4. **Visión de impacto** (vehículo separado): gafas accesibilidad para sordos/mudos. NO mezclar en web.
 
 ---
 
@@ -164,19 +159,6 @@ chore/*     → config, deps
 
 NUNCA commit directo a `main`. Todo por PR. Squash-merge. Conventional Commits: `feat:`, `fix:`, `chore:`, `refactor:`, `docs:`.
 
----
-
-## PÁGINAS V1
-
-```
-/            Home: hero → problema → servicios → proceso → social proof → about → CTA → footer
-/servicios   catálogo completo
-/nosotros    identidad y posicionamiento (no biografía)
-/contacto    formulario + booking
-```
-
----
-
 ## FASES DE DESARROLLO
 
 **Phase 0 — Fundación:** Next.js 15 + TS strict + Tailwind v4, ESLint/Prettier/Husky, Vercel + GitHub, dominio (preservar MX Google Workspace), branch develop, design tokens, deps.
@@ -217,15 +199,5 @@ Fundador es no-técnico con visión y criterio estético excepcional.
 - Explicar el "por qué" en lenguaje llano
 - Señalar cuándo necesita su input vs. proceder autónomamente
 - Updates: `✅ Completado` · `🔄 En progreso` · `⏭ Siguiente paso`
-
----
-
-## IDENTIDAD VISUAL — FASE ACTUAL
-
-**Fase 1 (Año 0–12 meses):** sistema máximamente restringido. Un logomark, una familia tipográfica, negro + verde + marfil. Cero gradientes, cero ilustración, cero decorativo. La restricción es la decisión.
-
-**Regla de escalabilidad:** cada elemento debe poder eliminarse sin que el sistema colapse.
-
----
 
 _STRATUM — Blooming Group · Dense Intelligence · blooming-group.eu_

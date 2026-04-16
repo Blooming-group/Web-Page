@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 
-const headline = ['Strategic thinking.', 'Real technology.']
+const headline = ['Most companies know they have a problem.', 'Very few know which one.']
 
 const wordVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -98,9 +98,10 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.65 }}
           >
-            The European mid-market firm that bridges strategy and execution.{' '}
-            <span style={{ color: 'var(--color-mid)' }}>No decks. No delays.</span> Measurable
-            outcomes.
+            We find the real problem first. Then we build the solution — in weeks, not quarters.{' '}
+            <span style={{ color: 'var(--color-mid)' }}>
+              Strategy and technology, same team, no handoffs.
+            </span>
           </motion.p>
 
           {/* CTAs */}
@@ -112,7 +113,7 @@ export function Hero() {
           >
             <Button size="lg" asChild>
               <Link href="/contact">
-                Start the conversation
+                Start with a diagnosis
                 <ArrowRight size={16} aria-hidden="true" />
               </Link>
             </Button>
@@ -123,7 +124,7 @@ export function Hero() {
               onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-ivory)')}
               onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-mid)')}
             >
-              View our services →
+              See what we build →
             </Link>
           </motion.div>
         </div>

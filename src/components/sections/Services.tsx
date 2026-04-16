@@ -11,33 +11,33 @@ import { H2, Body, Caption } from '@/components/ui/Typography'
 const services = [
   {
     icon: Globe,
-    name: 'Web Design & Development',
+    name: 'Web Development',
     description:
-      'Precision-engineered digital presence. Built for performance, conversion, and brand gravity.',
+      'Not a brochure — infrastructure. Engineered for performance, conversion, and the kind of credibility that lets a growing company compete above its weight class.',
   },
   {
     icon: Workflow,
     name: 'Process Automation',
     description:
-      'Eliminate operational drag. We identify the bottlenecks others miss and automate them permanently.',
+      'Every company has three or four processes consuming 40% of someone\u2019s time that shouldn\u2019t exist. We find them, eliminate them, and your team does the work that actually matters.',
   },
   {
     icon: MessageSquare,
     name: 'Communications Automation',
     description:
-      'Email, WhatsApp, Instagram — orchestrated as a coherent system. Not campaigns. Architecture.',
+      'Email, WhatsApp, Instagram — orchestrated as one system. Not campaigns. Not blasts. A coherent layer that responds to each customer as if someone is paying attention. Because something is.',
   },
   {
     icon: Bot,
     name: 'AI Chatbots',
     description:
-      'Conversational interfaces trained on your business. Every interaction reflects your intelligence.',
+      'Trained on your business, connected to your systems, built with your tone. The first touchpoint that actually knows your company — instead of routing every real question to a human.',
   },
   {
     icon: Cpu,
     name: 'AI Agents',
     description:
-      "Autonomous systems that handle the cognitive work your team shouldn't be doing manually.",
+      'For the cognitive work too complex for simple rules but too repetitive for your best people. Research, qualification, classification — handled without supervision. Production-grade, not experimental.',
   },
 ]
 
@@ -77,7 +77,7 @@ export function Services() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <H2 id="services-heading">Implementation is the proof.</H2>
+              <H2 id="services-heading">The proof is in what ships.</H2>
             </motion.div>
 
             <motion.div
@@ -86,8 +86,9 @@ export function Services() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <Body className="mt-4">
-                These are not commodities. They are the tangible evidence that Blooming executes —
-                not just advises.
+                Every capability below exists because a specific type of problem required it. We
+                don&apos;t sell services — we deploy the right combination after we understand
+                what&apos;s actually wrong.
               </Body>
             </motion.div>
           </div>
@@ -104,7 +105,7 @@ export function Services() {
               className="inline-flex items-center gap-2 text-sm tracking-wide transition-colors duration-200"
               style={{ color: 'var(--color-accent-primary)' }}
             >
-              Explore all services
+              All capabilities
               <ArrowRight size={14} aria-hidden="true" />
             </Link>
           </motion.div>

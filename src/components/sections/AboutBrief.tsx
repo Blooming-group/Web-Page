@@ -45,10 +45,10 @@ export function AboutBrief() {
             transition={{ duration: 0.6, delay: 0.15 }}
           >
             <Body>
-              Blooming is not a creative agency. Not a generic consultancy. Not a wrapper around a
-              large language model. It is the firm that combines real strategic thinking with real
-              implementation capability — accessible for European mid-market companies that can no
-              longer afford to wait for results measured in quarters.
+              Blooming is not a creative agency. Not a consulting firm that delivers decks. Not a
+              wrapper around a language model. It is the firm that diagnoses before it prescribes,
+              builds what it recommends, and puts the same senior team on your problem from the
+              first conversation to the last deployment.
             </Body>
           </motion.div>
 
@@ -62,7 +62,7 @@ export function AboutBrief() {
               className="inline-flex items-center gap-2 text-sm tracking-wide transition-colors duration-200"
               style={{ color: 'var(--color-accent-primary)' }}
             >
-              The full picture
+              Who we are
               <ArrowRight size={14} aria-hidden="true" />
             </Link>
           </motion.div>

@@ -10,24 +10,24 @@ import { H1, H2, H3, Body } from '@/components/ui/Typography'
 export const metadata: Metadata = {
   title: 'The Diagnostic',
   description:
-    'A free 45-minute structured session to identify the real operational problem — not the presented one. No pitch. No slides. Just questions and a clear diagnosis.',
+    'The 45-minute session that replaces the sales call. We find the real problem — not the presented one — and tell you honestly whether we can help.',
 }
 
 const phases = [
   {
     time: '0 – 20 min',
     title: 'We ask questions.',
-    body: 'About your operation, your team structure, your current metrics, your biggest friction points, and where your time is actually going. We are not qualifying you as a client. We are building an operational picture. The questions will be specific — and some will be uncomfortable, because the discomfort is where the real problem lives.',
+    body: "About your operation, your team structure, your metrics, your friction points, and where time is actually going. The questions are specific. Some will be uncomfortable — because the real problem rarely lives where it's comfortable to look.",
   },
   {
     time: '20 – 35 min',
-    title: 'We reflect back what we heard.',
-    body: 'We summarise our read of your situation and test whether we understood it correctly. This is not a mirror exercise — we will often frame what we heard differently than you framed it. That reframing is itself the first value delivery of the session.',
+    title: 'We reflect what we heard.',
+    body: 'We summarise our read of your situation — often framing it differently than you framed it. That reframing is not a technique. It is value: seeing the same facts from a different angle changes which decisions look obvious.',
   },
   {
     time: '35 – 45 min',
     title: 'We tell you what we see.',
-    body: "Our honest read. Where the real problem is. What kind of intervention it requires. Whether that intervention is something Blooming is positioned to deliver. If it isn't, we say that — and where possible, point you toward the right category of solution.",
+    body: "Our honest assessment. Where the real problem is. What kind of intervention it requires. Whether Blooming is the right firm for it. If we're not, we say that — and describe the type of provider you should be looking for.",
   },
 ]
 
@@ -36,46 +36,46 @@ const outcomes = [
     number: '01',
     label: 'Clear match',
     description:
-      'The problem and the required intervention are aligned with what Blooming does. We produce a scoped proposal within 5 business days.',
+      'The problem and the required intervention align with what Blooming does. We deliver a scoped proposal within 5 business days — defined outcomes, timeline, and cost.',
   },
   {
     number: '02',
     label: 'Wrong provider',
     description:
-      "The problem exists but it requires a different type of firm. We'll say that honestly and point you toward the right category of solution.",
+      'The problem is real but it requires a different kind of firm. We tell you that directly and describe the category of provider that fits.',
   },
   {
     number: '03',
     label: 'Wrong problem',
     description:
-      'The presented problem is not the real problem. We will tell you what we think it actually is. This is the most valuable outcome of the session — and it is free.',
+      'What you presented is not the real problem. We tell you what we think it actually is. This is often the most valuable outcome of the session — and it costs nothing.',
   },
 ]
 
 const faqs = [
   {
-    q: 'Who should attend?',
-    a: 'The person who makes decisions — not the person who coordinates them. If there is a CEO, COO, or founder, that is the right person. Coordinators and assistants can observe, but the session requires someone with operational authority.',
+    q: 'Who should be on the call?',
+    a: "The person closest to the problem — whether that's the CEO, a department head, or an operations lead. The session works best with someone who has both operational context and the authority to act on what we find. If that's two people, both are welcome.",
   },
   {
-    q: 'Is there any obligation after the session?',
-    a: 'None. The diagnostic is not a discovery call with a pre-written proposal attached. If the engagement is not a match, both parties walk away with more clarity than they arrived with.',
+    q: 'Is there any obligation?',
+    a: "None. The diagnostic is not a discovery call with a proposal already written. If the engagement isn't a match, both sides leave with more clarity than they arrived with.",
   },
   {
     q: 'Why is it free?',
-    a: "We don't charge for the diagnostic because we don't yet know if we can help you. A fee would create an obligation to produce something — and that obligation would compromise the honesty of the session.",
+    a: "Because we don't know yet if we can help. Charging for the diagnostic would create pressure to produce a recommendation — and that pressure would compromise the honesty of the session. We'd rather tell you we're not the right firm than sell you something we can't deliver.",
   },
   {
-    q: 'What is the format?',
-    a: 'Video call. We share no slides. You need no preparation. The session is structured by us — you simply answer the questions as fully as you can.',
+    q: "What's the format?",
+    a: 'Video call. No slides. No preparation required on your end. We lead the conversation — you answer the questions as directly as you can.',
   },
   {
     q: 'How quickly can we schedule?',
-    a: 'We confirm a session within 48 hours of your request. Simply send a message through the contact form and we will respond with available slots.',
+    a: 'We confirm sessions within 48 hours of your request. Send a message through the contact form and we respond with available times.',
   },
   {
     q: 'What if the problem is sensitive?',
-    a: 'All diagnostic sessions are treated as confidential. We do not share information from a diagnostic session with any third party. If a proposal follows, the scope reflects only what is relevant to the engagement.',
+    a: "Every diagnostic session is confidential. We share nothing from the conversation with any third party. If a proposal follows, it reflects only what's relevant to the engagement.",
   },
 ]
 
@@ -87,12 +87,12 @@ export default function DiagnosticPage() {
         <Container>
           <Badge className="mb-8">The Diagnostic</Badge>
           <H1 id="diagnostic-heading" className="mb-6 max-w-2xl">
-            45 minutes. No agenda. Just questions.
+            The session that replaces the sales call.
           </H1>
           <Body className="mb-12 max-w-xl">
-            The diagnostic session is not a sales call. It is a structured session designed to get
-            from the presented problem to the real one. We ask the questions. You leave with a clear
-            diagnosis — regardless of whether we work together.
+            45 minutes. No pitch. No slides. We ask questions about your operation, your team, and
+            your constraints — and we tell you exactly what we see. You leave with a clear
+            diagnosis, regardless of whether we end up working together.
           </Body>
           <Button size="lg" asChild>
             <Link href="/contact">
@@ -100,6 +100,24 @@ export default function DiagnosticPage() {
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </Button>
+        </Container>
+      </section>
+
+      <Separator />
+
+      {/* Why It Exists */}
+      <section className="py-20" aria-labelledby="why-heading">
+        <Container size="narrow">
+          <H2 id="why-heading" className="mb-6">
+            Why we start here.
+          </H2>
+          <Body>
+            Most consulting engagements begin with a proposal. The problem: proposals are written
+            before the firm understands the problem. The result is a scope that addresses what was
+            presented, not what&apos;s real. The diagnostic exists to find the real problem first.
+            It&apos;s the most honest 45 minutes you&apos;ll spend with any firm — because we have
+            no interest in softening what we find.
+          </Body>
         </Container>
       </section>
 
@@ -143,8 +161,8 @@ export default function DiagnosticPage() {
                 Every session ends with one of three outcomes.
               </H2>
               <Body>
-                There is no fourth outcome. We do not leave sessions ambiguous. One of these three
-                things is true — and we will tell you which one before the call ends.
+                There is no fourth option. We don&apos;t leave sessions open-ended. One of these
+                three is true — and we tell you which one before the call ends.
               </Body>
             </div>
             <div className="space-y-8">
@@ -208,11 +226,11 @@ export default function DiagnosticPage() {
             }}
           >
             <H2 id="diagnostic-cta" className="mb-4 max-w-xl">
-              The session costs nothing. The clarity is permanent.
+              The session costs nothing. The clarity stays.
             </H2>
             <Body className="mb-10 max-w-lg">
-              Request a session and we will confirm your slot within 48 hours. Come with the real
-              problem — or let us find it.
+              Send a brief description of your situation. We respond within 24 hours to confirm a
+              time. Come with the real problem — or let us find it.
             </Body>
             <Button size="lg" asChild>
               <Link href="/contact">

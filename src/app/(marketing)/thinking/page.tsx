@@ -60,11 +60,12 @@ export default async function ThinkingPage() {
         <Container>
           <Badge className="mb-8">Thinking</Badge>
           <H1 id="thinking-heading" className="mb-6 max-w-2xl">
-            Uncommon clarity on common problems.
+            We write when the market is wrong about something.
           </H1>
           <Body className="max-w-xl">
-            On strategy, technology, operations, and the European mid-market. We write when there is
-            something worth saying.
+            On strategy, technology, operations, and the companies navigating all three at the same
+            time. Each piece takes a position. If no one could disagree with it, we don&apos;t
+            publish it.
           </Body>
         </Container>
       </section>
@@ -82,13 +83,12 @@ export default async function ThinkingPage() {
                   style={{ background: 'var(--color-accent-primary)' }}
                   aria-hidden="true"
                 />
-                <H2 className="mb-4">The first articles are in draft.</H2>
+                <H2 className="mb-4">First articles in development.</H2>
                 <Body>
-                  We write when we have observed something the market has not yet named, or when
-                  conventional wisdom on a problem is provably wrong. The first pieces cover the gap
-                  between strategic intent and operational reality in the European mid-market; what
-                  &ldquo;AI transformation&rdquo; actually means for a company with 80 employees;
-                  and why most process automation projects fail before they are deployed.
+                  We&apos;re working on pieces that cover the gap between strategic intent and
+                  operational reality, what AI adoption actually looks like for a company with 80
+                  employees, and why most automation projects fail before they&apos;re deployed.
+                  They&apos;ll appear here when they&apos;re ready — not before.
                 </Body>
               </div>
 
@@ -105,8 +105,11 @@ export default async function ThinkingPage() {
               </div>
 
               <div className="border-t border-[--color-border-default] pt-10">
+                <p className="mb-2 text-sm font-medium" style={{ color: 'var(--color-ivory)' }}>
+                  We publish when there&apos;s something worth saying.
+                </p>
                 <Body className="mb-6">
-                  To receive articles when they are published, send a note through the contact form.
+                  No schedule. No filler. When a new piece is ready, we send it once.
                 </Body>
                 <Button asChild variant="outline">
                   <Link href="/contact">

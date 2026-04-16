@@ -12,48 +12,33 @@ import { H1, H2, H3, Body, Caption } from '@/components/ui/Typography'
 import { BloomingMark } from '@/components/ui/BloomingMark'
 
 const notVs = [
-  { not: 'Creative agency', is: 'Strategically driven' },
-  { not: 'Generic consultancy', is: 'Precision-specific' },
-  { not: 'Another AI wrapper', is: 'Real implementation capability' },
-  { not: 'Big 4 satellite', is: 'Built for mid-market speed' },
-  { not: 'Deck factory', is: 'Measurable outcomes in weeks' },
+  { not: 'A creative agency', is: 'A strategically driven firm that builds what it recommends' },
+  { not: 'A generic consultancy', is: 'Specific to the problems the mid-market actually has' },
+  { not: 'Another AI wrapper', is: 'A firm with end-to-end implementation capability' },
+  { not: 'A downsized Big 4', is: 'Built for the speed and economics of growing companies' },
+  { not: 'A deck factory', is: 'A firm that measures success on your P&L, not in slides' },
 ]
 
 const principles = [
   {
-    title: 'Clarity as a weapon',
-    body: 'In a market where complexity is sold as a proxy for value, the firm that delivers clarity wins. We convert operational chaos into decisions with consequences — not frameworks for thinking about decisions.',
+    title: 'Clarity is a competitive weapon',
+    body: 'In a market that sells complexity as a proxy for value, the firm that delivers clarity wins. We convert operational noise into decisions with consequences — not frameworks for thinking about decisions.',
   },
   {
-    title: 'Strategy earns its keep through execution',
-    body: 'The gap between strategic intent and operational reality is where value is destroyed. We exist in that gap. Our diagnostics are not academic exercises — they are prerequisites for systems we then build and deploy.',
+    title: 'Diagnosis before prescription',
+    body: "We don't recommend services before understanding the problem. Every engagement starts with a diagnostic session — and the questions will be uncomfortable, because the real problem rarely lives where it's comfortable to look.",
+  },
+  {
+    title: 'Strategy without execution is entertainment',
+    body: 'The gap between strategic intent and operational reality is where value is destroyed. Our diagnostics lead directly to systems we build and deploy — not to a deck someone else has to interpret and implement.',
   },
   {
     title: 'Dense over verbose',
-    body: 'Every element of our work carries weight. Every recommendation is defensible. Every deliverable has a direct line to a business outcome. We do not produce volume. We produce density.',
+    body: "Every recommendation is defensible. Every deliverable traces a direct line to a business outcome. We don't produce volume to signal effort. We produce density to produce results.",
   },
   {
-    title: 'The right problem before the right solution',
-    body: 'We do not recommend services before we understand the problem. Every engagement begins with a diagnostic session. We ask questions that make clients uncomfortable — because the discomfort is where the real problem lives.',
-  },
-]
-
-const values = [
-  {
-    title: 'Say what you see',
-    body: "We don't adjust findings to protect a relationship. A diagnosis that has been softened is not a diagnosis — it is a reassurance. The value of honesty is destroyed the moment it is conditional.",
-  },
-  {
-    title: 'No engagement without a diagnosed problem',
-    body: 'We do not sell services. We diagnose problems and recommend the right response — which may not involve us. If the diagnostic session reveals Blooming is not the right firm, we say that.',
-  },
-  {
-    title: 'Execution is the unit of measurement',
-    body: 'Clarity is not the output. Change is the output. Clarity is the precondition. An engagement that produces a well-argued strategy and no operational change has delivered nothing.',
-  },
-  {
-    title: 'Mid-market is not a compromise',
-    body: 'We are not here because we were priced out of the top tier. The European mid-market — €5M to €200M — is where leverage is highest, competition for real thinking is lowest, and the opportunity to create lasting operational change is greatest. That is a strategy, not a constraint.',
+    title: 'Say what we see',
+    body: "We don't adjust findings to protect a relationship. When the real problem is a leadership decision rather than a process failure, we say that. A diagnosis that has been softened is no longer a diagnosis — it's reassurance.",
   },
 ]
 
@@ -88,9 +73,6 @@ export function AboutClient() {
   const principlesRef = useRef<HTMLDivElement>(null)
   const principlesInView = useInView(principlesRef, { once: true, margin: '-60px' })
 
-  const valuesRef = useRef<HTMLDivElement>(null)
-  const valuesInView = useInView(valuesRef, { once: true, margin: '-60px' })
-
   return (
     <div className="pt-20">
       {/* Hero */}
@@ -104,15 +86,14 @@ export function AboutClient() {
               </FadeIn>
               <FadeIn delay={0.15}>
                 <H1 id="about-page-heading" className="mb-6 max-w-2xl">
-                  The firm the market needed.
+                  Built for the gap no one was serving.
                 </H1>
               </FadeIn>
               <FadeIn delay={0.25}>
                 <Body className="max-w-xl">
-                  European mid-market companies operate at the intersection of two broken markets:
-                  strategy consultancies that think but don&apos;t build, and technology agencies
-                  that build without thinking. Blooming was built to occupy the space between them —
-                  and make it permanent.
+                  There are firms that think about strategy and firms that build technology. The
+                  space between them — where diagnosis, architecture, and execution need to happen
+                  as one — was empty. Blooming was built to occupy it.
                 </Body>
               </FadeIn>
             </div>
@@ -141,8 +122,8 @@ export function AboutClient() {
                 What Blooming is. And is not.
               </H2>
               <Body>
-                Positioning is not a marketing exercise. It is a decision about who you are willing
-                to lose. Blooming has made that decision clearly.
+                Positioning is a decision about who you&apos;re willing to lose. We made that
+                decision.
               </Body>
             </FadeIn>
 
@@ -195,9 +176,9 @@ export function AboutClient() {
           </FadeIn>
           <div className="space-y-6">
             {[
-              'European mid-market companies — those operating between €5M and €200M in revenue — are systematically underserved by both ends of the professional services market. Strategy consultancies at the top operate at a scale and price point built for global multinationals. Technology agencies at the commodity end build without strategic context. Between them sits a generation of capable, ambitious businesses that have grown past the point where generic service providers are useful, but have not reached the threshold where the major firms pay attention.',
-              'The gap exists because no firm was built to own it. Blooming was.',
-              'We are not a downsized version of a big firm. We are not an upgraded agency. We are the category-defining firm for this tier of the market — one that thinks and builds at the same time, without separation, and measures success in outcomes that appear on a P&L.',
+              "Growing European companies face a structural problem when they need strategic and technological help. The major consultancies were built for global multinationals — their pace, their price point, and their model assume a different type of client. Technology vendors at the other end build fast but without strategic context. Between them sits a generation of ambitious businesses that have outgrown generic providers but can't access the thinking they need.",
+              "That gap isn't an oversight. It's structural. No firm was built to own it — because owning it requires doing two things the industry separated long ago: thinking and building. At the same time. With the same team.",
+              'Blooming was built for exactly that. Not a downsized version of a large firm. Not an upgraded agency. A firm that diagnoses before it prescribes, builds what it recommends, and measures success in outcomes — not in hours billed or pages delivered.',
             ].map((text, i) => (
               <FadeIn key={i} delay={0.1 + i * 0.1}>
                 <Body>{text}</Body>
@@ -219,14 +200,14 @@ export function AboutClient() {
           </FadeIn>
           <FadeIn delay={0.1}>
             <H2 id="dense-intelligence-heading" className="mb-6">
-              The territory we own.
+              The operating principle.
             </H2>
           </FadeIn>
           <div className="space-y-6">
             {[
-              'Dense Intelligence is not a tagline. It is the operating principle behind every decision Blooming makes — for itself and for its clients.',
-              "It means: every element carries weight. Nothing is decorative. Nothing exists without function. The opposite of the consulting industry's instinct to produce volume as a signal of effort.",
-              "Our clients don't need more information. They need the right information, structured in a way that makes the next decision obvious. That is what we deliver.",
+              'Dense Intelligence is not a tagline. It is the decision that governs every engagement, every deliverable, and every conversation at Blooming.',
+              "It means: every element earns its place. Nothing is decorative. Nothing exists for volume. The opposite of the consulting industry's instinct to produce mass as proof of effort — the 200-page report, the six-month timeline, the deck that justifies the fee instead of serving the client.",
+              "Our clients don't need more information. They need the right information, structured so the next decision becomes obvious.",
             ].map((text, i) => (
               <FadeIn key={i} delay={0.1 + i * 0.1}>
                 <Body>{text}</Body>
@@ -248,12 +229,12 @@ export function AboutClient() {
 
       <Separator />
 
-      {/* Principles */}
+      {/* How We Operate */}
       <section className="py-20" aria-labelledby="principles-heading">
         <Container>
           <FadeIn>
             <H2 id="principles-heading" className="mb-16 max-w-sm">
-              How we think.
+              How we operate.
             </H2>
           </FadeIn>
           <div ref={principlesRef} className="grid grid-cols-1 gap-12 md:grid-cols-2">
@@ -263,7 +244,7 @@ export function AboutClient() {
                 className="space-y-3"
                 initial={{ opacity: 0, y: 24 }}
                 animate={principlesInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: i * 0.12 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: i * 0.1 }}
               >
                 <div
                   className="mb-4 h-px w-8"
@@ -273,6 +254,33 @@ export function AboutClient() {
                 <H3>{p.title}</H3>
                 <Body>{p.body}</Body>
               </motion.div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <Separator />
+
+      {/* People */}
+      <section className="py-20" aria-labelledby="people-heading">
+        <Container size="narrow">
+          <FadeIn>
+            <Badge className="mb-8">The team</Badge>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <H2 id="people-heading" className="mb-6">
+              No handoff between who you meet and who does the work.
+            </H2>
+          </FadeIn>
+          <div className="space-y-6">
+            {[
+              'The most common failure in consulting is invisible delegation. A senior partner sells the engagement. A junior team delivers it. The person who understood the problem is not the person solving it.',
+              'At Blooming, the team that runs the diagnostic is the team that architects the solution, builds the system, and measures the outcome. There is no separate strategy team and implementation team. There is one team — senior from the first conversation to the last deployment.',
+              'This is not a staffing preference. It is an operating principle. The quality of the diagnosis depends on the seniority of the person asking the questions. The quality of the execution depends on continuity with the diagnosis. Separating them is how value gets lost.',
+            ].map((text, i) => (
+              <FadeIn key={i} delay={0.1 + i * 0.1}>
+                <Body>{text}</Body>
+              </FadeIn>
             ))}
           </div>
         </Container>
@@ -300,10 +308,10 @@ export function AboutClient() {
                     The ambition
                   </p>
                   <Body>
-                    A European mid-market that competes on operational intelligence — not capital
-                    advantage, not headcount, not positioning inherited from a previous decade.
-                    Every engagement Blooming completes is a data point in the argument that clarity
-                    is a competitive weapon.
+                    A generation of European companies that compete on operational intelligence —
+                    not inherited position, not capital advantage, not headcount. Every engagement
+                    Blooming completes is evidence that clarity, deployed with precision, is the
+                    highest-leverage asset a growing company can acquire.
                   </Body>
                 </div>
               </FadeIn>
@@ -316,9 +324,9 @@ export function AboutClient() {
                     The practical measure
                   </p>
                   <Body>
-                    In ten years, we want to point to a hundred companies that grew faster and built
-                    better because their operations were precise. That is the legacy we are building
-                    toward.
+                    In ten years, we want to point at a hundred companies across Europe that grew
+                    faster, decided better, and built smarter because their operations became
+                    precise. That is the firm we are building.
                   </Body>
                 </div>
               </FadeIn>
@@ -328,37 +336,6 @@ export function AboutClient() {
       </section>
 
       <Separator />
-
-      {/* Values */}
-      <section className="py-20" aria-labelledby="values-heading">
-        <Container>
-          <FadeIn>
-            <H2 id="values-heading" className="mb-16 max-w-sm">
-              What we will not compromise on.
-            </H2>
-          </FadeIn>
-          <div ref={valuesRef} className="grid grid-cols-1 gap-12 md:grid-cols-2">
-            {values.map((v, i) => (
-              <motion.div
-                key={v.title}
-                className="space-y-3"
-                initial={{ opacity: 0, y: 24 }}
-                animate={valuesInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: i * 0.12 }}
-              >
-                <span
-                  className="block text-xs font-medium tracking-[0.15em]"
-                  style={{ color: 'var(--color-accent-secondary)' }}
-                >
-                  0{i + 1}
-                </span>
-                <H3>{v.title}</H3>
-                <Body>{v.body}</Body>
-              </motion.div>
-            ))}
-          </div>
-        </Container>
-      </section>
 
       {/* CTA */}
       <section className="py-24" aria-labelledby="about-cta">
@@ -371,12 +348,12 @@ export function AboutClient() {
               }}
             >
               <H2 id="about-cta" className="mb-4 max-w-xl">
-                If this resonates, we should talk.
+                If this resonates, the diagnostic is the next step.
               </H2>
               <Body className="mb-10 max-w-lg">
-                The diagnostic session is 45 minutes. No pitch. No slides. We ask questions about
-                your operation and tell you exactly what we see — whether or not Blooming is the
-                answer.
+                45 minutes. We ask questions about your operation and tell you what we see —
+                including whether Blooming is the right firm for the problem. No pitch. No slides.
+                No obligation.
               </Body>
               <Button size="lg" asChild>
                 <Link href="/contact">

@@ -9,16 +9,15 @@ import { ParticleField } from '@/components/sections/ParticleField'
 const companyLinks = [
   { label: 'About', href: '/about' },
   { label: 'Manifesto', href: '/manifesto' },
-  { label: 'Work', href: '/work' },
   { label: 'Thinking', href: '/thinking' },
   { label: 'The Diagnostic', href: '/diagnostic' },
   { label: 'Contact', href: '/contact' },
 ]
 
 const serviceLinks = [
-  { label: 'Web Design & Dev', href: '/services#web' },
+  { label: 'Web Development', href: '/services#web' },
   { label: 'Process Automation', href: '/services#process-automation' },
-  { label: 'Comms Automation', href: '/services#communications-automation' },
+  { label: 'Communications Automation', href: '/services#communications-automation' },
   { label: 'AI Chatbots', href: '/services#ai-chatbots' },
   { label: 'AI Agents', href: '/services#ai-agents' },
 ]
@@ -56,10 +55,10 @@ export function Footer() {
                 BLOOMING
               </h2>
               <p className="mb-1 text-sm leading-relaxed" style={{ color: 'var(--color-mid)' }}>
-                Strategic thinking. Real technology.
+                Dense Intelligence.
               </p>
               <p className="mb-8 text-sm leading-relaxed" style={{ color: 'var(--color-mid)' }}>
-                European mid-market.
+                Strategy and technology as one.
               </p>
               <a
                 href="https://linkedin.com/company/blooming-group"
@@ -138,9 +137,9 @@ export function Footer() {
                   Get started
                 </p>
                 <p className="mb-5 text-sm leading-relaxed" style={{ color: 'var(--color-mid)' }}>
-                  Free 45-min diagnostic.
+                  45-min diagnostic.
                   <br />
-                  No pitch.
+                  No pitch. No obligation.
                 </p>
                 <Link
                   href="/contact"

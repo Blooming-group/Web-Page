@@ -8,26 +8,26 @@ const metrics = [
   {
     value: '5',
     unit: '',
-    label: 'Implementation capabilities',
-    description: 'From web to autonomous AI agents',
+    label: 'Integrated capabilities',
+    description: 'Strategy through execution — one team',
   },
   {
     value: '< 90',
     unit: 'days',
-    label: 'Average time to ROI',
-    description: 'Delivery measured in weeks, not quarters',
+    label: 'Diagnosis to measurable ROI',
+    description: 'We deliver in weeks. You measure in months.',
   },
   {
     value: '45',
     unit: 'min',
     label: 'Diagnostic session',
-    description: 'No pitch. No slides. Just questions.',
+    description: 'No pitch. No slides. Just the real problem.',
   },
   {
-    value: '€5M+',
+    value: '0',
     unit: '',
-    label: 'Revenue range we serve',
-    description: 'Mid-market companies across Europe',
+    label: 'Handoffs between teams',
+    description: 'The people who diagnose are the people who build.',
   },
 ]
 
