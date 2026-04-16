@@ -30,7 +30,28 @@ export const articleType = defineType({
       name: 'body',
       title: 'Body',
       type: 'array',
-      of: [{ type: 'block' }],
+      of: [
+        { type: 'block' },
+        {
+          type: 'object',
+          name: 'callout',
+          title: 'Callout / CTA Block',
+          preview: {
+            select: { title: 'heading' },
+            prepare: ({ title }: { title?: string }) => ({ title: title ?? 'Callout' }),
+          },
+          fields: [
+            defineField({ name: 'heading', title: 'Heading', type: 'string' }),
+            defineField({ name: 'body', title: 'Body', type: 'text', rows: 3 }),
+            defineField({
+              name: 'ctaText',
+              title: 'CTA Text',
+              type: 'string',
+              initialValue: 'Book a diagnostic session',
+            }),
+          ],
+        },
+      ],
       description: 'Main article content.',
     }),
     defineField({

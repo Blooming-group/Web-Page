@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 import {
   PortableText,
   type PortableTextComponents,
@@ -129,6 +129,38 @@ const ptComponents: PortableTextComponents = {
       >
         {children}
       </li>
+    ),
+  },
+  types: {
+    callout: ({ value }: { value: { heading?: string; body?: string; ctaText?: string } }) => (
+      <div
+        className="my-10 border-l-2 py-5 pr-4 pl-6"
+        style={{
+          background: 'rgba(74, 124, 111, 0.1)',
+          borderColor: 'var(--color-accent-primary)',
+        }}
+      >
+        {value.heading && (
+          <p className="mb-2 text-base font-semibold" style={{ color: 'var(--color-ivory)' }}>
+            {value.heading}
+          </p>
+        )}
+        {value.body && (
+          <p className="mb-4 text-sm leading-relaxed" style={{ color: 'var(--color-mid)' }}>
+            {value.body}
+          </p>
+        )}
+        {value.ctaText && (
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 text-sm font-medium tracking-wide transition-opacity duration-200 hover:opacity-75"
+            style={{ color: 'var(--color-accent-primary)' }}
+          >
+            {value.ctaText}
+            <ArrowRight size={12} aria-hidden="true" />
+          </Link>
+        )}
+      </div>
     ),
   },
 }
