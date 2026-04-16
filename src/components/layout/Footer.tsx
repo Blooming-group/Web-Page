@@ -20,6 +20,7 @@ const serviceLinks = [
   { label: 'Communications Automation', href: '/services#communications-automation' },
   { label: 'AI Chatbots', href: '/services#ai-chatbots' },
   { label: 'AI Agents', href: '/services#ai-agents' },
+  { label: 'Corporate Intelligence', href: '/services#corporate-intelligence' },
 ]
 
 export function Footer() {

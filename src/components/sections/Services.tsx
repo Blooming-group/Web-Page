@@ -3,7 +3,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import Link from 'next/link'
-import { ArrowRight, Globe, Workflow, MessageSquare, Bot, Cpu } from 'lucide-react'
+import { ArrowRight, Globe, Workflow, MessageSquare, Bot, Cpu, Brain } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
 import { Container } from '@/components/ui/Container'
 import { H2, Body, Caption } from '@/components/ui/Typography'
@@ -13,7 +13,7 @@ const services = [
     icon: Globe,
     name: 'Web Development',
     description:
-      'Not a brochure — infrastructure. Engineered for performance, conversion, and the kind of credibility that lets a growing company compete above its weight class.',
+      'Not a brochure. Infrastructure. Engineered for performance, conversion, and the kind of credibility that lets a growing company compete above its weight class.',
   },
   {
     icon: Workflow,
@@ -25,19 +25,25 @@ const services = [
     icon: MessageSquare,
     name: 'Communications Automation',
     description:
-      'Email, WhatsApp, Instagram — orchestrated as one system. Not campaigns. Not blasts. A coherent layer that responds to each customer as if someone is paying attention. Because something is.',
+      'Email, WhatsApp, Instagram, orchestrated as one system. Not campaigns. Not blasts. A coherent layer that responds to each customer as if someone is paying attention. Because something is.',
   },
   {
     icon: Bot,
     name: 'AI Chatbots',
     description:
-      'Trained on your business, connected to your systems, built with your tone. The first touchpoint that actually knows your company — instead of routing every real question to a human.',
+      'Trained on your business, connected to your systems, built with your tone. The first touchpoint that actually knows your company, instead of routing every real question to a human.',
   },
   {
     icon: Cpu,
     name: 'AI Agents',
     description:
-      'For the cognitive work too complex for simple rules but too repetitive for your best people. Research, qualification, classification — handled without supervision. Production-grade, not experimental.',
+      'For the cognitive work too complex for simple rules but too repetitive for your best people. Research, qualification, classification: handled without supervision. Production-grade, not experimental.',
+  },
+  {
+    icon: Brain,
+    name: 'Corporate Intelligence',
+    description:
+      'Your company\u2019s accumulated knowledge (operational history, client context, institutional expertise) captured in a system that any team member can query. The asset that compounds while everything else depreciates.',
   },
 ]
 
@@ -87,7 +93,7 @@ export function Services() {
             >
               <Body className="mt-4">
                 Every capability below exists because a specific type of problem required it. We
-                don&apos;t sell services — we deploy the right combination after we understand
+                don&apos;t sell services. We deploy the right combination after we understand
                 what&apos;s actually wrong.
               </Body>
             </motion.div>

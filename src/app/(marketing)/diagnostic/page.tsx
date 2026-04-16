@@ -10,24 +10,24 @@ import { H1, H2, H3, Body } from '@/components/ui/Typography'
 export const metadata: Metadata = {
   title: 'The Diagnostic',
   description:
-    'The 45-minute session that replaces the sales call. We find the real problem — not the presented one — and tell you honestly whether we can help.',
+    'The 45-minute session that replaces the sales call. We find the real problem, not the presented one, and tell you honestly whether we can help.',
 }
 
 const phases = [
   {
     time: '0 – 20 min',
     title: 'We ask questions.',
-    body: "About your operation, your team structure, your metrics, your friction points, and where time is actually going. The questions are specific. Some will be uncomfortable — because the real problem rarely lives where it's comfortable to look.",
+    body: "About your operation, your team structure, your metrics, your friction points, and where time is actually going. The questions are specific. Some will be uncomfortable, because the real problem rarely lives where it's comfortable to look.",
   },
   {
     time: '20 – 35 min',
     title: 'We reflect what we heard.',
-    body: 'We summarise our read of your situation — often framing it differently than you framed it. That reframing is not a technique. It is value: seeing the same facts from a different angle changes which decisions look obvious.',
+    body: 'We summarise our read of your situation, often framing it differently than you framed it. That reframing is not a technique. It is value: seeing the same facts from a different angle changes which decisions look obvious.',
   },
   {
     time: '35 – 45 min',
     title: 'We tell you what we see.',
-    body: "Our honest assessment. Where the real problem is. What kind of intervention it requires. Whether Blooming is the right firm for it. If we're not, we say that — and describe the type of provider you should be looking for.",
+    body: "Our honest assessment. Where the real problem is. What kind of intervention it requires. Whether Blooming is the right firm for it. If we're not, we say that and describe the type of provider you should be looking for.",
   },
 ]
 
@@ -36,7 +36,7 @@ const outcomes = [
     number: '01',
     label: 'Clear match',
     description:
-      'The problem and the required intervention align with what Blooming does. We deliver a scoped proposal within 5 business days — defined outcomes, timeline, and cost.',
+      'The problem and the required intervention align with what Blooming does. We deliver a scoped proposal within 5 business days: defined outcomes, timeline, and cost.',
   },
   {
     number: '02',
@@ -48,14 +48,14 @@ const outcomes = [
     number: '03',
     label: 'Wrong problem',
     description:
-      'What you presented is not the real problem. We tell you what we think it actually is. This is often the most valuable outcome of the session — and it costs nothing.',
+      'What you presented is not the real problem. We tell you what we think it actually is. This is often the most valuable outcome of the session, and it costs nothing.',
   },
 ]
 
 const faqs = [
   {
     q: 'Who should be on the call?',
-    a: "The person closest to the problem — whether that's the CEO, a department head, or an operations lead. The session works best with someone who has both operational context and the authority to act on what we find. If that's two people, both are welcome.",
+    a: "The person closest to the problem, whether that's the CEO, a department head, or an operations lead. The session works best with someone who has both operational context and the authority to act on what we find. If that's two people, both are welcome.",
   },
   {
     q: 'Is there any obligation?',
@@ -63,11 +63,11 @@ const faqs = [
   },
   {
     q: 'Why is it free?',
-    a: "Because we don't know yet if we can help. Charging for the diagnostic would create pressure to produce a recommendation — and that pressure would compromise the honesty of the session. We'd rather tell you we're not the right firm than sell you something we can't deliver.",
+    a: "Because we don't know yet if we can help. Charging for the diagnostic would create pressure to produce a recommendation, and that pressure would compromise the honesty of the session. We'd rather tell you we're not the right firm than sell you something we can't deliver.",
   },
   {
     q: "What's the format?",
-    a: 'Video call. No slides. No preparation required on your end. We lead the conversation — you answer the questions as directly as you can.',
+    a: 'Video call. No slides. No preparation required on your end. We lead the conversation. You answer the questions as directly as you can.',
   },
   {
     q: 'How quickly can we schedule?',
@@ -115,8 +115,8 @@ export default function DiagnosticPage() {
             Most consulting engagements begin with a proposal. The problem: proposals are written
             before the firm understands the problem. The result is a scope that addresses what was
             presented, not what&apos;s real. The diagnostic exists to find the real problem first.
-            It&apos;s the most honest 45 minutes you&apos;ll spend with any firm — because we have
-            no interest in softening what we find.
+            It&apos;s the most honest 45 minutes you&apos;ll spend with any firm, because we have no
+            interest in softening what we find.
           </Body>
         </Container>
       </section>
@@ -162,7 +162,7 @@ export default function DiagnosticPage() {
               </H2>
               <Body>
                 There is no fourth option. We don&apos;t leave sessions open-ended. One of these
-                three is true — and we tell you which one before the call ends.
+                three is true, and we tell you which one before the call ends.
               </Body>
             </div>
             <div className="space-y-8">
@@ -230,7 +230,7 @@ export default function DiagnosticPage() {
             </H2>
             <Body className="mb-10 max-w-lg">
               Send a brief description of your situation. We respond within 24 hours to confirm a
-              time. Come with the real problem — or let us find it.
+              time. Come with the real problem, or let us find it.
             </Body>
             <Button size="lg" asChild>
               <Link href="/contact">

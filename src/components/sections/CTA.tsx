@@ -45,7 +45,7 @@ export function CTA() {
               transition={{ duration: 0.6, delay: 0.15 }}
             >
               <Body className="mt-4 mb-10">
-                The question is what — and whether the next firm you bring in will be honest about
+                The question is what, and whether the next firm you bring in will be honest about
                 it. The diagnostic session exists to answer both. 45 minutes. No pitch. No
                 obligation.
               </Body>

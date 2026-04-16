@@ -25,7 +25,7 @@ const whatToExpect = [
     step: '01',
     title: 'We respond within 24 hours',
     description:
-      'With available times for your diagnostic session. Not an automated reply — a real response from a real person.',
+      'With available times for your diagnostic session. Not an automated reply. A real response from a real person.',
   },
   {
     step: '02',
@@ -36,7 +36,7 @@ const whatToExpect = [
     step: '03',
     title: 'Honest assessment',
     description:
-      'We tell you what we see — including whether we are the right firm for the problem.',
+      'We tell you what we see, including whether we are the right firm for the problem.',
   },
 ]
 

@@ -98,7 +98,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.65 }}
           >
-            We find the real problem first. Then we build the solution — in weeks, not quarters.{' '}
+            We find the real problem first. Then we build the solution, in weeks, not quarters.{' '}
             <span style={{ color: 'var(--color-mid)' }}>
               Strategy and technology, same team, no handoffs.
             </span>

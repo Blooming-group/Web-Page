@@ -63,7 +63,7 @@ export function Problem() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
           >
-            Blooming exists in the space between{' '}
+            Blooming exists in the space between,{' '}
             <span style={{ color: 'var(--color-accent-secondary)' }}>
               where diagnosis, strategy, and execution happen together.
             </span>

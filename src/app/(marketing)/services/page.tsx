@@ -5,7 +5,7 @@ import { ServicesClient } from './ServicesClient'
 export const metadata: Metadata = {
   title: 'Services',
   description:
-    'Five implementation capabilities. Each one the tangible proof that Blooming executes — not just advises. Web design, process automation, communications, AI chatbots, AI agents.',
+    'Six capabilities deployed after diagnosis: web development, process automation, communications automation, AI chatbots, AI agents, and corporate intelligence systems. One team, no handoffs.',
 }
 
 const servicesSchema = {
@@ -14,11 +14,12 @@ const servicesSchema = {
   name: 'Blooming Group Services',
   url: 'https://blooming-group.eu/services',
   itemListElement: [
-    { name: 'Web Design & Development', position: 1 },
+    { name: 'Web Development', position: 1 },
     { name: 'Process Automation', position: 2 },
     { name: 'Communications Automation', position: 3 },
     { name: 'AI Chatbots', position: 4 },
     { name: 'AI Agents', position: 5 },
+    { name: 'Corporate Intelligence', position: 6 },
   ].map((s) => ({
     '@type': 'ListItem',
     position: s.position,

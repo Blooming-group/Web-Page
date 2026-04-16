@@ -12,7 +12,7 @@ const steps = [
     number: '01',
     title: 'Diagnose',
     description:
-      'We map your operational reality before touching a tool. No templates. No assumptions. The questions are specific — some will be uncomfortable, because the real problem rarely lives where it\u2019s comfortable to look.',
+      'We map your operational reality before touching a tool. No templates. No assumptions. The questions are specific. Some will be uncomfortable, because the real problem rarely lives where it\u2019s comfortable to look.',
   },
   {
     number: '02',
@@ -30,7 +30,7 @@ const steps = [
     number: '04',
     title: 'Measure',
     description:
-      'Success metrics defined before the engagement starts — not after. Results that show up on a P&L, not a slide. If we can\u2019t measure it, we don\u2019t claim it.',
+      'Success metrics defined before the engagement starts, not after. Results that show up on a P&L, not a slide. If we can\u2019t measure it, we don\u2019t claim it.',
   },
 ]
 

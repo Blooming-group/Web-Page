@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, Globe, Workflow, MessageSquare, Bot, Cpu } from 'lucide-react'
+import { ArrowRight, Globe, Workflow, MessageSquare, Bot, Cpu, Brain } from 'lucide-react'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Container } from '@/components/ui/Container'
@@ -15,7 +15,7 @@ const services = [
     icon: Globe,
     name: 'Web Development',
     tagline: 'Your digital presence is not a brochure. It is infrastructure.',
-    body: 'We build websites and digital products engineered for performance, conversion, and brand gravity. Modern stack. Top-tier Lighthouse scores across every category. Every element built to do measurable work — not to look good in a portfolio. For companies that need their digital presence to perform at the level of their ambition.',
+    body: 'We build websites and digital products engineered for performance, conversion, and brand gravity. Modern stack. Top-tier Lighthouse scores across every category. Every element built to do measurable work, not to look good in a portfolio. For companies that need their digital presence to perform at the level of their ambition.',
     notThis:
       'Not a creative agency deliverable. Not a WordPress site with a premium theme. Not design without engineering behind it.',
     id: 'web',
@@ -24,7 +24,7 @@ const services = [
     icon: Workflow,
     name: 'Process Automation',
     tagline: 'The bottlenecks your team stopped noticing are the ones costing you the most.',
-    body: 'Every organisation accumulates operational friction as it grows. Manual processes that made sense at €3M in revenue become expensive at €30M. Approval chains that should take minutes take days. Data that should flow between systems lives in email threads. We map your real workflows — not the ones on the org chart — identify the high-cost bottlenecks, and automate them permanently. Typical payback: under 90 days.',
+    body: 'Every organisation accumulates operational friction as it grows. Manual processes that made sense at €3M in revenue become expensive at €30M. Approval chains that should take minutes take days. Data that should flow between systems lives in email threads. We map your real workflows, not the ones on the org chart, identify the high-cost bottlenecks, and automate them permanently. Typical payback: under 90 days.',
     notThis:
       'Not a chain of Zapier automations. Not surface-level integrations that break on the first edge case. Systems built to hold under operational pressure.',
     id: 'process-automation',
@@ -33,16 +33,16 @@ const services = [
     icon: MessageSquare,
     name: 'Communications Automation',
     tagline: 'Every channel. One intelligence layer.',
-    body: 'Your customer communication channels — email, WhatsApp, Instagram, web — should operate as one unified system, not as independent tools managed by separate people. We architect and deploy automated communication systems that feel personal, respond in real time, and scale without adding headcount. The customer never sees automation. They see attention.',
+    body: 'Your customer communication channels (email, WhatsApp, Instagram, web) should operate as one unified system, not as independent tools managed by separate people. We architect and deploy automated communication systems that feel personal, respond in real time, and scale without adding headcount. The customer never sees automation. They see attention.',
     notThis:
-      'Not bulk email blasts. Not a social media scheduling tool. Not campaigns — architecture.',
+      'Not bulk email blasts. Not a social media scheduling tool. Not campaigns. Architecture.',
     id: 'communications-automation',
   },
   {
     icon: Bot,
     name: 'AI Chatbots',
     tagline: 'The first point of contact that actually knows your business.',
-    body: 'We deploy chatbots trained on your documentation, connected to your systems, and tuned to your voice. They handle the questions your team handles manually — with your knowledge, your judgment, and your standards. Every interaction reflects what your company actually knows, not a generic script that routes every real question to a human.',
+    body: 'We deploy chatbots trained on your documentation, connected to your systems, and tuned to your voice. They handle the questions your team handles manually, with your knowledge, your judgment, and your standards. Every interaction reflects what your company actually knows, not a generic script that routes every real question to a human.',
     notThis:
       'Not a ChatGPT wrapper with your logo on it. Not an FAQ bot. An interface that performs like someone who has worked at your company for years.',
     id: 'ai-chatbots',
@@ -51,10 +51,21 @@ const services = [
     icon: Cpu,
     name: 'AI Agents',
     tagline: "For the cognitive work your best people shouldn't be doing manually.",
-    body: 'Some work is too complex for simple automation but too repetitive for the people currently doing it. Research, pre-qualification, classification, drafting, data reconciliation — cognitive tasks that consume senior capacity without producing senior-level value. We build autonomous systems that reason, decide, and act within defined boundaries. Production-grade from day one.',
+    body: 'Some work is too complex for simple automation but too repetitive for the people currently doing it. Research, pre-qualification, classification, drafting, data reconciliation: cognitive tasks that consume senior capacity without producing senior-level value. We build autonomous systems that reason, decide, and act within defined boundaries. Production-grade from day one.',
     notThis:
       'Not a pilot that lives in a sandbox. Not a demo. A production system with measurable output.',
     id: 'ai-agents',
+  },
+  {
+    icon: Brain,
+    name: 'Corporate Intelligence',
+    tagline: 'Everything your company knows: searchable, permanent, and working for you.',
+    body: 'Every company with more than 50 employees has accumulated knowledge that exists only in the heads of its longest-serving people. When those people leave, the knowledge leaves with them. We build systems that capture, structure, and make queryable your company\u2019s accumulated intelligence: operational history, client context, internal expertise, process knowledge. A new hire can ask the system a question and get an answer drawn from years of institutional experience. A senior team can make decisions on complete information instead of partial memory. The system compounds: every document, every interaction, every project that enters it makes it more valuable. Over time, it becomes a competitive asset that no competitor can replicate.',
+    notThis:
+      'Not a wiki nobody updates. Not a document management system. Not a search bar on top of a shared drive. A living intelligence layer that learns as your company grows.',
+    id: 'corporate-intelligence',
+    articleHref: '/thinking/your-companys-most-valuable-asset-is-the-knowledge-nobody-wrote-down',
+    articleLabel: 'Read: Why institutional knowledge is your most fragile asset',
   },
 ]
 
@@ -154,6 +165,7 @@ function ServiceRow({ service, index }: { service: (typeof services)[number]; in
               </Caption>
             </motion.div>
             <motion.div
+              className="flex flex-wrap items-center gap-6"
               initial={{ opacity: 0, y: 8 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, ease: 'easeOut', delay: 0.5 }}
@@ -166,6 +178,16 @@ function ServiceRow({ service, index }: { service: (typeof services)[number]; in
                 Discuss this capability
                 <ArrowRight size={14} aria-hidden="true" />
               </Link>
+              {'articleHref' in service && service.articleHref && (
+                <Link
+                  href={service.articleHref}
+                  className="inline-flex items-center gap-2 text-sm tracking-wide transition-colors duration-200"
+                  style={{ color: 'var(--color-mid)' }}
+                >
+                  {service.articleLabel}
+                  <ArrowRight size={14} aria-hidden="true" />
+                </Link>
+              )}
             </motion.div>
           </motion.div>
         </div>
@@ -185,14 +207,14 @@ export function ServicesClient() {
           </FadeIn>
           <FadeIn delay={0.15}>
             <H1 id="services-page-heading" className="mb-6 max-w-2xl">
-              Five capabilities. One principle: diagnosis first.
+              Six capabilities. One principle: diagnosis first.
             </H1>
           </FadeIn>
           <FadeIn delay={0.25}>
             <Body className="max-w-xl">
               We never recommend a capability before understanding the problem. Every service below
               exists because a specific type of operational challenge required it. The right
-              combination for your company depends on what the diagnostic reveals — not on what we
+              combination for your company depends on what the diagnostic reveals, not on what we
               have available.
             </Body>
           </FadeIn>

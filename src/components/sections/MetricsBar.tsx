@@ -6,10 +6,10 @@ import { Container } from '@/components/ui/Container'
 
 const metrics = [
   {
-    value: '5',
+    value: '6',
     unit: '',
     label: 'Integrated capabilities',
-    description: 'Strategy through execution — one team',
+    description: 'Strategy through deployment, one team',
   },
   {
     value: '< 90',

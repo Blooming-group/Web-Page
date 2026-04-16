@@ -22,15 +22,15 @@ const notVs = [
 const principles = [
   {
     title: 'Clarity is a competitive weapon',
-    body: 'In a market that sells complexity as a proxy for value, the firm that delivers clarity wins. We convert operational noise into decisions with consequences — not frameworks for thinking about decisions.',
+    body: 'In a market that sells complexity as a proxy for value, the firm that delivers clarity wins. We convert operational noise into decisions with consequences, not frameworks for thinking about decisions.',
   },
   {
     title: 'Diagnosis before prescription',
-    body: "We don't recommend services before understanding the problem. Every engagement starts with a diagnostic session — and the questions will be uncomfortable, because the real problem rarely lives where it's comfortable to look.",
+    body: "We don't recommend services before understanding the problem. Every engagement starts with a diagnostic session, and the questions will be uncomfortable, because the real problem rarely lives where it's comfortable to look.",
   },
   {
     title: 'Strategy without execution is entertainment',
-    body: 'The gap between strategic intent and operational reality is where value is destroyed. Our diagnostics lead directly to systems we build and deploy — not to a deck someone else has to interpret and implement.',
+    body: 'The gap between strategic intent and operational reality is where value is destroyed. Our diagnostics lead directly to systems we build and deploy, not to a deck someone else has to interpret and implement.',
   },
   {
     title: 'Dense over verbose',
@@ -38,7 +38,7 @@ const principles = [
   },
   {
     title: 'Say what we see',
-    body: "We don't adjust findings to protect a relationship. When the real problem is a leadership decision rather than a process failure, we say that. A diagnosis that has been softened is no longer a diagnosis — it's reassurance.",
+    body: "We don't adjust findings to protect a relationship. When the real problem is a leadership decision rather than a process failure, we say that. A diagnosis that has been softened is no longer a diagnosis. It's reassurance.",
   },
 ]
 
@@ -92,8 +92,8 @@ export function AboutClient() {
               <FadeIn delay={0.25}>
                 <Body className="max-w-xl">
                   There are firms that think about strategy and firms that build technology. The
-                  space between them — where diagnosis, architecture, and execution need to happen
-                  as one — was empty. Blooming was built to occupy it.
+                  space between them, where diagnosis, architecture, and execution need to happen as
+                  one, was empty. Blooming was built to occupy it.
                 </Body>
               </FadeIn>
             </div>
@@ -176,9 +176,9 @@ export function AboutClient() {
           </FadeIn>
           <div className="space-y-6">
             {[
-              "Growing European companies face a structural problem when they need strategic and technological help. The major consultancies were built for global multinationals — their pace, their price point, and their model assume a different type of client. Technology vendors at the other end build fast but without strategic context. Between them sits a generation of ambitious businesses that have outgrown generic providers but can't access the thinking they need.",
-              "That gap isn't an oversight. It's structural. No firm was built to own it — because owning it requires doing two things the industry separated long ago: thinking and building. At the same time. With the same team.",
-              'Blooming was built for exactly that. Not a downsized version of a large firm. Not an upgraded agency. A firm that diagnoses before it prescribes, builds what it recommends, and measures success in outcomes — not in hours billed or pages delivered.',
+              "Growing European companies face a structural problem when they need strategic and technological help. The major consultancies were built for global multinationals. Their pace, their price point, and their model assume a different type of client. Technology vendors at the other end build fast but without strategic context. Between them sits a generation of ambitious businesses that have outgrown generic providers but can't access the thinking they need.",
+              "That gap isn't an oversight. It's structural. No firm was built to own it. Owning it requires doing two things the industry separated long ago: thinking and building. At the same time. With the same team.",
+              'Blooming was built for exactly that. Not a downsized version of a large firm. Not an upgraded agency. A firm that diagnoses before it prescribes, builds what it recommends, and measures success in outcomes, not in hours billed or pages delivered.',
             ].map((text, i) => (
               <FadeIn key={i} delay={0.1 + i * 0.1}>
                 <Body>{text}</Body>
@@ -206,7 +206,7 @@ export function AboutClient() {
           <div className="space-y-6">
             {[
               'Dense Intelligence is not a tagline. It is the decision that governs every engagement, every deliverable, and every conversation at Blooming.',
-              "It means: every element earns its place. Nothing is decorative. Nothing exists for volume. The opposite of the consulting industry's instinct to produce mass as proof of effort — the 200-page report, the six-month timeline, the deck that justifies the fee instead of serving the client.",
+              "It means: every element earns its place. Nothing is decorative. Nothing exists for volume. The opposite of the consulting industry's instinct to produce mass as proof of effort. The 200-page report, the six-month timeline, the deck that justifies the fee instead of serving the client.",
               "Our clients don't need more information. They need the right information, structured so the next decision becomes obvious.",
             ].map((text, i) => (
               <FadeIn key={i} delay={0.1 + i * 0.1}>
@@ -275,7 +275,7 @@ export function AboutClient() {
           <div className="space-y-6">
             {[
               'The most common failure in consulting is invisible delegation. A senior partner sells the engagement. A junior team delivers it. The person who understood the problem is not the person solving it.',
-              'At Blooming, the team that runs the diagnostic is the team that architects the solution, builds the system, and measures the outcome. There is no separate strategy team and implementation team. There is one team — senior from the first conversation to the last deployment.',
+              'At Blooming, the team that runs the diagnostic is the team that architects the solution, builds the system, and measures the outcome. There is no separate strategy team and implementation team. There is one team, senior from the first conversation to the last deployment.',
               'This is not a staffing preference. It is an operating principle. The quality of the diagnosis depends on the seniority of the person asking the questions. The quality of the execution depends on continuity with the diagnosis. Separating them is how value gets lost.',
             ].map((text, i) => (
               <FadeIn key={i} delay={0.1 + i * 0.1}>
@@ -308,8 +308,8 @@ export function AboutClient() {
                     The ambition
                   </p>
                   <Body>
-                    A generation of European companies that compete on operational intelligence —
-                    not inherited position, not capital advantage, not headcount. Every engagement
+                    A generation of European companies that compete on operational intelligence. Not
+                    inherited position, not capital advantage, not headcount. Every engagement
                     Blooming completes is evidence that clarity, deployed with precision, is the
                     highest-leverage asset a growing company can acquire.
                   </Body>
@@ -351,7 +351,7 @@ export function AboutClient() {
                 If this resonates, the diagnostic is the next step.
               </H2>
               <Body className="mb-10 max-w-lg">
-                45 minutes. We ask questions about your operation and tell you what we see —
+                45 minutes. We ask questions about your operation and tell you what we see,
                 including whether Blooming is the right firm for the problem. No pitch. No slides.
                 No obligation.
               </Body>
