@@ -7,6 +7,7 @@ import { useRef } from 'react'
 import { Container } from '@/components/ui/Container'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
+import { SilenceBlock } from '@/components/ui/SilenceBlock'
 import { Separator } from '@/components/ui/Separator'
 import { H1, H2, Body, Caption } from '@/components/ui/Typography'
 
@@ -200,8 +201,27 @@ export function ServicesClient() {
   return (
     <div className="pt-20">
       {/* Hero */}
-      <section className="py-24" aria-labelledby="services-page-heading">
-        <Container>
+      <section className="relative py-24" aria-labelledby="services-page-heading">
+        {/* Dot grid */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background: 'var(--dot-grid-sparse)',
+            maskImage: 'radial-gradient(ellipse 80% 70% at 50% 40%, black 20%, transparent 100%)',
+            WebkitMaskImage:
+              'radial-gradient(ellipse 80% 70% at 50% 40%, black 20%, transparent 100%)',
+          }}
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(74,124,111,0.08) 0%, transparent 70%)',
+          }}
+          aria-hidden="true"
+        />
+        <Container className="relative z-10">
           <FadeIn delay={0.05}>
             <Badge className="mb-8">Capabilities</Badge>
           </FadeIn>
@@ -237,7 +257,7 @@ export function ServicesClient() {
         </Container>
       </section>
 
-      <Separator />
+      <SilenceBlock variant="section" />
 
       {/* Services */}
       <section aria-label="Capability details">
@@ -249,7 +269,7 @@ export function ServicesClient() {
         ))}
       </section>
 
-      <Separator />
+      <SilenceBlock variant="section" />
 
       {/* Integration Note */}
       <section className="py-20" aria-labelledby="integration-heading">
@@ -273,7 +293,7 @@ export function ServicesClient() {
         </Container>
       </section>
 
-      <Separator />
+      <SilenceBlock variant="breath" />
 
       {/* CTA */}
       <section className="py-24" aria-labelledby="services-cta">

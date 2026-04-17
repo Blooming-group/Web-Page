@@ -1,6 +1,7 @@
 import { Hero } from '@/components/sections/Hero'
 import { Problem } from '@/components/sections/Problem'
 import { Services } from '@/components/sections/Services'
+import { DataViz } from '@/components/sections/DataViz'
 import { Process } from '@/components/sections/Process'
 import { CTA } from '@/components/sections/CTA'
 import { SilenceBlock } from '@/components/ui/SilenceBlock'
@@ -29,6 +30,8 @@ export default function HomePage() {
       <Problem />
       <SilenceBlock variant="section" />
       <Services />
+      <SilenceBlock variant="section" />
+      <DataViz />
       <SilenceBlock variant="section" />
       <Process />
       <SilenceBlock variant="breath" />

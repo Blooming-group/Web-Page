@@ -83,7 +83,7 @@ export function Hero() {
           <div className="lg:col-span-7">
             {/* Label */}
             <motion.p
-              className="mb-8 text-xs font-semibold tracking-[0.2em] uppercase"
+              className="mb-10 text-xs font-semibold tracking-[0.2em] uppercase"
               style={{ color: 'var(--color-accent-primary)' }}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -93,7 +93,7 @@ export function Hero() {
             </motion.p>
 
             {/* Animated headline */}
-            <h1 className="type-display mb-8" aria-label={headline.join(' ')}>
+            <h1 className="type-display mb-10" aria-label={headline.join(' ')}>
               {headline.map((line, lineIdx) => (
                 <span key={lineIdx} className="block overflow-hidden">
                   {line.split(' ').map((word, wordIdx) => (
@@ -118,7 +118,7 @@ export function Hero() {
 
             {/* Sub-headline */}
             <motion.p
-              className="type-body mb-12 max-w-2xl"
+              className="type-body mb-14 max-w-2xl"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.65 }}
@@ -138,7 +138,7 @@ export function Hero() {
             >
               <Button size="lg" asChild>
                 <Link href="/contact">
-                  Start with a diagnosis
+                  Start Diagnosis
                   <ArrowRight size={16} aria-hidden="true" />
                 </Link>
               </Button>
@@ -156,7 +156,7 @@ export function Hero() {
 
           {/* Right — BloomingMarkAnimated (5 cols) */}
           <motion.div
-            className="hidden items-center justify-center lg:col-span-5 lg:flex"
+            className="hidden items-start justify-center lg:col-span-5 lg:-mt-12 lg:flex"
             style={{ y: markY, scale: markScale }}
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}

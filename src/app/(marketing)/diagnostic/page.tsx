@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
-import { Separator } from '@/components/ui/Separator'
+import { SilenceBlock } from '@/components/ui/SilenceBlock'
 import { H1, H2, H3, Body } from '@/components/ui/Typography'
 
 export const metadata: Metadata = {
@@ -83,8 +83,28 @@ export default function DiagnosticPage() {
   return (
     <div className="pt-20">
       {/* Hero */}
-      <section className="py-24" aria-labelledby="diagnostic-heading">
-        <Container>
+      <section className="relative py-24" aria-labelledby="diagnostic-heading">
+        {/* Dot grid */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background: 'var(--dot-grid-sparse)',
+            maskImage: 'radial-gradient(ellipse 80% 70% at 50% 40%, black 20%, transparent 100%)',
+            WebkitMaskImage:
+              'radial-gradient(ellipse 80% 70% at 50% 40%, black 20%, transparent 100%)',
+          }}
+          aria-hidden="true"
+        />
+        {/* Teal glow */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 55% 50% at 50% 0%, rgba(74,124,111,0.1) 0%, transparent 70%)',
+          }}
+          aria-hidden="true"
+        />
+        <Container className="relative z-10">
           <Badge className="mb-8">The Diagnostic</Badge>
           <H1 id="diagnostic-heading" className="mb-6 max-w-2xl">
             The session that replaces the sales call.
@@ -103,7 +123,7 @@ export default function DiagnosticPage() {
         </Container>
       </section>
 
-      <Separator />
+      <SilenceBlock variant="section" />
 
       {/* Why It Exists */}
       <section className="py-20" aria-labelledby="why-heading">
@@ -121,7 +141,7 @@ export default function DiagnosticPage() {
         </Container>
       </section>
 
-      <Separator />
+      <SilenceBlock variant="section" />
 
       {/* Session structure */}
       <section className="py-20" aria-labelledby="session-structure-heading">
@@ -129,20 +149,24 @@ export default function DiagnosticPage() {
           <H2 id="session-structure-heading" className="mb-16 max-w-sm">
             What happens in the session.
           </H2>
-          <div className="grid grid-cols-1 gap-px bg-[--color-border-default] md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {phases.map((phase, i) => (
               <div
                 key={i}
-                className="space-y-4 p-8 md:p-10"
-                style={{ background: 'var(--color-base)' }}
+                className="card-interactive group relative overflow-hidden rounded-sm border p-8 md:p-10"
               >
                 <span
-                  className="block text-xs font-medium tracking-[0.12em] uppercase"
+                  className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 transition-transform duration-[--duration-short] group-hover:scale-x-100"
+                  style={{ background: 'var(--card-topline-color)' }}
+                  aria-hidden="true"
+                />
+                <span
+                  className="mb-4 block text-xs font-medium tracking-[0.12em] uppercase"
                   style={{ color: 'var(--color-accent-primary)' }}
                 >
                   {phase.time}
                 </span>
-                <H3>{phase.title}</H3>
+                <H3 className="mb-4">{phase.title}</H3>
                 <Body className="text-sm">{phase.body}</Body>
               </div>
             ))}
@@ -150,7 +174,7 @@ export default function DiagnosticPage() {
         </Container>
       </section>
 
-      <Separator />
+      <SilenceBlock variant="section" />
 
       {/* Outcomes */}
       <section className="py-20" aria-labelledby="outcomes-heading">
@@ -165,9 +189,17 @@ export default function DiagnosticPage() {
                 three is true, and we tell you which one before the call ends.
               </Body>
             </div>
-            <div className="space-y-8">
+            <div className="space-y-4">
               {outcomes.map((outcome) => (
-                <div key={outcome.number} className="flex gap-5">
+                <div
+                  key={outcome.number}
+                  className="card-interactive group relative flex gap-5 overflow-hidden rounded-sm border p-5"
+                >
+                  <span
+                    className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 transition-transform duration-[--duration-short] group-hover:scale-x-100"
+                    style={{ background: 'var(--card-topline-color)' }}
+                    aria-hidden="true"
+                  />
                   <span
                     className="mt-0.5 shrink-0 text-xs font-medium tracking-[0.12em]"
                     style={{ color: 'var(--color-accent-primary)' }}
@@ -190,7 +222,7 @@ export default function DiagnosticPage() {
         </Container>
       </section>
 
-      <Separator />
+      <SilenceBlock variant="section" />
 
       {/* FAQ */}
       <section className="py-20" aria-labelledby="faq-heading">
@@ -198,15 +230,18 @@ export default function DiagnosticPage() {
           <H2 id="faq-heading" className="mb-16 max-w-sm">
             Before you book.
           </H2>
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {faqs.map((faq, i) => (
-              <div key={i} className="space-y-3">
-                <div
-                  className="h-px w-8"
-                  style={{ background: 'var(--color-border-default)' }}
+              <div
+                key={i}
+                className="card-interactive group relative overflow-hidden rounded-sm border p-6"
+              >
+                <span
+                  className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 transition-transform duration-[--duration-short] group-hover:scale-x-100"
+                  style={{ background: 'var(--card-topline-color)' }}
                   aria-hidden="true"
                 />
-                <H3 className="text-base">{faq.q}</H3>
+                <H3 className="mb-3 text-base">{faq.q}</H3>
                 <Body className="text-sm">{faq.a}</Body>
               </div>
             ))}
@@ -214,7 +249,7 @@ export default function DiagnosticPage() {
         </Container>
       </section>
 
-      <Separator />
+      <SilenceBlock variant="breath" />
 
       {/* Final CTA */}
       <section className="py-24" aria-labelledby="diagnostic-cta">

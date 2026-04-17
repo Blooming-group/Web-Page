@@ -55,10 +55,16 @@ export function Footer() {
               >
                 BLOOMING
               </h2>
-              <p className="mb-1 text-sm leading-relaxed" style={{ color: 'var(--color-mid)' }}>
+              <p
+                className="mb-1 text-sm leading-relaxed"
+                style={{ color: 'rgba(242,238,230,0.55)' }}
+              >
                 Dense Intelligence.
               </p>
-              <p className="mb-8 text-sm leading-relaxed" style={{ color: 'var(--color-mid)' }}>
+              <p
+                className="mb-8 text-sm leading-relaxed"
+                style={{ color: 'rgba(242,238,230,0.55)' }}
+              >
                 Strategy and technology as one.
               </p>
               <a
@@ -66,7 +72,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-opacity duration-200 hover:opacity-80"
-                style={{ color: 'var(--color-mid)' }}
+                style={{ color: 'rgba(242,238,230,0.5)' }}
                 aria-label="Blooming Group on LinkedIn"
               >
                 <svg
@@ -89,7 +95,7 @@ export function Footer() {
               <div>
                 <p
                   className="mb-4 text-xs font-medium tracking-[0.12em] uppercase"
-                  style={{ color: 'var(--color-mid)' }}
+                  style={{ color: 'rgba(242,238,230,0.45)' }}
                 >
                   Company
                 </p>
@@ -98,7 +104,8 @@ export function Footer() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-mid hover:text-ivory text-sm tracking-wide transition-colors duration-200"
+                        className="hover:text-ivory text-sm tracking-wide transition-colors duration-200"
+                        style={{ color: 'rgba(242,238,230,0.5)' }}
                       >
                         {link.label}
                       </Link>
@@ -111,7 +118,7 @@ export function Footer() {
               <div>
                 <p
                   className="mb-4 text-xs font-medium tracking-[0.12em] uppercase"
-                  style={{ color: 'var(--color-mid)' }}
+                  style={{ color: 'rgba(242,238,230,0.45)' }}
                 >
                   Capabilities
                 </p>
@@ -120,7 +127,8 @@ export function Footer() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-mid hover:text-ivory text-sm tracking-wide transition-colors duration-200"
+                        className="hover:text-ivory text-sm tracking-wide transition-colors duration-200"
+                        style={{ color: 'rgba(242,238,230,0.5)' }}
                       >
                         {link.label}
                       </Link>
@@ -133,11 +141,14 @@ export function Footer() {
               <div>
                 <p
                   className="mb-4 text-xs font-medium tracking-[0.12em] uppercase"
-                  style={{ color: 'var(--color-mid)' }}
+                  style={{ color: 'rgba(242,238,230,0.45)' }}
                 >
                   Get started
                 </p>
-                <p className="mb-5 text-sm leading-relaxed" style={{ color: 'var(--color-mid)' }}>
+                <p
+                  className="mb-5 text-sm leading-relaxed"
+                  style={{ color: 'rgba(242,238,230,0.5)' }}
+                >
                   45-min diagnostic.
                   <br />
                   No pitch. No obligation.
@@ -163,19 +174,21 @@ export function Footer() {
 
         {/* ── Bottom bar ──────────────────────────────────── */}
         <div className="flex flex-col gap-3 py-8 md:flex-row md:items-center md:justify-between">
-          <p className="text-xs tracking-wide" style={{ color: 'var(--color-mid)' }}>
+          <p className="text-xs tracking-wide" style={{ color: 'rgba(242,238,230,0.4)' }}>
             © {currentYear} Blooming Group. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <Link
               href="/privacy"
-              className="text-mid hover:text-ivory text-xs tracking-wide transition-colors duration-200"
+              className="hover:text-ivory text-xs tracking-wide transition-colors duration-200"
+              style={{ color: 'rgba(242,238,230,0.4)' }}
             >
               Privacy Policy
             </Link>
             <Link
               href="/manifesto"
-              className="text-mid hover:text-ivory text-xs tracking-wide transition-colors duration-200"
+              className="hover:text-ivory text-xs tracking-wide transition-colors duration-200"
+              style={{ color: 'rgba(242,238,230,0.4)' }}
             >
               Manifesto
             </Link>

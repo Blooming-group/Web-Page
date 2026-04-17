@@ -11,7 +11,7 @@ function Badge({ className, variant = 'default', children, ...props }: BadgeProp
       className={cn(
         'inline-flex items-center',
         'border px-3 py-1',
-        'text-[0.6875rem] font-medium tracking-[0.1em] uppercase',
+        'text-xs font-semibold tracking-[0.12em] uppercase',
         variant === 'default' && ['border-[--color-border-accent]', 'text-accent-primary'],
         variant === 'highlight' && [
           'border-[--color-accent-secondary]/30',
