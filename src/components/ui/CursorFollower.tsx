@@ -4,26 +4,14 @@ import { useEffect, useState } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { BloomingMarkAnimated } from './BloomingMarkAnimated'
 
-/**
- * The Blooming logomark follows the cursor with spring-based lag.
- *
- * Rules:
- * - Only renders on pointer:fine devices (desktop, stylus — not touch)
- * - Never replaces the system cursor
- * - pointer-events:none so it never interferes with clicks
- * - Spring physics (low stiffness) creates a natural trailing distance
- * - Fades in/out when cursor enters/leaves the window
- * - Starts off-screen at (-200,-200) until the first mousemove
- */
 export function CursorFollower() {
   const mouseX = useMotionValue(-200)
   const mouseY = useMotionValue(-200)
   const [visible, setVisible] = useState(false)
   const [mounted, setMounted] = useState(false)
 
-  // Slower spring = longer trail, more dramatic follow
-  const springX = useSpring(mouseX, { stiffness: 52, damping: 17, mass: 0.7 })
-  const springY = useSpring(mouseY, { stiffness: 52, damping: 17, mass: 0.7 })
+  const springX = useSpring(mouseX, { stiffness: 80, damping: 20, mass: 0.7 })
+  const springY = useSpring(mouseY, { stiffness: 80, damping: 20, mass: 0.7 })
 
   useEffect(() => {
     setMounted(true)
@@ -58,8 +46,8 @@ export function CursorFollower() {
       style={{
         x: springX,
         y: springY,
-        translateX: '-50%',
-        translateY: '-50%',
+        translateX: 32,
+        translateY: 32,
       }}
       animate={{ opacity: visible ? 0.62 : 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}

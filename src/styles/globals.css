@@ -126,3 +126,16 @@ body {
   outline: 2px solid var(--color-accent-primary);
   outline-offset: 2px;
 }
+
+/* ─── Interactive card hover ─── */
+.card-interactive {
+  border-color: var(--card-border-default);
+  background: rgba(255, 255, 255, 0.02);
+  transition:
+    border-color var(--duration-short) ease,
+    background var(--duration-short) ease;
+}
+.card-interactive:hover {
+  border-color: var(--card-border-hover);
+  background: var(--card-bg-hover);
+}

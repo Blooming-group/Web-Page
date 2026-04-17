@@ -2,10 +2,8 @@ import { Hero } from '@/components/sections/Hero'
 import { Problem } from '@/components/sections/Problem'
 import { Services } from '@/components/sections/Services'
 import { Process } from '@/components/sections/Process'
-import { AboutBrief } from '@/components/sections/AboutBrief'
 import { CTA } from '@/components/sections/CTA'
-import { MetricsBar } from '@/components/sections/MetricsBar'
-import { Marquee } from '@/components/ui/Marquee'
+import { SilenceBlock } from '@/components/ui/SilenceBlock'
 import { JsonLd } from '@/components/JsonLd'
 
 const websiteSchema = {
@@ -27,12 +25,13 @@ export default function HomePage() {
     <>
       <JsonLd data={websiteSchema} />
       <Hero />
-      <Marquee />
+      <SilenceBlock variant="section" />
       <Problem />
-      <MetricsBar />
+      <SilenceBlock variant="section" />
       <Services />
+      <SilenceBlock variant="section" />
       <Process />
-      <AboutBrief />
+      <SilenceBlock variant="breath" />
       <CTA />
     </>
   )

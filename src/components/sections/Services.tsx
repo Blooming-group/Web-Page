@@ -134,18 +134,35 @@ export function Services() {
               >
                 <Link
                   href="/services"
-                  className="group block h-full rounded-sm border border-[--color-border-default] p-6 transition-all duration-300 hover:border-[--color-border-accent]"
-                  style={{ background: 'rgba(255,255,255,0.02)' }}
+                  className="group relative block h-full overflow-hidden rounded-sm border p-6 transition-all duration-[--duration-short]"
+                  style={{
+                    borderColor: 'var(--card-border-default)',
+                    background: 'rgba(255,255,255,0.02)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--card-border-hover)'
+                    e.currentTarget.style.background = 'var(--card-bg-hover)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--card-border-default)'
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.02)'
+                  }}
                   aria-label={`Learn about ${service.name}`}
                 >
+                  {/* Topline — reveals on hover */}
+                  <span
+                    className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 transition-transform duration-[--duration-short] group-hover:scale-x-100"
+                    style={{ background: 'var(--card-topline-color)' }}
+                    aria-hidden="true"
+                  />
                   <div
-                    className="mb-4 flex h-9 w-9 items-center justify-center rounded-sm border border-[--color-border-accent] transition-colors duration-300 group-hover:border-[--color-accent-primary]"
+                    className="mb-4 flex h-9 w-9 items-center justify-center rounded-sm border border-[--color-border-accent] transition-colors duration-[--duration-short] group-hover:border-[--color-accent-primary]"
                     aria-hidden="true"
                   >
                     <Icon size={16} style={{ color: 'var(--color-accent-primary)' }} />
                   </div>
                   <h3
-                    className="group-hover:text-ivory mb-2 text-sm font-medium tracking-wide transition-colors duration-200"
+                    className="mb-2 text-sm font-medium tracking-wide transition-colors duration-200"
                     style={{ color: 'var(--color-ivory)' }}
                   >
                     {service.name}
@@ -154,7 +171,7 @@ export function Services() {
                     {service.description}
                   </Caption>
                   <div
-                    className="mt-4 flex items-center gap-1 text-xs tracking-wide opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    className="mt-4 flex items-center gap-1 text-xs tracking-wide opacity-0 transition-opacity duration-[--duration-short] group-hover:opacity-100"
                     style={{ color: 'var(--color-accent-primary)' }}
                   >
                     Learn more <ArrowRight size={12} aria-hidden="true" />

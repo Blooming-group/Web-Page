@@ -130,9 +130,13 @@ export default async function ThinkingPage() {
               <div className="mb-16">
                 <Link
                   href={`/thinking/${featured.slug.current}`}
-                  className="group block border border-[--color-border-default] p-8 transition-all duration-300 hover:border-[--color-border-accent] md:p-12"
-                  style={{ background: 'rgba(255,255,255,0.02)' }}
+                  className="card-interactive group relative block overflow-hidden border p-8 md:p-12"
                 >
+                  <span
+                    className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 transition-transform duration-[--duration-short] group-hover:scale-x-100"
+                    style={{ background: 'var(--card-topline-color)' }}
+                    aria-hidden="true"
+                  />
                   <div className="mb-4 flex flex-wrap items-center gap-4">
                     <Badge variant="highlight">
                       {categoryLabels[featured.category] ?? featured.category}
@@ -165,9 +169,13 @@ export default async function ThinkingPage() {
                   <Link
                     key={article._id}
                     href={`/thinking/${article.slug.current}`}
-                    className="group block border border-[--color-border-default] p-6 transition-all duration-300 hover:border-[--color-border-accent]"
-                    style={{ background: 'rgba(255,255,255,0.02)' }}
+                    className="card-interactive group relative block overflow-hidden border p-6"
                   >
+                    <span
+                      className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 transition-transform duration-[--duration-short] group-hover:scale-x-100"
+                      style={{ background: 'var(--card-topline-color)' }}
+                      aria-hidden="true"
+                    />
                     <span
                       className="mb-4 block text-xs font-medium tracking-[0.1em] uppercase"
                       style={{ color: 'var(--color-accent-primary)' }}

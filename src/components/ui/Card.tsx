@@ -9,18 +9,21 @@ function Card({ className, hoverable = false, children, ...props }: CardProps) {
   return (
     <div
       className={cn(
-        'rounded-sm border border-[--color-border-default]',
-        'bg-white/[0.02] p-6',
-        hoverable && [
-          'transition-colors duration-300',
-          'hover:border-[--color-border-accent]',
-          'hover:bg-white/[0.04]',
-          'cursor-pointer',
-        ],
+        'relative overflow-hidden rounded-sm border p-6',
+        hoverable
+          ? 'card-interactive group cursor-pointer'
+          : 'border-[--card-border-default] bg-white/[0.02]',
         className
       )}
       {...props}
     >
+      {hoverable && (
+        <span
+          className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 transition-transform duration-[--duration-short] group-hover:scale-x-100"
+          style={{ background: 'var(--card-topline-color)' }}
+          aria-hidden="true"
+        />
+      )}
       {children}
     </div>
   )
