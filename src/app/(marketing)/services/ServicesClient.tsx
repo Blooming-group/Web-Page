@@ -265,7 +265,7 @@ export function ServicesClient() {
             </H2>
             <Body>
               Most engagements combine two or three capabilities. The real problem is rarely just a
-              technology issue or just a process issue — it&apos;s the interaction between them. The
+              technology issue or just a process issue. It&apos;s the interaction between them. The
               diagnostic determines the right combination. That&apos;s why we never recommend a
               service before we understand what&apos;s actually going on.
             </Body>

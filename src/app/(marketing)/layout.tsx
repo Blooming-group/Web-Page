@@ -3,6 +3,7 @@ import { Footer } from '@/components/layout/Footer'
 import { JsonLd } from '@/components/JsonLd'
 import { CursorFollower } from '@/components/ui/CursorFollower'
 import { BloomingMarkAnimated } from '@/components/ui/BloomingMarkAnimated'
+import { PageTransitionProvider } from '@/components/ui/PageTransition'
 
 // Organization schema — present on every marketing page
 const organizationSchema = {
@@ -46,10 +47,12 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
         <BloomingMarkAnimated size={88} />
       </div>
 
-      <Header />
-      <main id="main-content">{children}</main>
+      <PageTransitionProvider>
+        <Header />
+        <main id="main-content">{children}</main>
 
-      <Footer />
+        <Footer />
+      </PageTransitionProvider>
     </>
   )
 }

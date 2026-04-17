@@ -40,6 +40,57 @@
   --color-text-highlight: #c8a96e;
   --color-border-default: rgba(242, 238, 230, 0.08);
   --color-border-accent: rgba(74, 124, 111, 0.3);
+
+  /* ── Motion ── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --duration-micro: 180ms;
+  --duration-short: 320ms;
+  --duration-medium: 520ms;
+  --duration-long: 820ms;
+  --duration-page: 640ms;
+
+  /* ── Spacing — editorial ── */
+  --space-editorial-xs: 0.5rem;
+  --space-editorial-sm: 1rem;
+  --space-editorial-md: 2rem;
+  --space-editorial-lg: 4rem;
+  --space-editorial-xl: 8rem;
+  --space-editorial-2xl: 12rem;
+
+  /* ── Spacing — architectural silence ── */
+  --space-silence-section: 14rem;
+  --space-silence-breath: 22rem;
+
+  /* ── Typography — numeric ── */
+  --font-size-overline: 0.6875rem;
+  --letter-spacing-overline: 0.12em;
+  --font-size-drop-cap: 4.5rem;
+  --font-feature-numeric-tabular: 'tnum' 1, 'lnum' 1;
+  --font-feature-numeric-proportional: 'pnum' 1;
+  --letter-spacing-display-number: -0.02em;
+
+  /* ── Dot grid variants ── */
+  --dot-grid-sparse: radial-gradient(circle, rgba(242, 238, 230, 0.04) 1px, transparent 1px) 0 0 /
+    48px 48px;
+  --dot-grid-medium: radial-gradient(circle, rgba(242, 238, 230, 0.06) 1px, transparent 1px) 0 0 /
+    32px 32px;
+  --dot-grid-dense: radial-gradient(circle, rgba(242, 238, 230, 0.08) 1px, transparent 1px) 0 0 /
+    24px 24px;
+
+  /* ── Cards ── */
+  --card-border-default: rgba(242, 238, 230, 0.08);
+  --card-border-hover: rgba(74, 124, 111, 0.6);
+  --card-bg-hover: rgba(74, 124, 111, 0.02);
+  --card-topline-color: var(--color-accent-primary);
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --space-silence-section: 8rem;
+    --space-silence-breath: 12rem;
+  }
 }
 
 /* ─── Base styles ─── */

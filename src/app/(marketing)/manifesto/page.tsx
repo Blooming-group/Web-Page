@@ -5,6 +5,7 @@ import { Container } from '@/components/ui/Container'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Separator } from '@/components/ui/Separator'
+import { H1, H2, Editorial } from '@/components/ui/Typography'
 
 export const metadata: Metadata = {
   title: 'Manifesto',
@@ -68,14 +69,10 @@ export default function ManifestoPage() {
           <Badge className="mb-8" variant="highlight">
             Dense Intelligence
           </Badge>
-          <h1
-            id="manifesto-heading"
-            className="mb-6 text-4xl leading-tight font-light tracking-tight md:text-5xl lg:text-6xl"
-            style={{ color: 'var(--color-ivory)' }}
-          >
+          <H1 id="manifesto-heading" className="mb-6 font-light">
             Every element earns its place.
-          </h1>
-          <p className="text-sm tracking-wide" style={{ color: 'var(--color-mid)' }}>
+          </H1>
+          <p className="type-caption" style={{ textTransform: 'none', letterSpacing: '0.04em' }}>
             Published 2025 · Blooming Group
           </p>
         </Container>
@@ -94,21 +91,10 @@ export default function ManifestoPage() {
                   style={{ background: 'var(--color-accent-primary)' }}
                   aria-hidden="true"
                 />
-                <h2
-                  className="mb-6 text-xl font-semibold tracking-tight"
-                  style={{ color: 'var(--color-ivory)' }}
-                >
-                  {section.heading}
-                </h2>
+                <H2 className="mb-6 text-xl">{section.heading}</H2>
                 <div className="space-y-5">
                   {section.body.map((para, i) => (
-                    <p
-                      key={i}
-                      className="text-base leading-relaxed"
-                      style={{ color: 'var(--color-ivory)', opacity: 0.85 }}
-                    >
-                      {para}
-                    </p>
+                    <Editorial key={i}>{para}</Editorial>
                   ))}
                 </div>
               </div>
@@ -122,17 +108,10 @@ export default function ManifestoPage() {
       {/* CTA */}
       <section className="py-24" aria-labelledby="manifesto-cta">
         <Container size="narrow">
-          <h2
-            id="manifesto-cta"
-            className="mb-4 text-2xl font-semibold tracking-tight"
-            style={{ color: 'var(--color-ivory)' }}
-          >
+          <H2 id="manifesto-cta" className="mb-4">
             If this is the firm you&apos;ve been looking for.
-          </h2>
-          <p
-            className="mb-10 max-w-lg text-base leading-relaxed"
-            style={{ color: 'var(--color-mid)' }}
-          >
+          </H2>
+          <p className="type-body mb-10 max-w-lg">
             The diagnostic session is 45 minutes. We ask questions about your operation and tell you
             what we see. No pitch. No slides.
           </p>

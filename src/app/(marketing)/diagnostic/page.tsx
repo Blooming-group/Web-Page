@@ -91,8 +91,8 @@ export default function DiagnosticPage() {
           </H1>
           <Body className="mb-12 max-w-xl">
             45 minutes. No pitch. No slides. We ask questions about your operation, your team, and
-            your constraints — and we tell you exactly what we see. You leave with a clear
-            diagnosis, regardless of whether we end up working together.
+            your constraints, and we tell you exactly what we see. You leave with a clear diagnosis,
+            regardless of whether we end up working together.
           </Body>
           <Button size="lg" asChild>
             <Link href="/contact">

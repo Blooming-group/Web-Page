@@ -88,7 +88,7 @@ export default async function ThinkingPage() {
                   We&apos;re working on pieces that cover the gap between strategic intent and
                   operational reality, what AI adoption actually looks like for a company with 80
                   employees, and why most automation projects fail before they&apos;re deployed.
-                  They&apos;ll appear here when they&apos;re ready — not before.
+                  They&apos;ll appear here when they&apos;re ready. Not before.
                 </Body>
               </div>
 

@@ -58,3 +58,26 @@
   text-transform: uppercase;
   color: var(--color-mid);
 }
+
+.type-overline {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-overline);
+  font-weight: 600;
+  letter-spacing: var(--letter-spacing-overline);
+  text-transform: uppercase;
+  color: var(--color-accent-primary);
+}
+
+/* ─── Numeric utilities ─── */
+.tabular-nums {
+  font-feature-settings: var(--font-feature-numeric-tabular);
+}
+
+.proportional-nums {
+  font-feature-settings: var(--font-feature-numeric-proportional);
+}
+
+.display-number {
+  font-weight: 300;
+  letter-spacing: var(--letter-spacing-display-number);
+}

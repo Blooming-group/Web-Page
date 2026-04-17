@@ -69,4 +69,34 @@ function Caption({ as: Tag = 'span', className, children, ...props }: CaptionPro
   )
 }
 
-export { Display, H1, H2, H3, Body, Caption }
+/* ─── Overline ─── */
+interface OverlineProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  as?: 'p' | 'span' | 'div'
+}
+
+function Overline({ as: Tag = 'p', className, children, ...props }: OverlineProps) {
+  return (
+    <Tag className={cn('type-overline', className)} {...props}>
+      {children}
+    </Tag>
+  )
+}
+
+/* ─── Editorial ─── */
+interface EditorialProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  as?: 'p' | 'div'
+}
+
+function Editorial({ as: Tag = 'p', className, children, ...props }: EditorialProps) {
+  return (
+    <Tag
+      className={cn('type-body max-w-[62ch]', className)}
+      style={{ color: 'var(--color-ivory)', opacity: 0.85 }}
+      {...props}
+    >
+      {children}
+    </Tag>
+  )
+}
+
+export { Display, H1, H2, H3, Body, Caption, Overline, Editorial }

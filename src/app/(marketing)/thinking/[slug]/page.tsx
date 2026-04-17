@@ -255,17 +255,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             style={{ background: 'var(--color-accent-primary)' }}
             aria-hidden="true"
           />
-          <h2
-            className="mb-4 text-2xl font-semibold tracking-tight"
-            style={{ color: 'var(--color-ivory)' }}
-          >
-            If this prompted a question.
-          </h2>
-          <p
-            className="mb-8 max-w-md text-base leading-relaxed"
-            style={{ color: 'var(--color-mid)' }}
-          >
-            The diagnostic session exists for exactly this — turning a question that good analysis
+          <h2 className="type-h2 mb-4">If this prompted a question.</h2>
+          <p className="type-body mb-8 max-w-md">
+            The diagnostic session exists for exactly this, turning a question that good analysis
             raises into a specific, actionable answer for your operation.
           </p>
           <div className="flex flex-wrap gap-4">
