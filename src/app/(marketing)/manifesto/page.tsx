@@ -4,8 +4,10 @@ import { ArrowRight } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
-import { Separator } from '@/components/ui/Separator'
+import { SilenceBlock } from '@/components/ui/SilenceBlock'
 import { H1, H2, Editorial } from '@/components/ui/Typography'
+import { DropCap } from '@/components/ui/DropCap'
+import { PullQuote } from '@/components/ui/PullQuote'
 
 export const metadata: Metadata = {
   title: 'Manifesto',
@@ -64,8 +66,28 @@ export default function ManifestoPage() {
   return (
     <div className="pt-20">
       {/* Hero */}
-      <section className="py-24" aria-labelledby="manifesto-heading">
-        <Container size="narrow">
+      <section className="relative py-24" aria-labelledby="manifesto-heading">
+        {/* Dot grid */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background: 'var(--dot-grid-sparse)',
+            maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 100%)',
+            WebkitMaskImage:
+              'radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 100%)',
+          }}
+          aria-hidden="true"
+        />
+        {/* Teal glow */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 50% 45% at 50% 0%, rgba(74,124,111,0.08) 0%, transparent 70%)',
+          }}
+          aria-hidden="true"
+        />
+        <Container size="narrow" className="relative z-10">
           <Badge className="mb-8" variant="highlight">
             Dense Intelligence
           </Badge>
@@ -78,13 +100,13 @@ export default function ManifestoPage() {
         </Container>
       </section>
 
-      <Separator />
+      <SilenceBlock variant="editorial" />
 
       {/* Essay body */}
       <section className="py-20" aria-label="Manifesto content">
         <Container size="narrow">
           <div className="space-y-16">
-            {sections.map((section) => (
+            {sections.map((section, sectionIdx) => (
               <div key={section.id} id={section.id}>
                 <div
                   className="mb-4 h-px w-8"
@@ -93,17 +115,29 @@ export default function ManifestoPage() {
                 />
                 <H2 className="mb-6 text-xl">{section.heading}</H2>
                 <div className="space-y-5">
-                  {section.body.map((para, i) => (
-                    <Editorial key={i}>{para}</Editorial>
-                  ))}
+                  {section.body.map((para, i) => {
+                    if (sectionIdx === 0 && i === 0) {
+                      return <DropCap key={i}>{para}</DropCap>
+                    }
+                    return <Editorial key={i}>{para}</Editorial>
+                  })}
                 </div>
+                {section.id === 'density-argument' && (
+                  <PullQuote className="my-12">
+                    Dense Intelligence is not brevity. It is about signal-to-noise ratio. Every
+                    sentence carries weight.
+                  </PullQuote>
+                )}
+                {section.id === 'the-bet' && (
+                  <PullQuote className="my-12">We built the firm for that bet.</PullQuote>
+                )}
               </div>
             ))}
           </div>
         </Container>
       </section>
 
-      <Separator />
+      <SilenceBlock variant="breath" />
 
       {/* CTA */}
       <section className="py-24" aria-labelledby="manifesto-cta">

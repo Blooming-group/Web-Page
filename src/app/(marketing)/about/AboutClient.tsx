@@ -7,9 +7,9 @@ import { useRef } from 'react'
 import { Container } from '@/components/ui/Container'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
-import { Separator } from '@/components/ui/Separator'
+import { SilenceBlock } from '@/components/ui/SilenceBlock'
 import { H1, H2, H3, Body, Caption } from '@/components/ui/Typography'
-import { BloomingMark } from '@/components/ui/BloomingMark'
+import { BloomingMarkAnimated } from '@/components/ui/BloomingMarkAnimated'
 
 const notVs = [
   { not: 'A creative agency', is: 'A strategically driven firm that builds what it recommends' },
@@ -76,8 +76,41 @@ export function AboutClient() {
   return (
     <div className="pt-20">
       {/* Hero */}
-      <section className="py-24" aria-labelledby="about-page-heading">
-        <Container>
+      <section className="relative py-24" aria-labelledby="about-page-heading">
+        {/* Dot grid */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background: 'var(--dot-grid-sparse)',
+            maskImage: 'radial-gradient(ellipse 80% 70% at 50% 40%, black 20%, transparent 100%)',
+            WebkitMaskImage:
+              'radial-gradient(ellipse 80% 70% at 50% 40%, black 20%, transparent 100%)',
+          }}
+          aria-hidden="true"
+        />
+        {/* Teal glow */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(74,124,111,0.1) 0%, transparent 70%)',
+          }}
+          aria-hidden="true"
+        />
+        {/* Accent line */}
+        <motion.div
+          className="absolute top-24 left-0 h-px"
+          style={{
+            transformOrigin: 'left',
+            background: 'linear-gradient(to right, rgba(74,124,111,0.5), transparent)',
+            width: '12vw',
+          }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
+          aria-hidden="true"
+        />
+        <Container className="relative z-10">
           <div className="flex flex-col gap-12 md:flex-row md:items-start md:justify-between">
             {/* Text */}
             <div className="flex-1">
@@ -98,20 +131,20 @@ export function AboutClient() {
               </FadeIn>
             </div>
 
-            {/* Mark — large visual anchor */}
+            {/* Animated mark */}
             <motion.div
-              className="flex shrink-0 items-start justify-center md:justify-end md:pt-2"
-              initial={{ opacity: 0, scale: 0.92 }}
+              className="hidden shrink-0 items-start justify-center md:flex md:justify-end md:pt-2"
+              initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
             >
-              <BloomingMark size={168} className="opacity-90" />
+              <BloomingMarkAnimated size={200} />
             </motion.div>
           </div>
         </Container>
       </section>
 
-      <Separator />
+      <SilenceBlock variant="section" />
 
       {/* Positioning */}
       <section className="py-20" aria-labelledby="positioning-heading">
@@ -161,7 +194,7 @@ export function AboutClient() {
         </Container>
       </section>
 
-      <Separator />
+      <SilenceBlock variant="section" />
 
       {/* Origin */}
       <section className="py-20" aria-labelledby="origin-heading">
@@ -188,7 +221,7 @@ export function AboutClient() {
         </Container>
       </section>
 
-      <Separator />
+      <SilenceBlock variant="section" />
 
       {/* Dense Intelligence */}
       <section className="py-20" aria-labelledby="dense-intelligence-heading">
@@ -227,7 +260,7 @@ export function AboutClient() {
         </Container>
       </section>
 
-      <Separator />
+      <SilenceBlock variant="section" />
 
       {/* How We Operate */}
       <section className="py-20" aria-labelledby="principles-heading">
@@ -237,21 +270,21 @@ export function AboutClient() {
               How we operate.
             </H2>
           </FadeIn>
-          <div ref={principlesRef} className="grid grid-cols-1 gap-12 md:grid-cols-2">
+          <div ref={principlesRef} className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {principles.map((p, i) => (
               <motion.div
                 key={p.title}
-                className="space-y-3"
+                className="card-interactive group relative overflow-hidden rounded-sm border p-6"
                 initial={{ opacity: 0, y: 24 }}
                 animate={principlesInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: i * 0.1 }}
               >
-                <div
-                  className="mb-4 h-px w-8"
-                  style={{ background: 'var(--color-accent-primary)' }}
+                <span
+                  className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 transition-transform duration-[--duration-short] group-hover:scale-x-100"
+                  style={{ background: 'var(--card-topline-color)' }}
                   aria-hidden="true"
                 />
-                <H3>{p.title}</H3>
+                <H3 className="mb-3">{p.title}</H3>
                 <Body>{p.body}</Body>
               </motion.div>
             ))}
@@ -259,7 +292,7 @@ export function AboutClient() {
         </Container>
       </section>
 
-      <Separator />
+      <SilenceBlock variant="section" />
 
       {/* People */}
       <section className="py-20" aria-labelledby="people-heading">
@@ -286,7 +319,7 @@ export function AboutClient() {
         </Container>
       </section>
 
-      <Separator />
+      <SilenceBlock variant="section" />
 
       {/* Vision */}
       <section className="py-20" aria-labelledby="vision-heading">
@@ -335,7 +368,9 @@ export function AboutClient() {
         </Container>
       </section>
 
-      <Separator />
+      <SilenceBlock variant="section" />
+
+      <SilenceBlock variant="breath" />
 
       {/* CTA */}
       <section className="py-24" aria-labelledby="about-cta">

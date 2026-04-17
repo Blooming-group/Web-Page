@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { Container } from '@/components/ui/Container'
 import { Badge } from '@/components/ui/Badge'
-import { Separator } from '@/components/ui/Separator'
+import { SilenceBlock } from '@/components/ui/SilenceBlock'
 import { H1, H2, Body, Caption } from '@/components/ui/Typography'
-import { BloomingMark } from '@/components/ui/BloomingMark'
+import { BloomingMarkAnimated } from '@/components/ui/BloomingMarkAnimated'
 import { ContactForm } from '@/components/sections/ContactForm'
 import { JsonLd } from '@/components/JsonLd'
 
@@ -45,8 +45,28 @@ export default function ContactPage() {
     <div className="pt-20">
       <JsonLd data={contactSchema} />
       {/* Hero */}
-      <section className="py-24" aria-labelledby="contact-page-heading">
-        <Container>
+      <section className="relative py-24" aria-labelledby="contact-page-heading">
+        {/* Dot grid */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background: 'var(--dot-grid-sparse)',
+            maskImage: 'radial-gradient(ellipse 75% 65% at 50% 40%, black 20%, transparent 100%)',
+            WebkitMaskImage:
+              'radial-gradient(ellipse 75% 65% at 50% 40%, black 20%, transparent 100%)',
+          }}
+          aria-hidden="true"
+        />
+        {/* Gold glow — conversion intent */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 45% 40% at 75% 30%, rgba(200,169,110,0.05) 0%, transparent 70%)',
+          }}
+          aria-hidden="true"
+        />
+        <Container className="relative z-10">
           <div className="flex flex-col gap-12 md:flex-row md:items-start md:justify-between">
             {/* Text */}
             <div className="flex-1">
@@ -66,15 +86,15 @@ export default function ContactPage() {
               </Body>
             </div>
 
-            {/* Mark — brand signature */}
-            <div className="flex shrink-0 items-start justify-center md:justify-end md:pt-2">
-              <BloomingMark size={120} className="opacity-80" />
+            {/* Animated mark */}
+            <div className="hidden shrink-0 items-start justify-center md:flex md:justify-end md:pt-2">
+              <BloomingMarkAnimated size={140} />
             </div>
           </div>
         </Container>
       </section>
 
-      <Separator />
+      <SilenceBlock variant="section" />
 
       {/* Form + What to expect */}
       <section className="py-20">
@@ -89,17 +109,28 @@ export default function ContactPage() {
             <div>
               <H2 className="mb-12">What happens next.</H2>
               <div className="space-y-10">
-                {whatToExpect.map((item) => (
-                  <div key={item.step} className="flex gap-6">
+                {whatToExpect.map((item, i) => (
+                  <div
+                    key={item.step}
+                    className="card-interactive group relative flex gap-6 overflow-hidden rounded-sm border p-5"
+                  >
                     <span
-                      className="mt-1 shrink-0 text-xs font-[var(--font-geist)] font-medium tracking-[0.15em]"
+                      className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 transition-transform duration-[--duration-short] group-hover:scale-x-100"
+                      style={{ background: 'var(--card-topline-color)' }}
+                      aria-hidden="true"
+                    />
+                    <span
+                      className="mt-0.5 shrink-0 text-xs font-medium tracking-[0.15em]"
                       style={{ color: 'var(--color-accent-primary)' }}
                       aria-hidden="true"
                     >
                       {item.step}
                     </span>
                     <div>
-                      <h3 className="text-ivory mb-2 text-sm font-[var(--font-geist)] font-semibold tracking-wide">
+                      <h3
+                        className="mb-2 text-sm font-semibold tracking-wide"
+                        style={{ color: 'var(--color-ivory)' }}
+                      >
                         {item.title}
                       </h3>
                       <Caption as="p" className="text-mid tracking-normal normal-case">
