@@ -76,8 +76,13 @@ async function isRateLimited(ip: string, isApi: boolean): Promise<boolean> {
   const limiter = isApi ? apiLimiter : generalLimiter
 
   if (limiter) {
-    const { success } = await limiter.limit(ip)
-    return !success
+    try {
+      const { success } = await limiter.limit(ip)
+      return !success
+    } catch {
+      // Redis unreachable/misconfigured — degrade to in-memory rather than fail the request.
+      return memoryRateLimit(ip, isApi)
+    }
   }
 
   return memoryRateLimit(ip, isApi)
@@ -85,61 +90,67 @@ async function isRateLimited(ip: string, isApi: boolean): Promise<boolean> {
 
 // ─── Middleware ─────────────────────────────────────────────────────────────
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
-  const ip =
-    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
-    request.headers.get('x-real-ip') ??
-    'unknown'
+  try {
+    const { pathname } = request.nextUrl
+    const ip =
+      request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
+      request.headers.get('x-real-ip') ??
+      'unknown'
 
-  // ── 1. Block known malicious User-Agents ─────────────────────────────────
-  const userAgent = request.headers.get('user-agent') ?? ''
-  const isBlockedUA = BLOCKED_UA_PATTERNS.some((pattern) => pattern.test(userAgent))
+    // ── 1. Block known malicious User-Agents ───────────────────────────────
+    const userAgent = request.headers.get('user-agent') ?? ''
+    const isBlockedUA = BLOCKED_UA_PATTERNS.some((pattern) => pattern.test(userAgent))
 
-  if (isBlockedUA) {
-    return new NextResponse(null, { status: 403 })
+    if (isBlockedUA) {
+      return new NextResponse(null, { status: 403 })
+    }
+
+    // ── 2. Block path traversal and common exploit probes ──────────────────
+    const probePatterns = [
+      /\.\.[/\\]/, // directory traversal
+      /\.(env|git|svn|htaccess|htpasswd|DS_Store)/i, // sensitive files
+      /(wp-admin|wp-login|phpMyAdmin|phpmyadmin|admin\.php)/i, // WordPress/PHP probes
+      /\.(php|asp|aspx|jsp|cgi|pl|sh|bash)$/i, // server-side script probes
+      /<script/i, // XSS in URL
+      /(%3C|%3E|%27|%22)/i, // encoded HTML/XSS chars
+      /(union.*select|select.*from|insert.*into|drop.*table)/i, // SQL injection
+    ]
+
+    const isProbe = probePatterns.some((p) => p.test(pathname))
+    if (isProbe) {
+      return new NextResponse(null, { status: 404 })
+    }
+
+    // ── 3. Rate limiting (Redis-backed, globally consistent) ───────────────
+    const isApi = pathname.startsWith('/api/')
+    const rateLimited = await isRateLimited(ip, isApi)
+
+    if (rateLimited) {
+      return new NextResponse(JSON.stringify({ error: 'Too many requests.' }), {
+        status: 429,
+        headers: {
+          'Content-Type': 'application/json',
+          'Retry-After': '60',
+        },
+      })
+    }
+
+    // ── 4. Security response headers ────────────────────────────────────────
+    const response = NextResponse.next()
+
+    response.headers.set('X-Request-ID', crypto.randomUUID())
+    response.headers.set('X-Content-Type-Options', 'nosniff')
+    response.headers.set('X-Frame-Options', 'SAMEORIGIN')
+
+    response.headers.delete('Server')
+    response.headers.delete('X-Powered-By')
+
+    return response
+  } catch (error) {
+    // Never let an unexpected error in the security layer take the whole site down.
+    console.error('middleware failure, passing request through', error)
+    return NextResponse.next()
   }
-
-  // ── 2. Block path traversal and common exploit probes ────────────────────
-  const probePatterns = [
-    /\.\.[/\\]/, // directory traversal
-    /\.(env|git|svn|htaccess|htpasswd|DS_Store)/i, // sensitive files
-    /(wp-admin|wp-login|phpMyAdmin|phpmyadmin|admin\.php)/i, // WordPress/PHP probes
-    /\.(php|asp|aspx|jsp|cgi|pl|sh|bash)$/i, // server-side script probes
-    /<script/i, // XSS in URL
-    /(%3C|%3E|%27|%22)/i, // encoded HTML/XSS chars
-    /(union.*select|select.*from|insert.*into|drop.*table)/i, // SQL injection
-  ]
-
-  const isProbe = probePatterns.some((p) => p.test(pathname))
-  if (isProbe) {
-    return new NextResponse(null, { status: 404 })
-  }
-
-  // ── 3. Rate limiting (Redis-backed, globally consistent) ─────────────────
-  const isApi = pathname.startsWith('/api/')
-  const rateLimited = await isRateLimited(ip, isApi)
-
-  if (rateLimited) {
-    return new NextResponse(JSON.stringify({ error: 'Too many requests.' }), {
-      status: 429,
-      headers: {
-        'Content-Type': 'application/json',
-        'Retry-After': '60',
-      },
-    })
-  }
-
-  // ── 4. Security response headers ─────────────────────────────────────────
-  const response = NextResponse.next()
-
-  response.headers.set('X-Request-ID', crypto.randomUUID())
-  response.headers.set('X-Content-Type-Options', 'nosniff')
-  response.headers.set('X-Frame-Options', 'SAMEORIGIN')
-
-  response.headers.delete('Server')
-  response.headers.delete('X-Powered-By')
-
-  return response
 }
 
 // ─── Matcher ────────────────────────────────────────────────────────────────
